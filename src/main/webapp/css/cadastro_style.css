@@ -1,0 +1,192 @@
+body{
+    background-color: black;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-height: 100vh;
+    margin: 0;
+
+    font-family: 'Inter', sans-serif;
+
+    background-image:
+            url("../banco_imagens/imagens/Imagem de tronco.png"),
+            url("../banco_imagens/imagens/Imagem corrida.png");
+
+    background-position:
+            left top,
+            right bottom;
+
+    background-repeat: no-repeat;
+
+    background-size:
+            750px,
+            500px;
+}
+
+/* LOGO */
+.logo{
+    width: 212px;
+    margin-top: 20px;
+}
+
+/* CONTAINER */
+.container{
+    width: 600px;
+    background-color: rgba(16, 16, 16, 0.85);
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 20px;
+    color: white;
+}
+
+/* VOLTAR */
+.voltar{
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+/* TITULO */
+h2{
+    text-align: center;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 800;
+}
+
+/* SUBTITULO */
+.subtitulo{
+    text-align: center;
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+/* FORM */
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* CAMPOS */
+.campo{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+label{
+    font-size: 0.8rem;
+    color: #ccc;
+}
+
+/* INPUTS (AGORA COM MARGEM E PROPORÇÃO) */
+input{
+    width: 100%;
+    max-width: 95%;
+    height: 45px;
+
+    border: solid 1px #555;
+    border-radius: 8px;
+
+    background-color: #1a1a1a;
+    color: white;
+
+    padding: 0 10px;
+
+    margin: 0 auto;
+}
+
+/* GRID (MAIS ESPAÇO ENTRE CAMPOS) */
+.grid{
+    display: grid;
+    max-width: 95%;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 30px;
+    margin-top: 10px;
+}
+
+/* INPUTS DENTRO DO GRID (EVITA FICAR PEQUENO DEMAIS) */
+.grid .campo input{
+    max-width: 100%;
+}
+
+/* CHECKBOX */
+.lembrar{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.lembrar input{
+    display: none;
+}
+
+.checkmark{
+    width: 14px;
+    height: 14px;
+    border: 1px solid white;
+    border-radius: 3px;
+}
+
+.lembrar input:checked + .checkmark{
+    background-color: red;
+}
+
+/* LINHA */
+.linha{
+    height: 1px;
+    background-color: #333;
+}
+
+/* BOTÃO */
+button{
+    background-color: #c40000;
+    border-style: none;
+    height: 40px;
+    width: 382px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.continuar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 10px red;
+}
+
+/* LOGIN */
+.login{
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.login-btn{
+    display: inline-block;
+    margin-top: 5px;
+    color: red;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-btn:hover{
+    text-decoration: underline;
+}
+
+/* FOOTER */
+footer{
+    margin-top: 20px;
+    font-size: 0.7rem;
+    color: #777;
+}
