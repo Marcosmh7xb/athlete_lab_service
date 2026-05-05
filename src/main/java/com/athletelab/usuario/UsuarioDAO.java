@@ -1,6 +1,7 @@
 package com.athletelab.usuario;
 
 import com.athletelab.configBD.ConnectionDataBase;
+import org.mindrot.jbcrypt.BCrypt;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -108,37 +109,34 @@ public class UsuarioDAO {
         }
     }
 
-    public static UsuarioModel login(String email, String senha, String tipo_usuario) {
+    public static UsuarioModel login(String email, String senha, String tipoUsuario) {
 
-        UsuarioModel usuario = null;
+        String sql = "SELECT * FROM usuario WHERE email = ? AND tipo_usuario = ?";
 
-        try (Connection conn = ConnectionDataBase.getConnection()){
-
-            String sql = "SELECT * FROM usuario WHERE email = ? AND senha = ?  AND tipo_usuario = ?";
-
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        try (Connection conn = ConnectionDataBase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, email);
-            stmt.setString(2, senha);
-            stmt.setString(3,tipo_usuario);
+            stmt.setString(2, tipoUsuario);
 
-
-            ResultSet rs =  stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                usuario = new UsuarioModel();
-                usuario.setIdUsuario( rs.getInt("id_usuario"));
-                usuario.setNome(rs.getString("nome"));
-                usuario.setTipoUsuario(rs.getString("tipo_usuario"));
+                String senhaHash = rs.getString("senha");
 
-                return usuario;
+                if (BCrypt.checkpw(senha, senhaHash)) {
+                    UsuarioModel usuario = new UsuarioModel();
+                    usuario.setIdUsuario(rs.getInt("id_usuario"));
+                    usuario.setNome(rs.getString("nome"));
+                    usuario.setTipoUsuario(rs.getString("tipo_usuario"));
+                    return usuario;
+                }
             }
 
-            return null;
-
-        } catch (Exception erro) {
-            erro.printStackTrace();
-            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        return null;
     }
 }

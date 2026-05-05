@@ -1,4 +1,4 @@
-package com.athletelab.usuario;
+package com.athletelab;
 
 import com.athletelab.configBD.ConnectionDataBase;
 

@@ -3,6 +3,8 @@ package com.athletelab.usuario;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.WebServlet;
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.io.IOException;
 
 @WebServlet("/login")
@@ -10,11 +12,32 @@ public class UsuarioServletLogin extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest requisicao, HttpServletResponse resposta) throws ServletException, IOException {
-        String tipoUsuario = requisicao.getParameter("tipoUsuario");
+
+        HttpSession sessao = requisicao.getSession();
+
+        //  pega da sessão primeiro (CORRETO)
+        String tipoUsuario = (String) sessao.getAttribute("tipoUsuario");
+
+        //  se não tiver, pega da URL
+        if (tipoUsuario == null) {
+            tipoUsuario = requisicao.getParameter("tipoUsuario");
+        }
+
+        // pega o erro
+        String erro = (String) sessao.getAttribute("erro");
+
+        // envia pro JSP o tipo e erro
         requisicao.setAttribute("tipoUsuario", tipoUsuario);
+        requisicao.setAttribute("erro", erro);
+
+        // remove só o erro pra proxima tentativa
+        sessao.removeAttribute("erro");
+
+        // reiniciar a pagina de volta pra login
         RequestDispatcher dispatcher = requisicao.getRequestDispatcher("paginas/login.jsp");
         dispatcher.forward(requisicao, resposta);
     }
+
     @Override
     protected void doPost(HttpServletRequest requisicao, HttpServletResponse resposta)
             throws ServletException, IOException {
@@ -25,13 +48,13 @@ public class UsuarioServletLogin extends HttpServlet {
 
         if (email == null || email.isBlank() || senha == null || senha.isBlank() || tipoUsuario == null || tipoUsuario.isBlank()) {
 
-            requisicao.setAttribute("erro", "Preencha email e senha");
+            HttpSession sessao = requisicao.getSession();
+            sessao.setAttribute("erro", "Email ou senha não foram preenchidos.");
+            sessao.setAttribute("tipoUsuario", tipoUsuario);
 
-            RequestDispatcher dispatcher =
-                    requisicao.getRequestDispatcher("paginas/login.jsp");
+            sessao.getAttribute("erro");
 
-            dispatcher.forward(requisicao, resposta);
-
+            resposta.sendRedirect("login");
             return;
         }
 
@@ -59,14 +82,11 @@ public class UsuarioServletLogin extends HttpServlet {
             }
 
         } else {
-
-            requisicao.setAttribute("erro", "Email ou senha inválidos");
-
-            RequestDispatcher dispatcher =
-                    requisicao.getRequestDispatcher("paginas/login.jsp");
-
-            dispatcher.forward(requisicao, resposta);
-
+            HttpSession sessao = requisicao.getSession();
+            sessao.setAttribute("tipoUsuario", tipoUsuario);
+            sessao.setAttribute("erro", "Email ou senha inválidos, Por favor tente novamente");
+            resposta.sendRedirect("login");
+            return;
         }
     }
 }

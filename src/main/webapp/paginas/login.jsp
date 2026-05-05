@@ -32,10 +32,17 @@
             <!-- LOGO -->
             <img src="banco_imagens/imagens/Athlete logo white.png" alt="logo" class="logo">
 
-            <div class="texto-login">
-                <h2>Bem-vindo de volta</h2>
-                <p>Insira seu e-mail ou telefone e senha para acessar seu painel.</p>
-            </div>
+          <% if (request.getAttribute("erro") != null) { %>
+              <div class="er">
+                  <h2>Erro no login</h2>
+                  <p>Email ou senha inválidos, Por favor tente novamente.</p>
+              </div>
+          <% } else { %>
+              <div class="texto-login">
+                  <h2>Bem-vindo de volta</h2>
+                  <p>Insira seu e-mail e senha para acessar seu painel.</p>
+              </div>
+          <% } %>
 
             <!-- FORM -->
             <form action="login" method="post" class="form">
@@ -45,7 +52,7 @@
                     <input
                         type="email"
                         name="email"
-                        placeholder="E-mail ou telefone"
+                        placeholder="E-mail"
                         required
                     >
 

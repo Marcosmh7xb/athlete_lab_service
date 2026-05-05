@@ -5,6 +5,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.time.LocalDate;
+import org.mindrot.jbcrypt.BCrypt;
 
 @WebServlet("/cadastro")
 public class UsuarioServletCadastro extends HttpServlet {
@@ -23,6 +24,7 @@ public class UsuarioServletCadastro extends HttpServlet {
         String nome = requisicao.getParameter("nome");
         String email = requisicao.getParameter("email");
         String senha = requisicao.getParameter("senha");
+        String senhaCriptografada = BCrypt.hashpw(senha, BCrypt.gensalt()); /// Pegar a senha e trasforma e salva o hash da senha, e depois conpara a senha digiatda com o hash salvo.
         String telefone = requisicao.getParameter("telefone");
         String cidadeUF = requisicao.getParameter("cidadeUF");
 
@@ -40,7 +42,7 @@ public class UsuarioServletCadastro extends HttpServlet {
 
         usuario.setNome(nome);
         usuario.setEmail(email);
-        usuario.setSenha(senha);
+        usuario.setSenha(senhaCriptografada);
         usuario.setTelefone(telefone);
         usuario.setCidadeUF(cidadeUF);
         usuario.setTipoUsuario(tipoUsuario);

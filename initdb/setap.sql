@@ -12,12 +12,9 @@ CREATE TABLE IF NOT EXISTS usuario (
     email VARCHAR(150) NOT NULL UNIQUE,
     telefone VARCHAR(20),
     cidade_uf VARCHAR(100),
-    senha VARCHAR(15) NOT NULL,
+    senha VARCHAR(255) NOT NULL,
     data_nascimento DATE,
     data_criacao DATE,
     tipo_usuario VARCHAR(15),
     ativo BOOLEAN DEFAULT TRUE
     );
-
-INSERT INTO usuario (nome,email,telefone,data_nascimento,cidade_uf,data_criacao,ativo,senha, tipo_usuario) VALUES
-      ('João Silva','joao@email.com','11999999999','1995-03-10','São Paulo - SP',CURDATE(),TRUE,'123', 'ATLETA');
