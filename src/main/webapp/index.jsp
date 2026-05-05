@@ -16,7 +16,11 @@
 <body>
 
 <header>
-    <img src="banco_imagens/imagens/Athlete logo white.png" alt="logo Athlete" class="logo">
+    <!-- LOGO AGORA CLICÁVEL -->
+    <a href="paginas/home.jsp">
+        <img src="banco_imagens/imagens/Athlete logo white.png" alt="logo Athlete" class="logo">
+    </a>
+
     <h2>Bem-vindo ao Athlete Lab</h2>
     <p>
         Selecione seu perfil abaixo para acessar o painel de controle e começar a gerenciar o desenvolvimento esportivo.
@@ -41,7 +45,6 @@
             <li>Metas e Objetivos</li>
         </ul>
 
-        <!-- BOTÃO FUNCIONAL -->
         <form action="login" method="get">
             <button type="submit" name="tipoUsuario" value="ATLETA">
                 Entrar como Atleta →
@@ -76,7 +79,6 @@
             <li>Controle de Carga</li>
         </ul>
 
-        <!-- BOTÃO FUNCIONAL -->
         <form action="login" method="get">
             <button type="submit" name="tipoUsuario" value="TREINADOR">
                 Entrar como Treinador →
