@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Treinador - Athlete Lab</title>
+
+    <link rel="stylesheet" href="perfil_style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="menu">
+
+            <div class="menu-item active" data-tab="perfil">
+                <img src="../../../banco_imagens/icones/Customer.png" alt="">
+            </div>
+
+            <div class="menu-item" data-tab="dashboard">
+                <img src="../../../banco_imagens/icones/Dashboard%20Layout.png" alt="">
+            </div>
+
+            <div class="menu-item" data-tab="treinos">
+                <img src="../../../banco_imagens/icones/Trainers.png" alt="">
+            </div>
+
+            <div class="menu-item" data-tab="config">
+                <img src="../../../banco_imagens/icones/Settings.png" alt="">
+            </div>
+
+        </div>
+
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="content">
+
+        <!-- LOGO -->
+        <div class="top-logo">
+            <img src="../banco_imagens/imagens/Athlete logo white.png" alt="Logo">
+        </div>
+
+        <!-- PERFIL -->
+        <section class="tab active" id="perfil">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="user-info">
+
+                        <div class="avatar-container">
+                            <img src="../banco_imagens/imagens/default_user.png" alt="Foto de perfil">
+                        </div>
+
+                        <div>
+                            <h2>Nome do Treinador</h2>
+                            <span>Treinador</span>
+                        </div>
+
+                    </div>
+
+                    <a href="../editar perfil/editar_perfil_treinador.html">
+                        <button class="btn">Editar Perfil</button>
+                    </a>
+
+                </div>
+
+                <!-- INFORMAÇÕES -->
+                <div class="info-grid">
+
+                    <!-- BASE -->
+                    <div class="info-box">
+                        <label>E-mail</label>
+                        <p>treinador@email.com</p>
+                    </div>
+
+                    <div class="info-box">
+                        <label>Cidade/UF</label>
+                        <p>Cidade - Estado</p>
+                    </div>
+
+                    <div class="info-box">
+                        <label>Data de Nascimento</label>
+                        <p>00/00/0000</p>
+                    </div>
+
+                    <div class="info-box">
+                        <label>Telefone</label>
+                        <p>(00) 00000-0000</p>
+                    </div>
+
+                    <!-- TREINADOR -->
+                    <div class="info-box">
+                        <label>Modalidade</label>
+                        <p>Musculação</p>
+                    </div>
+
+                    <div class="info-box">
+                        <label>Nível de Experiência</label>
+                        <p>Avançado</p>
+                    </div>
+
+                    <div class="info-box">
+                        <label>Objetivo</label>
+                        <p>Hipertrofia e condicionamento físico</p>
+                    </div>
+
+                    <div class="info-box">
+                        <label>Ambiente</label>
+                        <p>Academia</p>
+                    </div>
+
+                    <div class="info-box">
+                        <label>Sexo</label>
+                        <p>Masculino</p>
+                    </div>
+
+                    <div class="info-box">
+                        <label>Restrição Física</label>
+                        <p>Nenhuma</p>
+                    </div>
+
+                </div>
+
+                <div class="danger">
+                    <a href="#">Excluir conta</a>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="tab" id="dashboard"></section>
+        <section class="tab" id="treinos"></section>
+        <section class="tab" id="config"></section>
+
+    </main>
+
+</div>
+
+<script>
+
+// TROCA DE ABAS
+const menuItems = document.querySelectorAll(".menu-item");
+const tabs = document.querySelectorAll(".tab");
+
+menuItems.forEach(item => {
+    item.addEventListener("click", () => {
+
+        menuItems.forEach(i => i.classList.remove("active"));
+        tabs.forEach(t => t.classList.remove("active"));
+
+        item.classList.add("active");
+        document.getElementById(item.dataset.tab).classList.add("active");
+
+    });
+});
+
+</script>
+
+</body>
+</html>

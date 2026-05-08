@@ -16,8 +16,12 @@ CREATE TABLE IF NOT EXISTS usuario (
     data_nascimento DATE,
     data_criacao DATE,
     tipo_usuario VARCHAR(15),
+    foto VARCHAR(255),
     ativo BOOLEAN DEFAULT TRUE
     );
+
+
+
 
 INSERT INTO usuario (nome,email,telefone,data_nascimento,cidade_uf,data_criacao,ativo,senha, tipo_usuario) VALUES
       ('João Silva','joao@email.com','11999999999','1995-03-10','São Paulo - SP',CURDATE(),TRUE,'123', 'ATLETA');

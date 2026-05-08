@@ -16,6 +16,7 @@ services:
 
     volumes:
       - ./initdb:/docker-entrypoint-initdb.d
+      - ./src/main/webapp/banco_imagens:/usr/local/tomcat/webapps/athlete_lab_web/banco_imagens
 
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]

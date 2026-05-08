@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil</title>
+
+    <!-- FONTES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="editar_perfil_style.css">
+</head>
+
+<body>
+
+    <!-- LOGO -->
+    <div class="logo">
+        <img src="../banco_imagens/imagens/Athlete logo white.png" alt="Logo">
+    </div>
+
+    <div class="container">
+
+        <!-- TOPO -->
+        <div class="top-bar">
+            <a href="#" class="back-button">← Voltar</a>
+        </div>
+        
+        <!-- FOTO PERFIL -->
+        <div class="profile">
+            <input type="file" id="fotoInput" hidden>
+
+            <label for="fotoInput">
+                <img id="preview" src="../../../banco_imagens/icones/User%20Male.png" alt="Foto de perfil">
+                <span>Alterar foto de perfil</span>
+            </label>
+        </div>
+
+        <!-- FORM -->
+        <form>
+            <div class="form-grid">
+
+                <div class="input-group">
+                    <label>Nome completo</label>
+                    <input type="text">
+                </div>
+
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email">
+                </div>
+
+                <div class="input-group">
+                    <label>Data de nascimento</label>
+                    <input type="date">
+                </div>
+
+                <div class="input-group">
+                    <label>Cidade/UF</label>
+                    <input type="text">
+                </div>
+
+                <div class="input-group full-width">
+                    <label>Telefone</label>
+                    <input type="text">
+                </div>
+
+            </div>
+
+            <div class="button-area">
+                <button type="submit">Editar</button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+        const input = document.getElementById('fotoInput');
+        const preview = document.getElementById('preview');
+
+        input.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+            }
+        });
+    </script>
+
+</body>
+</html>

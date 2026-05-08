@@ -38,7 +38,7 @@
             </div>
 
             <!-- FORM -->
-            <form action="login" method="post" class="form">
+              <form action="${pageContext.request.contextPath}/login" method="post">
 
                 <div class="form-content">
 
@@ -59,7 +59,7 @@
                     <input
                         type="hidden"
                         name="tipoUsuario"
-                        value="${tipoUsuario}"
+                         value="${not empty tipoUsuario ? tipoUsuario : param.tipoUsuario}"
                     >
 
                     <div class="opcoes">

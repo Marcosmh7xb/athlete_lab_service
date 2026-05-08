@@ -1,5 +1,7 @@
 package com.athletelab.usuario;
 
+import com.athletelab.Treinador.PerfilTreinadorModel;
+
 import java.time.LocalDate;
 
 public class UsuarioModel {
@@ -9,13 +11,15 @@ public class UsuarioModel {
     private String email;
     private String senha;
     private String telefone;
-    private LocalDate dataNascimento;
+    private String dataNascimento;
     private String cidadeUF;
     private LocalDate dataCriacao;
     private boolean ativo;
     private String tipoUsuario;
+    private String foto;
+    private PerfilTreinadorModel perfilTreinador;
 
-    public UsuarioModel(String nome, String email, String senha, String telefone, LocalDate dataNascimento, String cidadeUF, String tipoUsuario) {
+    public UsuarioModel(String nome, String email, String senha, String telefone, String dataNascimento, String cidadeUF, String tipoUsuario) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -29,6 +33,14 @@ public class UsuarioModel {
 
     public  UsuarioModel(){
 
+    }
+
+    public PerfilTreinadorModel getPerfilTreinador() {
+        return perfilTreinador;
+    }
+
+    public void setPerfilTreinador(PerfilTreinadorModel perfilTreinador) {
+        this.perfilTreinador = perfilTreinador;
     }
 
     public int getIdUsuario() {
@@ -63,11 +75,11 @@ public class UsuarioModel {
         this.telefone = telefone;
     }
 
-    public LocalDate getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -106,7 +118,22 @@ public class UsuarioModel {
     public String getTipoUsuario() {
         return tipoUsuario;
     }
+
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public String getFoto() { return foto; }
+
+    public void setFoto(String foto) { this.foto = foto; }
+
+    private PerfilTreinadorModel perfilTecnico; // Novo campo
+
+    public PerfilTreinadorModel getPerfilTecnico() { return perfilTecnico; }
+    public void setPerfilTecnico(PerfilTreinadorModel perfilTecnico) { this.perfilTecnico = perfilTecnico; }
+
+    // Método para checar se o bloqueio deve aparecer
+    public boolean hasPerfilCompleto() {
+        return perfilTecnico != null && perfilTecnico.getModalidade() != null;
     }
 }

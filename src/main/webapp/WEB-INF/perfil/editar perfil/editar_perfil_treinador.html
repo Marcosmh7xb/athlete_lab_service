@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil - Treinador</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="editar_perfil_style.css">
+</head>
+
+<body>
+
+    <!-- LOGO -->
+    <div class="logo">
+        <img src="../banco_imagens/imagens/Athlete logo white.png" alt="Logo">
+    </div>
+
+    <div class="container">
+
+        <!-- TOPO -->
+        <div class="top-bar">
+            <a href="../perfil/perfil_treinador.html" class="back-button">← Voltar</a>
+        </div>
+
+        <h2 class="title">Editar Perfil</h2>
+        
+        <!-- FOTO PERFIL -->
+        <div class="profile">
+            <input type="file" id="fotoInput" name="foto" hidden>
+
+            <label for="fotoInput">
+                <img id="preview" src="../../../banco_imagens/icones/User%20Male.png" alt="Foto de perfil">
+                <span>Alterar foto de perfil</span>
+            </label>
+        </div>
+
+        <!-- FORM -->
+        <form>
+
+            <div class="form-grid">
+
+                <!-- BASE -->
+                <div class="input-group nome">
+                    <label>Nome completo</label>
+                    <input type="text" name="nome" placeholder="Nome do Treinador">
+                </div>
+
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email" name="email" placeholder="treinador@email.com">
+                </div>
+
+                <div class="input-group">
+                    <label>Data de nascimento</label>
+                    <input type="date" name="nascimento">
+                </div>
+
+                <div class="input-group">
+                    <label>Cidade/UF</label>
+                    <input type="text" name="cidade" placeholder="Cidade - Estado">
+                </div>
+
+                <div class="input-group full-width">
+                    <label>Telefone</label>
+                    <input type="tel" name="telefone" placeholder="(00) 00000-0000">
+                </div>
+
+                <!-- TREINADOR -->
+                <div class="input-group">
+                    <label>Modalidade</label>
+                    <input type="text" name="modalidade" placeholder="Musculação">
+                </div>
+
+                <div class="input-group">
+                    <label>Nível de Experiência</label>
+                    <input type="text" name="nivelExperiencia" placeholder="Avançado">
+                </div>
+
+                <div class="input-group">
+                    <label>Objetivo</label>
+                    <input type="text" name="objetivo" placeholder="Hipertrofia">
+                </div>
+
+                <div class="input-group">
+                    <label>Ambiente</label>
+                    <select name="ambiente">
+                        <option>Academia</option>
+                        <option>Casa</option>
+                        <option>Ao ar livre</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Sexo</label>
+                    <select name="sexo">
+                        <option>Masculino</option>
+                        <option>Feminino</option>
+                        <option>Outro</option>
+                    </select>
+                </div>
+
+                <div class="input-group full-width">
+                    <label>Restrição Física</label>
+                    <input type="text" name="restricaoFisica" placeholder="Se possuir">
+                </div>
+
+            </div>
+
+            <div class="button-area">
+                <button type="submit">Salvar Alterações</button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+        const input = document.getElementById('fotoInput');
+        const preview = document.getElementById('preview');
+
+        input.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+            }
+        });
+    </script>
+
+</body>
+</html>
