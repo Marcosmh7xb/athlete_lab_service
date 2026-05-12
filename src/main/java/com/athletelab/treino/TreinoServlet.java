@@ -13,6 +13,12 @@ public class TreinoServlet extends  HttpServlet{
     public void doPost( HttpServletRequest requisicao, HttpServletResponse resposta) throws ServletException, IOException{
         String nome = requisicao.getParameter("nome");
         String status = requisicao.getParameter("status");
+
+        TreinoModel treino = new TreinoModel();
+
+        treino.setNome(nome);
+        treino.setDataCriacao(LocalDate.now());
+        treino.setStatus(true);
      }
 }
 

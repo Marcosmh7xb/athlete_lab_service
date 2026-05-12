@@ -67,18 +67,10 @@ public class UsuarioServletLogin extends HttpServlet {
 
             tipoUsuario = usuario.getTipoUsuario();
 
-            if ("ATLETA".equals(tipoUsuario)) {
-
+            if ("ATLETA".equals(tipoUsuario) || "TREINADOR".equals(tipoUsuario)) {
                 resposta.sendRedirect("paginas/home.jsp");
-
-            } else if ("TREINADOR".equals(tipoUsuario)) {
-
-                resposta.sendRedirect("paginas/home2.jsp");
-
             } else {
-
                 resposta.sendRedirect("login?erro=true");
-
             }
 
         } else {
