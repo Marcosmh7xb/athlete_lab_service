@@ -85,7 +85,7 @@ public class UsuarioAdminServlet extends HttpServlet {
                 String dataNascimento = request.getParameter("data_nascimento");
 
                 if (dataNascimento != null && !dataNascimento.isEmpty()) {
-                    u.setDataNascimento(LocalDate.parse(dataNascimento));
+                    u.setDataNascimento(String.valueOf(LocalDate.parse(dataNascimento)));
                 }
 
                 UsuarioDAO.inserir(u);
@@ -99,7 +99,7 @@ public class UsuarioAdminServlet extends HttpServlet {
                 String dataNascimento = request.getParameter("data_nascimento");
 
                 if (dataNascimento != null && !dataNascimento.isEmpty()) {
-                    u.setDataNascimento(LocalDate.parse(dataNascimento));
+                    u.setDataNascimento(String.valueOf(LocalDate.parse(dataNascimento)));
                 }
 
                 dao.atualizar(u);

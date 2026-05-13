@@ -1,0 +1,81 @@
+package com.athletelab.exercicio;
+
+import com.athletelab.configBD.ConnectionDataBase;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ExercicioDAO {
+
+    public static void inserir(ExercicioModel e) {
+
+        String sql = "INSERT INTO exercicio (id_treino, nome, series, repeticoes, tempo_min, observacao) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = ConnectionDataBase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, e.getIdTreino());
+            stmt.setString(2, e.getNome());
+            stmt.setInt(3, e.getSeries());
+            stmt.setInt(4, e.getRepeticoes());
+            stmt.setInt(5, e.getTempoMin());
+            stmt.setString(6, e.getObservacao());
+
+            stmt.execute();
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao inserir exercício: " + ex.getMessage());
+        }
+    }
+
+    public static List<ExercicioModel> listarPorTreino(int idTreino) {
+
+        List<ExercicioModel> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM exercicio WHERE id_treino = ?";
+
+        try (Connection conn = ConnectionDataBase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idTreino);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                ExercicioModel e = new ExercicioModel();
+
+                e.setIdExercicio(rs.getInt("id_exercicio"));
+                e.setIdTreino(rs.getInt("id_treino"));
+                e.setNome(rs.getString("nome"));
+                e.setSeries(rs.getInt("series"));
+                e.setRepeticoes(rs.getInt("repeticoes"));
+                e.setTempoMin(rs.getInt("tempo_min"));
+                e.setObservacao(rs.getString("observacao"));
+
+                lista.add(e);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao listar exercícios: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+
+    public static void deletar(int idExercicio) {
+
+        String sql = "DELETE FROM exercicio WHERE id_exercicio = ?";
+
+        try (Connection conn = ConnectionDataBase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idExercicio);
+            stmt.execute();
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao deletar exercício: " + ex.getMessage());
+        }
+    }
+}

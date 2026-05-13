@@ -1,58 +1,69 @@
 package com.athletelab.treino;
 
-import java.time.LocalDate;
+import com.athletelab.exercicio.ExercicioModel;
+
+import java.util.List;
 
 public class TreinoModel {
 
     private int idTreino;
+    private int idUsuario;
     private String nome;
-    private LocalDate dataCriacao;
-    private float duracao;
-    private boolean status;
+    private String categoria;
+    private String status;
+    private String dataCriacao;
 
-    public TreinoModel(){}
-
-    public TreinoModel(int idTreino, String nome, LocalDate dataCriacao, float duracao, boolean status){
-        this.idTreino = idTreino;
-        this.nome = nome;
-        this.dataCriacao = dataCriacao;
-        this.duracao = duracao;
-        this.status = status;
+    public TreinoModel() {
     }
 
     public int getIdTreino() {
         return idTreino;
     }
+
     public void setIdTreino(int idTreino) {
         this.idTreino = idTreino;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public LocalDate getDataCriacao() {
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDataCriacao() {
         return dataCriacao;
     }
-    public void setDataCriacao(LocalDate dataCriacao) {
+
+    public void setDataCriacao(String dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public float getDuracao() {
-        return duracao;
-    }
-    public void setDuracao(float duracao) {
-        this.duracao = duracao;
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setExercicios(List<ExercicioModel> exercicioModels) {
     }
 }
-

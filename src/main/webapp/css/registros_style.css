@@ -1,0 +1,385 @@
+/* RESET */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+
+body{
+    background: #000;
+    color: white;
+    font-family: "Inter", sans-serif;
+}
+
+/* CONTAINER */
+
+.container{
+    padding: 30px;
+}
+
+/* HEADER */
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #222;
+}
+
+.logo{
+    width: 180px;
+}
+
+/* HEADER RIGHT */
+
+.header-right{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* TÍTULO */
+
+.header h2{
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+/* NOVO USUARIO */
+
+.novo-btn{
+    background: red;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.novo-btn:hover{
+    background: #cc0000;
+}
+
+/* SEARCH */
+
+.search-bar{
+    display: flex;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+/* INPUTS */
+
+.search-bar input,
+.search-bar select{
+    background: #0f0f0f;
+    border: 1px solid #333;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    outline: none;
+    min-width: 180px;
+}
+
+/* SELECT OPTION */
+
+.search-bar select option{
+    background: #000;
+    color: white;
+}
+
+/* BOTÃO BUSCA */
+
+.search-bar button{
+    background: red;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-bar button:hover{
+    background: #cc0000;
+}
+
+/* LABELS */
+
+.labels{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr) 180px;
+    padding: 15px;
+    border: 1px solid #222;
+    background: #0d0d0d;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+/* USER ROW */
+
+.user-row{
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    margin-top: 12px;
+    border: 1px solid #222;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.user-row:hover{
+    background: #101010;
+}
+
+/* INFO */
+
+.user-info{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    padding: 18px;
+    align-items: center;
+    font-size: 14px;
+}
+
+/* ACTIONS */
+
+.actions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* BOTÕES PADRONIZADOS */
+
+.btn-editar{
+    background: #8D8A8A;
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    transition: 0.3s;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-editar:hover{
+    background: #616060;
+}
+
+.btn-deletar{
+    background: red;
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.btn-deletar:hover{
+    background: #cc0000;
+}
+
+/* VIEW */
+
+.view{
+    color: #acacac;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.view:hover{
+    opacity: 0.8;
+}
+
+/* MODAL OVERLAY */
+
+.modal-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-overlay.active{
+    display: flex;
+}
+
+/* MODAL */
+
+.modal{
+    width: 700px;
+    background: #0f0f0f;
+    border: 1px solid #222;
+    border-radius: 14px;
+    padding: 30px;
+}
+
+/* HEADER MODAL */
+
+.modal-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.modal-header h2{
+    font-size: 24px;
+}
+
+/* FECHAR */
+
+.fechar-modal{
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* FORM */
+
+.modal-form{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* GRID */
+
+.form-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* CAMPO WRAPPER */
+
+.campo-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* LABEL DO CAMPO */
+
+.campo-label{
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+/* INPUTS DO FORM */
+
+.form-grid input,
+.form-grid select{
+    background: #161616;
+    border: 1px solid #333;
+    color: white;
+    padding: 14px;
+    border-radius: 10px;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+    font-family: "Inter", sans-serif;
+    transition: border-color 0.2s;
+}
+
+.form-grid input:focus,
+.form-grid select:focus{
+    border-color: #555;
+}
+
+.form-grid input::placeholder{
+    color: #555;
+}
+
+/* INPUT ALTERADO */
+
+.alterado{
+    border: 1px solid #facc15 !important;
+    box-shadow: 0 0 6px rgba(250, 204, 21, 0.35);
+    transition: 0.2s;
+}
+
+/* OPTION */
+
+.form-grid select option{
+    background: #000;
+}
+
+/* BOTÃO CRIAR */
+
+.criar-btn{
+    background: red;
+    border: none;
+    color: white;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.criar-btn:hover{
+    background: #cc0000;
+}
+
+/* BOTÃO CANCELAR */
+
+.cancelar-btn{
+    background: transparent;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.cancelar-btn:hover{
+    border-color: #888;
+    color: white;
+}
+
+/* MODAL ESCOLHA */
+
+.choice-container{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.choice-btn{
+    background: red;
+    border: none;
+    color: white;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.choice-btn:hover{
+    background: #cc0000;
+}

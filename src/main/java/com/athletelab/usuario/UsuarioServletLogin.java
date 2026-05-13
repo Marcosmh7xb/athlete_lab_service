@@ -23,8 +23,8 @@ public class UsuarioServletLogin extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest requisicao, HttpServletResponse resposta)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest requisicao, HttpServletResponse resposta) throws ServletException, IOException {
+
 
         String email = requisicao.getParameter("email");
         String senha = requisicao.getParameter("senha");
@@ -52,10 +52,13 @@ public class UsuarioServletLogin extends HttpServlet {
             tipoUsuario = usuario.getTipoUsuario();
 
             if ("ATLETA".equals(tipoUsuario) || "TREINADOR".equals(tipoUsuario)) {
+
                 resposta.sendRedirect(requisicao.getContextPath() + "/home");
+
             } else if ("ADMIN".equals(tipoUsuario)) {
 
-                resposta.sendRedirect("");
+            RequestDispatcher dispatcher = requisicao.getRequestDispatcher("WEB-INF/registros.jsp");
+            dispatcher.forward(requisicao, resposta);
 
             } else {
 

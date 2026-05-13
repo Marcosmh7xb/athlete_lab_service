@@ -1,11 +1,15 @@
 package com.athletelab.Treinador;
 
+import com.athletelab.treino.TreinoDAO;
+import com.athletelab.treino.TreinoModel;
 import com.athletelab.usuario.UsuarioDAO;
 import com.athletelab.usuario.UsuarioModel;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/perfil-treinador")
 public class PerfilTreinadorServlet extends HttpServlet {
@@ -16,9 +20,7 @@ public class PerfilTreinadorServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
 
-        // Verifica se existe sessão
         if (session == null) {
-            System.out.println("DEBUG PERFIL: Sessão nula. Redirecionando para login.");
             response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
@@ -26,9 +28,7 @@ public class PerfilTreinadorServlet extends HttpServlet {
         UsuarioModel usuarioSessao =
                 (UsuarioModel) session.getAttribute("usuarioLogado");
 
-        // Verifica se usuário está logado
         if (usuarioSessao == null) {
-            System.out.println("DEBUG PERFIL: Usuário não encontrado na sessão.");
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
@@ -40,29 +40,28 @@ public class PerfilTreinadorServlet extends HttpServlet {
             UsuarioModel perfilCompleto =
                     dao.buscarPorId(usuarioSessao.getIdUsuario());
 
-            if (perfilCompleto != null) {
-
-                request.setAttribute("perfil", perfilCompleto);
-
-                request.getRequestDispatcher("/WEB-INF/perfilTreinador.jsp")
-                        .forward(request, response);
-
-            } else {
-
-                response.sendRedirect(
-                        request.getContextPath()
-                                + "/login?erro=usuario_inexistente"
-                );
+            if (perfilCompleto == null) {
+                response.sendRedirect(request.getContextPath() + "/login?erro=usuario_inexistente");
+                return;
             }
 
-        } catch (Exception e) {
+            // 🔥 TREINOS (CORRETO AQUI)
+            TreinoDAO treinoDAO = new TreinoDAO();
+            List<TreinoModel> treinos =
+                    treinoDAO.listarPorUsuario(usuarioSessao.getIdUsuario());
 
+            // atributos para JSP
+            request.setAttribute("perfil", perfilCompleto);
+            request.setAttribute("treinos", treinos);
+
+            // forward único
+            request.getRequestDispatcher("/WEB-INF/perfilTreinador.jsp")
+                    .forward(request, response);
+
+        } catch (Exception e) {
             e.printStackTrace();
 
-            response.sendRedirect(
-                    request.getContextPath()
-                            + "/login?erro=falha_interna"
-            );
+            response.sendRedirect(request.getContextPath() + "/login?erro=falha_interna");
         }
     }
 }

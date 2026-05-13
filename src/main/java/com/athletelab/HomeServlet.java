@@ -1,4 +1,4 @@
-package com.athletelab.usuario;
+package com.athletelab;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;

@@ -3,6 +3,7 @@ package com.athletelab.usuario;
 import com.athletelab.Treinador.PerfilTreinadorModel;
 import com.athletelab.configBD.ConnectionDataBase;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
@@ -221,5 +222,4 @@ public class UsuarioDAO {
             System.out.println("Erro ao atualizar perfil: " + e.getMessage());
         }
     }
-
 }
