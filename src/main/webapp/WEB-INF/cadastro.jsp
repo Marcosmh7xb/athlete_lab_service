@@ -35,7 +35,7 @@
     <form action="cadastro" method="post">
 
         <!-- mantém o tipo de usuário -->
-        <input type="hidden" name="tipoUsuario" value="${tipoUsuario}">
+        <input type="hidden" name="tipoUsuario" value="${sessionScope.tipoUsuario}">
 
         <div class="form">
 

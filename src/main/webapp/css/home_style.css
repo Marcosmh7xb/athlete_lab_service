@@ -1,374 +1,581 @@
 /* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-    background-color: #000;
-    font-family: "Inter", sans-serif;
-    color: white;
+body{
+    background:#000;
+    color:white;
+    font-family:"Inter",sans-serif;
 }
 
-/* HEADER */
-.header {
-    width: 100%;
-    padding: 15px 0;
-    background: #000;
+/* ================= HEADER ================= */
+
+.header{
+    width:100%;
+    height:90px;
+
+    padding:0 40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:#000;
+
+    border-bottom:1px solid #222;
+
+    position:relative;
+    z-index:999;
 }
 
-.nav ul {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    list-style: none;
-    font-family: "Be Vietnam Pro", sans-serif;
+/* ESQUERDA */
+
+.header-left{
+    position:relative;
 }
 
-.nav a {
-    text-decoration: none;
-    color: white;
-    font-size: 14px;
-    letter-spacing: 2px;
+/* CENTRO */
+
+.header-center{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.logo{
+    width:170px;
+}
+
+/* DIREITA */
+
+.header-right{
+    position:relative;
+}
+
+/* ================= BOTÕES ================= */
+
+.menu-btn,
+.profile-btn{
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+
+/* MENU ICON */
+
+.menu-btn img{
+    width:28px;
+    filter:brightness(0) invert(1);
+    transition:0.3s;
+}
+
+.menu-btn:hover img{
+    transform:scale(1.08);
+}
+
+/* ================= PERFIL ================= */
+
+.profile-avatar{
+    width:50px;
+    height:50px;
+}
+
+.profile-avatar img{
+    width:100%;
+    height:100%;
+
+    border-radius:50%;
+    border:2px solid red;
+
+    object-fit:cover;
+
+    transition:0.3s;
+}
+
+.profile-avatar img:hover{
+    transform:scale(1.05);
+}
+
+/* ================= POPUPS ================= */
+
+.menu-popup,
+.profile-popup{
+
+    position:absolute;
+    top:70px;
+
+    min-width:220px;
+
+    background:#0f0f0f;
+
+    border:1px solid #222;
+
+    border-radius:14px;
+
+    padding:10px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:5px;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(-10px);
+
+    transition:0.3s;
+}
+
+/* MENU */
+
+.menu-popup{
+    left:0;
+}
+
+/* PERFIL */
+
+.profile-popup{
+    right:0;
+}
+
+/* ACTIVE */
+
+.menu-popup.active,
+.profile-popup.active{
+
+    opacity:1;
+    visibility:visible;
+
+    transform:translateY(0);
+
+}
+
+/* ================= LINKS ================= */
+
+.menu-popup a,
+.profile-popup a,
+.logout-btn{
+
+    width:100%;
+
+    background:none;
+    border:none;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:14px 16px;
+
+    border-radius:10px;
+
+    text-align:left;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    font-family:"Inter",sans-serif;
+
 }
 
 /* HOVER */
-.seleção a {
-    display: inline-block;
-    padding: 10px 15px;
-    transition: 0.3s;
-}
 
-.seleção a:hover {
-    color: red;
-}
+.menu-popup a:hover,
+.profile-popup a:hover,
+.logout-btn:hover{
 
-.seleção a::after {
-    content: "";
-    display: block;
-    width: 0%;
-    height: 2px;
-    background: red;
-    transition: width 0.3s;
-}
+    background:#1a1a1a;
 
-.seleção a:hover::after {
-    width: 100%;
-}
+    color:red;
 
-.logo {
-    width: 180px;
 }
 
 /* ================= CARROSSEL ================= */
 
-.carousel {
-    width: 100%;
-    height: 80vh;
-    max-height: 700px;
-    min-height: 400px;
-    position: relative;
-    overflow: hidden;
-    border-top: 2px solid white;
+.carousel{
+    width:100%;
+    height:80vh;
+
+    max-height:700px;
+    min-height:400px;
+
+    position:relative;
+    overflow:hidden;
 }
 
-.slides {
-    position: relative;
-    width: 100%;
-    height: 100%;
+.slides{
+    position:relative;
+    width:100%;
+    height:100%;
 }
 
-.slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
+.slide{
+    position:absolute;
+    width:100%;
+    height:100%;
+
+    opacity:0;
+
+    transition:opacity 1s ease-in-out;
 }
 
-.slide.active {
-    opacity: 1;
-    z-index: 1;
+.slide.active{
+    opacity:1;
+    z-index:1;
 }
 
-.slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
-/* 🔥 CORREÇÃO DO BUG AQUI */
-.slide::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    pointer-events: none; /* permite clicar nas bolinhas */
+.slide::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:rgba(0,0,0,0.45);
+
+    pointer-events:none;
 }
 
-/* TEXTO */
-.overlay {
-    position: absolute;
-    bottom: 8%;
-    left: 6%;
-    max-width: 600px;
-    z-index: 2;
+/* OVERLAY */
+
+.overlay{
+    position:absolute;
+
+    bottom:8%;
+    left:6%;
+
+    max-width:600px;
+
+    z-index:2;
 }
 
-.overlay h2 {
-    font-size: 44px;
-    line-height: 1.15;
-    margin-bottom: 15px;
+.overlay h2{
+    font-size:44px;
+    line-height:1.15;
+
+    margin-bottom:15px;
 }
 
-.overlay h2 span {
-    color: red;
+.overlay h2 span{
+    color:red;
 }
 
-.overlay p {
-    font-size: 16px;
-    line-height: 1.6;
-    opacity: 0.9;
+.overlay p{
+    font-size:16px;
+    line-height:1.6;
+
+    opacity:0.9;
 }
 
 /* BOLINHAS */
-.navigation {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    z-index: 999; /* 🔥 garante que fica na frente */
+
+.navigation{
+    position:absolute;
+
+    bottom:20px;
+
+    width:100%;
+
+    display:flex;
+    justify-content:center;
+    gap:10px;
+
+    z-index:10;
 }
 
-.dot {
-    width: 10px;
-    height: 10px;
-    background: gray;
-    border-radius: 50%;
-    cursor: pointer;
+.dot{
+    width:10px;
+    height:10px;
+
+    background:gray;
+
+    border-radius:50%;
+
+    cursor:pointer;
 }
 
-.dot.active {
-    background: red;
+.dot.active{
+    background:red;
 }
 
 /* ================= MONITORAMENTO ================= */
 
-.monitoramento {
-    padding: 80px 5%;
-    background: #101010;
+.monitoramento{
+    padding:80px 5%;
+    background:#101010;
 }
 
-.monitoramento-container {
-    display: flex;
-    gap: 50px;
-    align-items: center;
+.monitoramento-container{
+    display:flex;
+    gap:50px;
+    align-items:center;
 }
 
-.monitoramento-left {
-    flex: 1;
+.monitoramento-left{
+    flex:1;
 }
 
-.monitoramento-left img {
-    width: 100%;
-    border-radius: 15px;
+.monitoramento-left img{
+    width:100%;
+    border-radius:15px;
 }
 
-/* BARRA */
-.progress-bar {
-    margin-top: 15px;
-    position: relative;
-    height: 20px;
-    background: #2b0000;
-    border-radius: 20px;
-    overflow: hidden;
+.progress-bar{
+    margin-top:15px;
+
+    position:relative;
+
+    height:20px;
+
+    background:#2b0000;
+
+    border-radius:20px;
+
+    overflow:hidden;
 }
 
-.progress {
-    width: 45%;
-    height: 100%;
-    background: red;
-    border-radius: 20px;
+.progress{
+    width:45%;
+    height:100%;
+
+    background:red;
 }
 
-.progress-bar span {
-    position: absolute;
-    left: 45%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 12px;
-    font-weight: bold;
+.progress-bar span{
+    position:absolute;
+
+    left:45%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    font-size:12px;
+    font-weight:bold;
 }
 
-.monitoramento-right {
-    flex: 1;
+.monitoramento-right{
+    flex:1;
 }
 
-.monitoramento-right h2 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
+.monitoramento-right h2{
+    font-size:32px;
+
+    margin-bottom:20px;
+
+    letter-spacing:2px;
 }
 
-.descricao {
-    font-size: 15px;
-    line-height: 1.6;
-    opacity: 0.85;
-    margin-bottom: 30px;
+.descricao{
+    font-size:15px;
+    line-height:1.6;
+
+    opacity:0.85;
+
+    margin-bottom:30px;
 }
 
 /* ITENS */
-.itens {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+
+.itens{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
 }
 
-.item {
-    display: flex;
-    gap: 15px;
-    align-items: flex-start;
+.item{
+    display:flex;
+    gap:15px;
+
+    align-items:flex-start;
 }
 
-.icon {
-    width: 55px;
-    height: 55px;
-    border: 2px solid red;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 0, 0, 0.05);
-    flex-shrink: 0;
+.icon{
+    width:55px;
+    height:55px;
+
+    border:2px solid red;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(255,0,0,0.05);
+
+    flex-shrink:0;
 }
 
-.icon img {
-    width: 60%;
-    height: 60%;
-    object-fit: contain;
+.icon img{
+    width:60%;
+    height:60%;
+
+    object-fit:contain;
 }
 
-.item h3 {
-    font-size: 16px;
-    margin-bottom: 5px;
+.item h3{
+    font-size:16px;
+    margin-bottom:5px;
 }
 
-.item p {
-    font-size: 13px;
-    opacity: 0.8;
+.item p{
+    font-size:13px;
+    opacity:0.8;
 }
 
 /* ================= COMO FUNCIONA ================= */
 
-.como-funciona {
-    padding: 100px 5%;
-    background: #000;
-    text-align: center;
+.como-funciona{
+    padding:100px 5%;
+    background:#000;
+
+    text-align:center;
 }
 
-.titulo {
-    font-size: 28px;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
+.titulo{
+    font-size:28px;
+
+    margin-bottom:10px;
+
+    letter-spacing:2px;
 }
 
-.subtitulo {
-    font-size: 13px;
-    opacity: 0.7;
-    margin-bottom: 60px;
+.subtitulo{
+    font-size:13px;
+
+    opacity:0.7;
+
+    margin-bottom:60px;
 }
 
-.linha-container {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
+.linha-container{
+    position:relative;
+
+    display:flex;
+    justify-content:space-between;
 }
 
-.linha {
-    position: absolute;
-    top: 35px;
-    left: 10%;
-    width: 80%;
-    height: 2px;
-    background: #333;
+.linha{
+    position:absolute;
+
+    top:35px;
+    left:10%;
+
+    width:80%;
+    height:2px;
+
+    background:#333;
 }
 
-.step {
-    width: 30%;
-    position: relative;
+.step{
+    width:30%;
+    position:relative;
 }
 
-.circle {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    border: 2px solid white;
-    margin: 0 auto 20px auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #000;
+.circle{
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    border:2px solid white;
+
+    margin:0 auto 20px auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#000;
 }
 
-.circle img {
-    width: 50%;
-    height: 50%;
-    object-fit: contain;
+.circle img{
+    width:50%;
+    height:50%;
 }
 
-.numero {
-    position: absolute;
-    top: -10px;
-    right: 35%;
-    font-size: 48px;
-    font-weight: bold;
+.numero{
+    position:absolute;
+
+    top:-10px;
+    right:35%;
+
+    font-size:48px;
+    font-weight:bold;
 }
 
-.step h3 {
-    font-size: 14px;
-    margin-bottom: 10px;
+.step h3{
+    font-size:14px;
+    margin-bottom:10px;
 }
 
-.step p {
-    font-size: 12px;
-    opacity: 0.7;
-    line-height: 1.5;
-    max-width: 250px;
-    margin: 0 auto;
+.step p{
+    font-size:12px;
+
+    opacity:0.7;
+
+    line-height:1.5;
+
+    max-width:250px;
+
+    margin:0 auto;
 }
 
-.cta {
-    margin-top: 60px;
+/* CTA */
+
+.cta{
+    margin-top:60px;
 }
 
-.cta button {
-    background: red;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
+.cta button{
+
+    background:red;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 30px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    transition:0.3s;
 }
 
-.cta button:hover {
-    background: #cc0000;
+.cta button:hover{
+    background:#cc0000;
 }
 
 /* ================= FOOTER ================= */
 
-.footer {
-    width: 100%;
-    background: #000000;
-    padding: 80px 5%;
-    border-top: 2px solid #ffffff;
+.footer{
+    width:100%;
+
+    background:#000;
+
+    padding:80px 5%;
+
+    border-top:1px solid #222;
 }
 
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    min-height: 150px;
+.footer-container{
+    max-width:1200px;
+    margin:0 auto;
+
+    min-height:150px;
 }

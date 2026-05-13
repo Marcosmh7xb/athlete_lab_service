@@ -11,8 +11,9 @@ public class TreinoDAO {
     public static void inserirTreino( TreinoModel treino){
         String slq = "INSERT INTO treino(nome, status) VELUES (?, ?)";
 
+     
         try(Connection connection = ConnectionDataBase.getConnection();
-            PreparedStatement stmt = connection.prepareStatement(sql)){
+            PreparedStatement stmt = connection.prepareStatement(slq)){
 
             stmt.setString(1, treino.getNome());
             stmt.setBoolean(2, treino.getStatus());

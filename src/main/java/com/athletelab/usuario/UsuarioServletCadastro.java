@@ -14,7 +14,7 @@ public class UsuarioServletCadastro extends HttpServlet {
     protected void doGet(HttpServletRequest requisicao, HttpServletResponse resposta) throws ServletException, IOException {
         String tipoUsuario = requisicao.getParameter("tipoUsuario");
         requisicao.setAttribute("tipoUsuario", tipoUsuario);
-        RequestDispatcher dispatcher = requisicao.getRequestDispatcher("paginas/cadastro.jsp");
+        RequestDispatcher dispatcher = requisicao.getRequestDispatcher("WEB-INF/cadastro.jsp");
         dispatcher.forward(requisicao, resposta);
     }
 
@@ -46,7 +46,7 @@ public class UsuarioServletCadastro extends HttpServlet {
         usuario.setTelefone(telefone);
         usuario.setCidadeUF(cidadeUF);
         usuario.setTipoUsuario(tipoUsuario);
-        usuario.setDataNascimento(dataNascimento);
+        usuario.setDataNascimento(String.valueOf(dataNascimento));
         usuario.setDataCriacao(LocalDate.now());
         usuario.setAtivo(true);
 
