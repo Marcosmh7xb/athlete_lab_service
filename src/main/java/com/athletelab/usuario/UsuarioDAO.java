@@ -1,6 +1,7 @@
 package com.athletelab.usuario;
 
 import com.athletelab.Treinador.PerfilTreinadorModel;
+import com.athletelab.atleta.PerfilAtletaModel;
 import com.athletelab.configBD.ConnectionDataBase;
 import java.sql.*;
 import java.time.LocalDate;
@@ -115,83 +116,228 @@ public class UsuarioDAO {
 
         UsuarioModel usuario = null;
 
-        try (Connection conn = ConnectionDataBase.getConnection()){
+        try (Connection conn = ConnectionDataBase.getConnection()) {
 
-            String sql = "SELECT * FROM usuario WHERE email = ? AND tipo_usuario = ?";
+            String sql = "SELECT * FROM usuario WHERE email = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, email);
-            stmt.setString(2,tipo_usuario);
 
-
-            ResultSet rs =  stmt.executeQuery();
-
-            if (rs.next()) {
-                String senhaHashBanco = rs.getString("senha");
-                if (BCrypt.checkpw(senha, senhaHashBanco)) {
-                    usuario = new UsuarioModel();
-                    usuario.setIdUsuario(rs.getInt("id_usuario"));
-                    usuario.setNome(rs.getString("nome"));
-                    usuario.setTipoUsuario(rs.getString("tipo_usuario"));
-                    System.out.println("Login realizado com sucessor");
-                    return usuario;
-                }
-            }
-
-            return null;
-
-        } catch (Exception erro) {
-            erro.printStackTrace();
-            return null;
-        }
-    }
-
-    public UsuarioModel buscarPorId(int id) {
-        // Usamos o LEFT JOIN para trazer dados da usuario E da perfil_treinador em uma única consulta
-        String sql = "SELECT u.*, t.modalidade, t.nivel_experiencia, t.objetivo as t_obj, t.ambiente, t.sexo as t_sexo, t.restricao_fisica " +
-                "FROM usuario u " +
-                "LEFT JOIN perfil_treinador t ON u.id_usuario = t.id_usuario " +
-                "WHERE u.id_usuario = ?";
-
-        UsuarioModel u = null;
-
-        try (Connection conn = ConnectionDataBase.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                u = new UsuarioModel();
-                u.setIdUsuario(rs.getInt("id_usuario"));
-                u.setNome(rs.getString("nome"));
-                u.setEmail(rs.getString("email"));
-                u.setTelefone(rs.getString("telefone"));
-                u.setCidadeUF(rs.getString("cidade_uf"));
-                u.setDataNascimento(rs.getString("data_nascimento"));
-                u.setTipoUsuario(rs.getString("tipo_usuario"));
-                u.setAtivo(rs.getBoolean("ativo"));
-                u.setFoto(rs.getString("foto"));
 
-                // Se a modalidade não for nula, significa que este usuário é um treinador
-                // que já preencheu seus dados técnicos.
-                if (rs.getString("modalidade") != null) {
-                    PerfilTreinadorModel pt = new PerfilTreinadorModel();
-                    pt.setIdUsuario(u.getIdUsuario());
-                    pt.setModalidade(rs.getString("modalidade"));
-                    pt.setNivelExperiencia(rs.getString("nivel_experiencia"));
-                    pt.setObjetivo(rs.getString("t_obj"));
-                    pt.setAmbiente(rs.getString("ambiente"));
-                    pt.setSexo(rs.getString("t_sexo"));
-                    pt.setRestricaoFisica(rs.getString("restricao_fisica"));
+                String senhaHashBanco = rs.getString("senha");
+                String tipoBanco = rs.getString("tipo_usuario");
 
-                    u.setPerfilTreinador(pt); // Seta o perfil técnico dentro do usuário
+                if (BCrypt.checkpw(senha, senhaHashBanco)) {
+
+                    // ADMIN entra sempre
+                    if ("ADMIN".equals(tipoBanco)) {
+
+                        usuario = new UsuarioModel();
+
+                        usuario.setIdUsuario(rs.getInt("id_usuario"));
+                        usuario.setNome(rs.getString("nome"));
+                        usuario.setTipoUsuario(tipoBanco);
+
+                        return usuario;
+                    }
+
+                    // atleta/treinador precisam coincidir
+                    if (tipoBanco.equals(tipo_usuario)) {
+
+                        usuario = new UsuarioModel();
+
+                        usuario.setIdUsuario(rs.getInt("id_usuario"));
+                        usuario.setNome(rs.getString("nome"));
+                        usuario.setTipoUsuario(tipoBanco);
+
+                        return usuario;
+                    }
                 }
             }
-        } catch (SQLException e) {
-            System.out.println("Erro ao buscar perfil completo: " + e.getMessage());
+
+        } catch (Exception erro) {
+            erro.printStackTrace();
         }
+
+        return null;
+    }
+
+    public UsuarioModel buscarPorId(int id) {
+
+        UsuarioModel u = null;
+
+        try (Connection conn = ConnectionDataBase.getConnection()) {
+
+            // ================= USUARIO =================
+
+            String sqlUsuario =
+                    "SELECT * FROM usuario WHERE id_usuario = ?";
+
+            try (PreparedStatement stmtUsuario =
+                         conn.prepareStatement(sqlUsuario)) {
+
+                stmtUsuario.setInt(1, id);
+
+                try (ResultSet rsUsuario =
+                             stmtUsuario.executeQuery()) {
+
+                    if (rsUsuario.next()) {
+
+                        u = new UsuarioModel();
+
+                        u.setIdUsuario(rsUsuario.getInt("id_usuario"));
+                        u.setNome(rsUsuario.getString("nome"));
+                        u.setEmail(rsUsuario.getString("email"));
+                        u.setTelefone(rsUsuario.getString("telefone"));
+                        u.setCidadeUF(rsUsuario.getString("cidade_uf"));
+                        u.setDataNascimento(rsUsuario.getString("data_nascimento"));
+                        u.setTipoUsuario(rsUsuario.getString("tipo_usuario"));
+                        u.setAtivo(rsUsuario.getBoolean("ativo"));
+                        u.setFoto(rsUsuario.getString("foto"));
+
+                        String tipoUsuario =
+                                rsUsuario.getString("tipo_usuario");
+
+                        // ================= TREINADOR =================
+
+                        if ("TREINADOR".equalsIgnoreCase(tipoUsuario)) {
+
+                            String sqlTreinador =
+                                    "SELECT * FROM perfil_treinador WHERE id_usuario = ?";
+
+                            try (PreparedStatement stmtTreinador =
+                                         conn.prepareStatement(sqlTreinador)) {
+
+                                stmtTreinador.setInt(1, id);
+
+                                try (ResultSet rsTreinador =
+                                             stmtTreinador.executeQuery()) {
+
+                                    if (rsTreinador.next()) {
+
+                                        PerfilTreinadorModel pt =
+                                                new PerfilTreinadorModel();
+
+                                        pt.setIdPerfilTreinador(
+                                                rsTreinador.getInt("id_perfil_treinador")
+                                        );
+
+                                        pt.setIdUsuario(id);
+
+                                        pt.setModalidade(
+                                                rsTreinador.getString("modalidade")
+                                        );
+
+                                        pt.setNivelExperiencia(
+                                                rsTreinador.getString("nivel_experiencia")
+                                        );
+
+                                        pt.setObjetivo(
+                                                rsTreinador.getString("objetivo")
+                                        );
+
+                                        pt.setAmbiente(
+                                                rsTreinador.getString("ambiente")
+                                        );
+
+                                        pt.setSexo(
+                                                rsTreinador.getString("sexo")
+                                        );
+
+                                        pt.setRestricaoFisica(
+                                                rsTreinador.getString("restricao_fisica")
+                                        );
+
+                                        u.setPerfilTreinador(pt);
+                                    }
+                                }
+                            }
+                        }
+
+                        // ================= ATLETA =================
+
+                        else if ("ATLETA".equalsIgnoreCase(tipoUsuario)) {
+
+                            String sqlAtleta =
+                                    "SELECT * FROM perfil_atleta WHERE id_usuario = ?";
+
+                            try (PreparedStatement stmtAtleta =
+                                         conn.prepareStatement(sqlAtleta)) {
+
+                                stmtAtleta.setInt(1, id);
+
+                                try (ResultSet rsAtleta =
+                                             stmtAtleta.executeQuery()) {
+
+                                    if (rsAtleta.next()) {
+
+                                        PerfilAtletaModel pa =
+                                                new PerfilAtletaModel();
+
+                                        pa.setIdPerfilAtleta(
+                                                rsAtleta.getInt("id_perfil_atleta")
+                                        );
+
+                                        pa.setIdUsuario(id);
+
+                                        pa.setModalidade(
+                                                rsAtleta.getString("modalidade")
+                                        );
+
+                                        pa.setNivelExperiencia(
+                                                rsAtleta.getString("nivel_experiencia")
+                                        );
+
+                                        pa.setObjetivo(
+                                                rsAtleta.getString("objetivo")
+                                        );
+
+                                        pa.setAltura(
+                                                rsAtleta.getFloat("altura")
+                                        );
+
+                                        pa.setPeso(
+                                                rsAtleta.getFloat("peso")
+                                        );
+
+                                        pa.setDiasSemana(
+                                                rsAtleta.getString("dias_semana")
+                                        );
+
+                                        pa.setAmbiente(
+                                                rsAtleta.getString("ambiente")
+                                        );
+
+                                        pa.setSexo(
+                                                rsAtleta.getString("sexo")
+                                        );
+
+                                        pa.setRestricaoFisica(
+                                                rsAtleta.getString("restricao_fisica")
+                                        );
+
+                                        u.setPerfilAtleta(pa);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(
+                    "Erro ao buscar usuário: " + e.getMessage()
+            );
+
+            e.printStackTrace();
+        }
+
         return u;
     }
 

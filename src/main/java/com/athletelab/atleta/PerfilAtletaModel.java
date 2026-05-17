@@ -3,6 +3,7 @@ package com.athletelab.atleta;
 
 public class PerfilAtletaModel {
     private int idUsuario;
+    private int idPerfilAtleta;
     private String modalidade;
     private String nivelExperiencia;
     private String objetivo;
@@ -13,6 +14,14 @@ public class PerfilAtletaModel {
     private String sexo;
     private String restricaoFisica;
 
+    public PerfilAtletaModel() {}
+
+    public int getIdPerfilAtleta() {
+        return idPerfilAtleta;
+    }
+    public void setIdPerfilAtleta(int idPerfilAtleta) {
+        this.idPerfilAtleta = idPerfilAtleta;
+    }
     // Getters e Setters
     public int getIdUsuario() { return idUsuario; }
     public void setIdUsuario(int idUsuario) { this.idUsuario = idUsuario; }

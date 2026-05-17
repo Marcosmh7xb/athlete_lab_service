@@ -59,19 +59,8 @@
 
           <div class="profile-avatar">
 
-              <c:choose>
-
-                  <c:when test="${not empty usuarioLogado.foto}">
-                      <img src="${pageContext.request.contextPath}/uploads/${usuarioLogado.foto}"
-                           class="fotoPerfil">
-                  </c:when>
-
-                  <c:otherwise>
-                      <img src="${pageContext.request.contextPath}/banco_imagens/icones/User Male.png"
-                           class="fotoPerfil">
-                  </c:otherwise>
-
-              </c:choose>
+              <img src="${pageContext.request.contextPath}/banco_imagens/icones/User Male.png"
+                   class="fotoPerfil">
 
           </div>
 
@@ -85,9 +74,9 @@
                  else mostrar login/cadastro
             -->
 
-            <<a href="<%= "TREINADOR".equals(session.getAttribute("tipoUsuario")) ? "perfil-treinador" : "perfilAtleta" %>"> <!-- Verificar o usuario pelo tipo, e entra no pefil respectivo -->
-                 Acessar Perfil
-             </a>
+            <a href="${pageContext.request.contextPath}/perfil">
+                Acessar Perfil
+            </a>
 
             <button class="logout-btn">
                 Sair

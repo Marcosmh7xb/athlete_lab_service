@@ -161,30 +161,6 @@
         </section>
 
             <section class="tab" id="treinos">
-
-                <div class="card">
-
-                    <h2 style="margin-bottom: 20px;">Meus Treinos</h2>
-
-                  <a class="btn"
-                     href="${pageContext.request.contextPath}/treinos/novo">
-                     + Criar Treino
-                  </a>
-
-                    <c:if test="${empty treinos}">
-                        <p style="opacity: 0.6;">Nenhum treino cadastrado ainda.</p>
-                    </c:if>
-
-                    <c:forEach var="treino" items="${treinos}">
-                        <div class="info-box" style="margin-bottom: 10px;">
-                            <h3>${treino.nome}</h3>
-                            <p>${treino.categoria}</p>
-                            <p>${treino.dataCriacao}</p>
-                        </div>
-                    </c:forEach>
-
-                </div>
-
             </section>
 
 

@@ -3,56 +3,58 @@ package com.athletelab.admin;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import com.athletelab.usuario.UsuarioDAO;
 import com.athletelab.usuario.UsuarioModel;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest requisicao, HttpServletResponse resposta) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest requisicao,
+                         HttpServletResponse resposta)
+            throws ServletException, IOException {
 
         HttpSession sessao = requisicao.getSession(false);
 
         // ================= VERIFICA LOGIN =================
-
-        if(sessao == null
-                || sessao.getAttribute("usuario") == null){
-
-            resposta.sendRedirect("index.jsp");
+        if (sessao == null) {
+            resposta.sendRedirect(requisicao.getContextPath() + "/index.jsp");
             return;
         }
 
+        // ================= PEGA USUÁRIO =================
         UsuarioModel admin =
                 (UsuarioModel) sessao.getAttribute("usuario");
 
-        // ================= VERIFICA ADMIN =================
-
-        if(!"ADMIN".equals(admin.getTipoUsuario())){
-
-            resposta.sendRedirect("index.jsp");
+        // ================= VERIFICA NULL =================
+        if (admin == null) {
+            resposta.sendRedirect(requisicao.getContextPath() + "/index.jsp");
             return;
         }
 
-        // ================= PARAMETROS DE BUSCA =================
+        // ================= VERIFICA ADMIN =================
+        if (!"ADMIN".equals(admin.getTipoUsuario())) {
+            resposta.sendRedirect(requisicao.getContextPath() + "/index.jsp");
+            return;
+        }
 
+        // ================= PARAMETROS =================
         String nome = requisicao.getParameter("nome");
         String id = requisicao.getParameter("id");
         String tipo = requisicao.getParameter("tipo");
 
-        // ================= LISTA BASE =================
-
         UsuarioDAO dao = new UsuarioDAO();
 
-        List<UsuarioModel> usuarios =
-                dao.listar();
-
-        // ================= FILTRO POR NOME =================
+        List<UsuarioModel> usuarios = dao.listar();
 
         if (nome != null && !nome.isEmpty()) {
             usuarios = usuarios.stream()
@@ -60,8 +62,6 @@ public class AdminServlet extends HttpServlet {
                             u.getNome().toLowerCase().contains(nome.toLowerCase()))
                     .collect(Collectors.toList());
         }
-
-        // ================= FILTRO POR ID =================
 
         if (id != null && !id.isEmpty()) {
             try {
@@ -71,12 +71,8 @@ public class AdminServlet extends HttpServlet {
                         .filter(u -> u.getIdUsuario() == idInt)
                         .collect(Collectors.toList());
 
-            } catch (Exception e) {
-                // ignora erro de conversão
-            }
+            } catch (Exception ignored) {}
         }
-
-        // ================= FILTRO POR TIPO =================
 
         if (tipo != null && !tipo.isEmpty()) {
             usuarios = usuarios.stream()
@@ -84,14 +80,10 @@ public class AdminServlet extends HttpServlet {
                     .collect(Collectors.toList());
         }
 
-        // ================= ENVIA PARA JSP =================
-
         requisicao.setAttribute("usuarios", usuarios);
 
         RequestDispatcher dispatcher =
-                requisicao.getRequestDispatcher(
-                        "paginas/registros.jsp"
-                );
+                requisicao.getRequestDispatcher("WEB-INF/registros.jsp");
 
         dispatcher.forward(requisicao, resposta);
     }

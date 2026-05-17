@@ -111,7 +111,7 @@
                     data-telefone="<%= telefone %>"
                     data-cidade="<%= cidade %>"
                     data-nascimento="<%= nascimento %>"
-                    data-tipo="<%= tipo %>">
+                    data-tipo="<%= usuario.getTipoUsuario() %>">
                 Editar
             </button>
 

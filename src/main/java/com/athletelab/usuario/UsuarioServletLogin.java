@@ -1,8 +1,14 @@
 package com.athletelab.usuario;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 
 @WebServlet("/login")
@@ -25,10 +31,29 @@ public class UsuarioServletLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest requisicao, HttpServletResponse resposta) throws ServletException, IOException {
 
-
         String email = requisicao.getParameter("email");
         String senha = requisicao.getParameter("senha");
-        String tipoUsuario = requisicao.getParameter("tipoUsuario");
+        HttpSession sessao = requisicao.getSession();
+        String tipoUsuario = (String) sessao.getAttribute("tipoUsuario");
+
+        // ================= ADMIN TEMPORÁRIO =================
+
+        if(email.equals("adm013@gmail.com")
+                && senha.equals("adm1234")){
+
+            UsuarioModel admin = new UsuarioModel();
+
+            admin.setNome("Cauã Lobato");
+            admin.setEmail(email);
+            admin.setTipoUsuario("ADMIN");
+
+            sessao.setAttribute("usuario", admin);
+
+            resposta.sendRedirect("admin");
+
+            return;
+        }
+
 
         if (email == null || email.isBlank() || senha == null || senha.isBlank() || tipoUsuario == null || tipoUsuario.isBlank()) {
 
@@ -46,19 +71,24 @@ public class UsuarioServletLogin extends HttpServlet {
 
         if (usuario != null) {
 
-            HttpSession sessao = requisicao.getSession();
+            HttpSession sessaoAntiga = requisicao.getSession(false);
+
+            if (sessaoAntiga != null) {
+                sessaoAntiga.invalidate();
+            }
+
+            sessao = requisicao.getSession();
             sessao.setAttribute("usuarioLogado", usuario);
 
             tipoUsuario = usuario.getTipoUsuario();
 
-            if ("ATLETA".equals(tipoUsuario) || "TREINADOR".equals(tipoUsuario)) {
+            if ("TREINADOR".equals(tipoUsuario) || "ATLETA".equals(tipoUsuario)) {
 
                 resposta.sendRedirect(requisicao.getContextPath() + "/home");
 
-            } else if ("ADMIN".equals(tipoUsuario)) {
+            } else if (usuario.getTipoUsuario().equals("ADMIN")) {
 
-            RequestDispatcher dispatcher = requisicao.getRequestDispatcher("WEB-INF/registros.jsp");
-            dispatcher.forward(requisicao, resposta);
+                resposta.sendRedirect(requisicao.getContextPath() + "/admin");
 
             } else {
 

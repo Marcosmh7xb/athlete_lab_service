@@ -1,6 +1,7 @@
 package com.athletelab.usuario;
 
 import com.athletelab.Treinador.PerfilTreinadorModel;
+import com.athletelab.atleta.PerfilAtletaModel;
 
 import java.time.LocalDate;
 
@@ -18,6 +19,7 @@ public class UsuarioModel {
     private String tipoUsuario;
     private String foto;
     private PerfilTreinadorModel perfilTreinador;
+    private PerfilAtletaModel perfilAtleta;
 
     public UsuarioModel(String nome, String email, String senha, String telefone, String dataNascimento, String cidadeUF, String tipoUsuario) {
         this.nome = nome;
@@ -34,7 +36,12 @@ public class UsuarioModel {
     public  UsuarioModel(){
 
     }
-
+    public PerfilAtletaModel getPerfilAtleta() {
+        return perfilAtleta;
+    }
+    public void setPerfilAtleta(PerfilAtletaModel perfilAtleta) {
+        this.perfilAtleta = perfilAtleta;
+    }
     public PerfilTreinadorModel getPerfilTreinador() {
         return perfilTreinador;
     }

@@ -23,8 +23,7 @@ public class TreinoServlet extends HttpServlet {
         TreinoDAO treinoDAO = new TreinoDAO();
         ExercicioDAO exercicioDAO = new ExercicioDAO();
 
-        List<TreinoModel> treinos =
-                treinoDAO.listarPorUsuario(usuario.getIdUsuario());
+        List<TreinoModel> treinos = treinoDAO.listarPorUsuario(usuario.getIdUsuario());
 
         for (TreinoModel t : treinos) {
             t.setExercicios(exercicioDAO.listarPorTreino(t.getIdTreino()));
