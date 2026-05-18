@@ -12,6 +12,7 @@ public class TreinoModel {
     private String categoria;
     private String status;
     private String dataCriacao;
+    private List<ExercicioModel> exercicios;
 
     public TreinoModel() {
     }
@@ -64,6 +65,12 @@ public class TreinoModel {
         this.dataCriacao = dataCriacao;
     }
 
-    public void setExercicios(List<ExercicioModel> exercicioModels) {
+    public List<ExercicioModel> getExercicios() {
+        return exercicios;
     }
+
+    public void setExercicios(List<ExercicioModel> exercicios) {
+        this.exercicios = exercicios;
+    }
+
 }

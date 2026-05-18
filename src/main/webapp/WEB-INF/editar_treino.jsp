@@ -1,10 +1,13 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Editar Treino</title>
 
-    <link rel="stylesheet" href="editar_treino_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/editar_treino_style.css">
 
     <!-- FONTES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,27 +66,44 @@
 
         <div class="divider"></div>
 
-        <!-- EXERCÍCIOS -->
+        <!-- EXERCÍCIOS DINÂMICOS -->
         <div class="exercicios">
 
-            <div class="ex-card">
-                <div class="ex-header">
-                    <strong>Supino reto</strong>
+            <c:if test="${empty exercicios}">
+                <p style="opacity:0.6;">Nenhum exercício adicionado ainda.</p>
+            </c:if>
 
-                    <div class="actions">
-                        <span class="edit">Editar</span>
-                        <span class="delete">Excluir</span>
+            <c:forEach var="ex" items="${exercicios}">
+
+                <div class="ex-card">
+
+                    <div class="ex-header">
+                        <strong>${ex.nome}</strong>
+
+                        <div class="actions">
+                            <span class="edit">Editar</span>
+
+                            <form action="${pageContext.request.contextPath}/exercicio" method="post" style="display:inline;">
+                                <input type="hidden" name="acao" value="deletar">
+                                <input type="hidden" name="idExercicio" value="${ex.idExercicio}">
+                                <button type="submit" class="delete" style="border:none; background:none; cursor:pointer;">
+                                    Excluir
+                                </button>
+                            </form>
+                        </div>
                     </div>
+
+                    <p>Séries: ${ex.series}</p>
+                    <p>Repetições: ${ex.repeticoes}</p>
+                    <p>Tempo: ${ex.tempoMin} min</p>
+
+                    <div class="obs">
+                        ${ex.observacao}
+                    </div>
+
                 </div>
 
-                <p>Séries: 3</p>
-                <p>Repetições: 10</p>
-                <p>Tempo: 0 min</p>
-
-                <div class="obs">
-                    Execução controlada com pausa no topo.
-                </div>
-            </div>
+            </c:forEach>
 
         </div>
 
@@ -94,6 +114,7 @@
     </div>
 </div>
 
+<!-- MODAL -->
 <div class="modal" id="modal">
 
     <div class="modal-content">
@@ -113,10 +134,12 @@
                 <div class="select-box">
                     Séries<br>
                     <select name="series">
-                        <option>0</option><option>1</option><option>2</option>
-                        <option>3</option><option>4</option><option>5</option>
-                        <option>6</option><option>7</option><option>8</option>
-                        <option>9</option><option>10</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
                 </div>
 

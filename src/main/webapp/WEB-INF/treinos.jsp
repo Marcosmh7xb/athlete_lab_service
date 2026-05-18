@@ -23,7 +23,9 @@
         <button class="filter-btn" data-filter="Cross">Cross</button>
     </div>
 
-    <button class="add-btn">Adicionar</button>
+    <a href="${pageContext.request.contextPath}/criartreino/" class="add-btn">
+        Adicionar
+    </a>
 </header>
 
 <main class="container">

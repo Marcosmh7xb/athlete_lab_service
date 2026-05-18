@@ -33,22 +33,4 @@ public class TreinoServlet extends HttpServlet {
 
         req.getRequestDispatcher("/WEB-INF/treinos.jsp").forward(req, resp);
     }
-
-        @Override
-        protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-                throws IOException {
-
-            HttpSession sessao = req.getSession();
-            UsuarioModel usuario = (UsuarioModel) sessao.getAttribute("usuarioLogado");
-
-            TreinoModel t = new TreinoModel();
-            t.setIdUsuario(usuario.getIdUsuario());
-            t.setNome(req.getParameter("nome"));
-            t.setCategoria(req.getParameter("categoria"));
-            t.setStatus(req.getParameter("status"));
-
-            TreinoDAO.inserir(t);
-
-            resp.sendRedirect("treinos");
-        }
-    }
+}
