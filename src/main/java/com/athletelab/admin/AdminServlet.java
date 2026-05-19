@@ -33,7 +33,7 @@ public class AdminServlet extends HttpServlet {
 
         // ================= PEGA USUÁRIO =================
         UsuarioModel admin =
-                (UsuarioModel) sessao.getAttribute("usuario");
+                (UsuarioModel) sessao.getAttribute("usuarioLogado");
 
         // ================= VERIFICA NULL =================
         if (admin == null) {

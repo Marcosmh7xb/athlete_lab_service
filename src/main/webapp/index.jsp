@@ -17,7 +17,7 @@
 
 <header>
     <!-- LOGO AGORA CLICÁVEL -->
-    <a href="paginas/home.jsp">
+    <a href="WEB-INF/home.jsp">
         <img src="banco_imagens/imagens/Athlete logo white.png" alt="logo Athlete" class="logo">
     </a>
 

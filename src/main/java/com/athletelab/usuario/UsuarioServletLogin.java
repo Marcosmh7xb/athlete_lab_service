@@ -1,6 +1,8 @@
 package com.athletelab.usuario;
 
 
+import java.io.IOException;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,8 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
-import java.io.IOException;
 
 @WebServlet("/login")
 public class UsuarioServletLogin extends HttpServlet {
@@ -47,7 +47,7 @@ public class UsuarioServletLogin extends HttpServlet {
             admin.setEmail(email);
             admin.setTipoUsuario("ADMIN");
 
-            sessao.setAttribute("usuario", admin);
+            sessao.setAttribute("usuarioLogado", admin);
 
             resposta.sendRedirect("admin");
 
