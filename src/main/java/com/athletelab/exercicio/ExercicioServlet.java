@@ -12,14 +12,12 @@ import java.io.IOException;
 public class ExercicioServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
             throws ServletException, IOException {
 
         String acao = request.getParameter("acao");
 
-        // =========================
-        // SALVAR EXERCÍCIO
-        // =========================
         if ("salvar".equals(acao)) {
 
             String idTreinoStr = request.getParameter("idTreino");
@@ -30,39 +28,34 @@ public class ExercicioServlet extends HttpServlet {
 
             int idTreino = Integer.parseInt(idTreinoStr);
 
-            ExercicioModel e = new ExercicioModel();
+            ExercicioModel exercicio = new ExercicioModel();
 
-            e.setIdTreino(idTreino);
-            e.setNome(request.getParameter("nome"));
-            e.setSeries(Integer.parseInt(request.getParameter("series")));
-            e.setRepeticoes(Integer.parseInt(request.getParameter("repeticoes")));
-            e.setTempoMin(Integer.parseInt(request.getParameter("tempoMin")));
-            e.setObservacao(request.getParameter("observacao"));
+            exercicio.setIdTreino(idTreino);
 
-            ExercicioDAO.inserir(e);
+            exercicio.setNome(request.getParameter("nome"));
 
-            // volta para a página do treino
-            response.sendRedirect(
-                    request.getContextPath() + "/treino/editar?idTreino=" + idTreino
+            exercicio.setSeries(
+                    Integer.parseInt(request.getParameter("series"))
             );
-        }
 
-        // =========================
-        // DELETAR EXERCÍCIO
-        // =========================
-        if ("deletar".equals(acao)) {
+            exercicio.setRepeticoes(
+                    Integer.parseInt(request.getParameter("repeticoes"))
+            );
 
-            String idExStr = request.getParameter("idExercicio");
-            String idTreinoStr = request.getParameter("idTreino");
+            exercicio.setTempoMin(
+                    Integer.parseInt(request.getParameter("tempoMin"))
+            );
 
-            if (idExStr != null && !idExStr.isEmpty()) {
-                int idEx = Integer.parseInt(idExStr);
-                ExercicioDAO.deletar(idEx);
-            }
+            exercicio.setObservacao(
+                    request.getParameter("observacao")
+            );
 
-            // volta para o treino
+            ExercicioDAO.inserir(exercicio);
+
             response.sendRedirect(
-                    request.getContextPath() + "/treino/editar?idTreino=" + idTreinoStr
+                    request.getContextPath()
+                            + "/treino/editar?idTreino="
+                            + idTreino
             );
         }
     }

@@ -4,7 +4,6 @@ public class ExercicioModel {
 
     private int idExercicio;
     private int idTreino;
-
     private String nome;
     private int series;
     private int repeticoes;

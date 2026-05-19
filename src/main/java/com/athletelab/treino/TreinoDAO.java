@@ -17,20 +17,34 @@ public class TreinoDAO {
         String sql = "INSERT INTO treino (id_usuario, nome, categoria, status) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = ConnectionDataBase.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+             PreparedStatement stmt = conn.prepareStatement(
+                     sql,
+                     Statement.RETURN_GENERATED_KEYS
+             )) {
 
             stmt.setInt(1, t.getIdUsuario());
             stmt.setString(2, t.getNome());
             stmt.setString(3, t.getCategoria());
             stmt.setString(4, t.getStatus());
 
-            stmt.execute();
+            stmt.executeUpdate();
 
-            System.out.println("Treino criado com sucesso.");
+            ResultSet rs = stmt.getGeneratedKeys();
+
+            if (rs.next()) {
+
+                int idGerado = rs.getInt(1);
+
+                System.out.println("ID GERADO: " + idGerado);
+
+                return idGerado;
+            }
 
         } catch (SQLException e) {
             System.out.println("Erro ao inserir treino: " + e.getMessage());
         }
+
         return 0;
     }
 

@@ -120,11 +120,10 @@
     <div class="modal-content">
 
         <h3>Adicionar Exercício</h3>
-
         <form action="${pageContext.request.contextPath}/exercicio" method="post">
 
             <input type="hidden" name="acao" value="salvar">
-            <input type="hidden" name="idTreino" value="${treino.idTreino}">
+            <input type="hidden" name="idTreino" value="<%= ((com.athletelab.treino.TreinoModel)request.getAttribute("treino")).getIdTreino() %>">
 
             <label>Nome</label>
             <input type="text" name="nome" placeholder="Ex: Supino reto">

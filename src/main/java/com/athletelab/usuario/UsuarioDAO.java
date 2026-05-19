@@ -1,13 +1,18 @@
 package com.athletelab.usuario;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.athletelab.Treinador.PerfilTreinadorModel;
 import com.athletelab.atleta.PerfilAtletaModel;
 import com.athletelab.configBD.ConnectionDataBase;
-import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import org.mindrot.jbcrypt.BCrypt;
 
 public class UsuarioDAO {
 
@@ -24,17 +29,29 @@ public class UsuarioDAO {
             stmt.setString(3, u.getTelefone());
             stmt.setString(4, u.getCidadeUF());
             stmt.setString(5, u.getSenha());
-            stmt.setDate(6, java.sql.Date.valueOf(u.getDataNascimento()));
+
+            // ================= DATA NASCIMENTO =================
+
+            if (u.getDataNascimento() != null && !u.getDataNascimento().trim().isEmpty()) {
+
+                stmt.setDate(6, java.sql.Date.valueOf(u.getDataNascimento()));
+
+            } else {
+
+                stmt.setNull(6, java.sql.Types.DATE);
+            }
+
             stmt.setDate(7, java.sql.Date.valueOf(u.getDataCriacao()));
             stmt.setString(8, u.getTipoUsuario());
             stmt.setBoolean(9, u.isAtivo());
-            stmt.execute(); /// Executa o INSERT dentro do banco de dados; genérico (funciona para todos) INSERT, UPDATE, DELETE, CREATE TABLE, ALTER TABLE; Podendo usa o executeUpdate() usado para INSERT, UPDATE, DELETE.
 
+            stmt.execute(); /// Executa o INSERT dentro do banco de dados; genérico (funciona para todos) INSERT, UPDATE, DELETE, CREATE TABLE, ALTER TABLE; Podendo usa o executeUpdate() usado para INSERT, UPDATE, DELETE.
 
             System.out.println("Usuário salvo no banco.");
 
         } catch (SQLException erro) {
             System.out.println("Erro ao inserir: " + erro.getMessage());
+            erro.printStackTrace();
         }
     }
 
@@ -59,6 +76,11 @@ public class UsuarioDAO {
                 u.setCidadeUF(rs.getString("cidade_uf"));
                 u.setSenha(rs.getString("senha"));
                 u.setAtivo(rs.getBoolean("ativo"));
+
+                // ================= CAMPOS ADICIONADOS =================
+
+                u.setTipoUsuario(rs.getString("tipo_usuario"));
+                u.setDataNascimento(rs.getString("data_nascimento"));
 
                 lista.add(u); /// Pegar o objeto que foi criado e ardicionar na lista criada assima;
             }
@@ -128,10 +150,30 @@ public class UsuarioDAO {
 
             if (rs.next()) {
 
-                String senhaHashBanco = rs.getString("senha");
+                String senhaBanco = rs.getString("senha");
                 String tipoBanco = rs.getString("tipo_usuario");
 
-                if (BCrypt.checkpw(senha, senhaHashBanco)) {
+                boolean senhaValida = false;
+
+                // ================= LOGIN COMPATÍVEL =================
+                // Aceita senha criptografada OU senha normal
+                // para não quebrar a lógica antiga do projeto
+
+                if (senhaBanco != null) {
+
+                    if (senhaBanco.startsWith("$2a$")
+                            || senhaBanco.startsWith("$2b$")
+                            || senhaBanco.startsWith("$2y$")) {
+
+                        senhaValida = BCrypt.checkpw(senha, senhaBanco);
+
+                    } else {
+
+                        senhaValida = senha.equals(senhaBanco);
+                    }
+                }
+
+                if (senhaValida) {
 
                     // ADMIN entra sempre
                     if ("ADMIN".equals(tipoBanco)) {
@@ -353,11 +395,13 @@ public class UsuarioDAO {
             stmt.setString(2, u.getEmail());
             stmt.setString(3, u.getTelefone());
             stmt.setString(4, u.getCidadeUF());
+
             if (u.getDataNascimento() != null && !u.getDataNascimento().trim().isEmpty()) {
                 stmt.setDate(5, java.sql.Date.valueOf(u.getDataNascimento()));
             } else {
                 stmt.setNull(5, java.sql.Types.DATE); // Se estiver vazio, salva como NULL no banco
             }
+
             stmt.setString(6, u.getFoto()); // <--- Agora o campo 6 é a foto
             stmt.setInt(7, u.getIdUsuario()); // <--- E o campo 7 é o ID
 

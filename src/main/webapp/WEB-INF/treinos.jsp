@@ -23,7 +23,7 @@
         <button class="filter-btn" data-filter="Cross">Cross</button>
     </div>
 
-    <a href="${pageContext.request.contextPath}/criartreino/" class="add-btn">
+    <a href="${pageContext.request.contextPath}/criartreino" class="add-btn">
         Adicionar
     </a>
 </header>

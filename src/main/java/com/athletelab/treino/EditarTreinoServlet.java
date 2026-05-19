@@ -1,5 +1,8 @@
 package com.athletelab.treino;
 
+import com.athletelab.exercicio.ExercicioDAO;
+import com.athletelab.exercicio.ExercicioModel;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -7,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/treino/editar")
 public class EditarTreinoServlet extends HttpServlet {
@@ -14,21 +18,31 @@ public class EditarTreinoServlet extends HttpServlet {
     private TreinoDAO treinoDAO = new TreinoDAO();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
             throws ServletException, IOException {
 
-        String idStr = request.getParameter("id");
+        // 🔥 pega o idTreino da URL
+        String idStr = request.getParameter("idTreino");
 
-        // se veio ID → edição
-        if (idStr != null && !idStr.isEmpty()) {
-
-            int id = Integer.parseInt(idStr);
-
-            // 🔥 aqui você PRECISA de um método buscarPorId no DAO
-            TreinoModel treino = treinoDAO.buscarPorId(id);
-
-            request.setAttribute("treino", treino);
+        // validação
+        if (idStr == null || idStr.isEmpty()) {
+            throw new RuntimeException("idTreino não informado");
         }
+
+        int idTreino = Integer.parseInt(idStr);
+
+        // 🔥 busca treino
+        TreinoModel treino = treinoDAO.buscarPorId(idTreino);
+        System.out.println("TREINO: " + treino);
+
+        // 🔥 busca exercícios
+        List<ExercicioModel> exercicios =
+                ExercicioDAO.listarPorTreino(idTreino);
+
+        // envia para o JSP
+        request.setAttribute("treino", treino);
+        request.setAttribute("exercicios", exercicios);
 
         request.getRequestDispatcher("/WEB-INF/editar_treino.jsp")
                 .forward(request, response);
