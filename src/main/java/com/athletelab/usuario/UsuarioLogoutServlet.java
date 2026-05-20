@@ -17,6 +17,6 @@ public class UsuarioLogoutServlet extends HttpServlet {
             session.invalidate(); // Mata a sessão (remove o usuarioLogado)
         }
         // Redireciona para o login
-        response.sendRedirect(request.getContextPath() + "/login");
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 }

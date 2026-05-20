@@ -48,7 +48,7 @@ public class PerfilTreinadorServlet extends HttpServlet {
             // 🔥 TREINOS (CORRETO AQUI)
             TreinoDAO treinoDAO = new TreinoDAO();
             List<TreinoModel> treinos =
-                    treinoDAO.listarPorUsuario(usuarioSessao.getIdUsuario());
+                    treinoDAO.listarParaTreinador(usuarioSessao.getIdUsuario());
 
             // atributos para JSP
             request.setAttribute("perfil", perfilCompleto);

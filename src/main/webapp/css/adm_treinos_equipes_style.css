@@ -1,0 +1,493 @@
+/* ================= RESET ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #000;
+    color: white;
+}
+
+/* ================= CONTAINER ================= */
+
+.container {
+    padding: 30px;
+}
+
+/* ================= HEADER ================= */
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #222;
+}
+
+.logo {
+    width: 180px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.painel-btn{
+    background: #141414;
+    border: 1px solid #333;
+    color: #d4d4d4;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.painel-btn:hover{
+    border-color: red;
+    color: white;
+    background: #1a1a1a;
+}
+
+/* ================= TABS ================= */
+
+.tabs-container {
+    display: flex;
+    gap: 10px;
+    margin: 25px 0;
+}
+
+.tab-btn {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    color: #aaa;
+    padding: 12px 22px;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tab-btn:hover {
+    background: #1a1a1a;
+    color: white;
+}
+
+.tab-btn.active {
+    background: red;
+    border-color: red;
+    color: white;
+}
+
+/* ================= SEÇÕES ================= */
+
+.tab-section {
+    display: none;
+}
+
+.tab-section.active {
+    display: block;
+}
+
+/* ================= BOTÃO NOVO ================= */
+
+.novo-btn {
+    background: red;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 20px;
+}
+
+.novo-btn:hover {
+    background: #cc0000;
+}
+
+/* ================= TABELA ================= */
+
+.table-header {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr) 180px;
+    padding: 15px;
+    background: #0d0d0d;
+    border: 1px solid #222;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    border: 1px solid #222;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 18px;
+    font-size: 14px;
+}
+
+.actions-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #0f0f0f;
+}
+
+/* ================= BOTÕES ================= */
+
+.btn-editar {
+    background: #8d8a8a;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-editar:hover {
+    background: #666;
+}
+
+.btn-deletar {
+    background: red;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-deletar:hover {
+    background: #cc0000;
+}
+
+/* ================= TREINOS ================= */
+
+.treino-card {
+    background: #1a1a1a;
+    border: 1px solid #222;
+    border-radius: 12px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.treino-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    border-bottom: 1px solid #222;
+}
+
+.categoria {
+    color: red;
+    font-size: 13px;
+}
+
+.treino-body {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0 15px;
+    transition: 0.35s ease;
+}
+
+.treino-card.active .treino-body {
+    max-height: 420px;
+    overflow-y: auto;
+    opacity: 1;
+    padding: 15px;
+}
+
+/* SCROLL */
+.treino-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.treino-body::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 10px;
+}
+
+/* ================= EXERCÍCIO ================= */
+
+.exercicio {
+    background: #111;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    margin-bottom: 10px;
+}
+
+/* ================= MODAL ================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.78);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    width: 900px;
+    max-width: 95vw;
+    max-height: 90vh;
+
+    background: #0f0f0f;
+    border: 1px solid #222;
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+/* HEADER */
+.modal-header {
+    padding: 18px;
+    border-bottom: 1px solid #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111;
+}
+
+/* BOTÃO X */
+.modal-close {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.modal-close:hover {
+    color: white;
+}
+
+/* FORM */
+.modal-form {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+/* ================= GRID DE INPUTS ================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.campo-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campo-label {
+    font-size: 11px;
+    color: #888;
+}
+
+/* INPUTS PADRONIZADOS */
+
+input, select {
+    background: #000;
+    border: 1px solid #fff;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    outline: none;
+    width: 100%;
+}
+
+/* ================= EXERCÍCIOS BOX ================= */
+
+.exercicio-box {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    gap: 10px;
+    align-items: center;
+
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    background: #0b0b0b;
+}
+
+.exercicio-box input {
+    background: #000;
+    border: 1px solid #fff;
+    padding: 10px;
+}
+
+.exercicio-box button {
+    background: #444;
+    border: none;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.exercicio-box button:hover {
+    background: red;
+}
+
+/* ================= BOTÕES MODAL ================= */
+
+.choice-btn {
+    background: #222;
+    border: 1px solid #333;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.choice-btn:hover {
+    background: #333;
+}
+
+.criar-btn {
+    background: red;
+    border: none;
+    color: white;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.criar-btn:hover {
+    background: #cc0000;
+}
+
+/* ================= OBSERVAÇÃO ================= */
+
+.obs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.obs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.obs-header button {
+    background: #222;
+    border: 1px solid #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.obs-header button:hover {
+    background: #333;
+}
+
+.obs-textarea {
+    background: #000;
+    border: 1px solid #fff;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    resize: none;
+    height: 60px;
+    transition: 0.3s;
+}
+
+.obs-textarea.expanded {
+    height: 140px;
+}
+
+/* ================= RESPONSIVO ================= */
+
+@media (max-width: 900px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .exercicio-box {
+        grid-template-columns: 1fr;
+    }
+
+    .modal {
+        width: 95vw;
+    }
+}
+
+/* ================= MEMBRO BOX ================= */
+
+.membro-box {
+    grid-template-columns: 1fr 2fr 2fr auto !important;
+}
+
+/* ================= VALIDATION VISUAL ================= */
+
+.input-error {
+    border: 1px solid red !important;
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.35);
+}
+
+select.input-error {
+    border: 1px solid red !important;
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.35);
+}
+
+.exercicio-box.error {
+    border: 1px solid red;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.25);
+    transition: 0.2s;
+}
+
+.input-error,
+.exercicio-box.error {
+    animation: shakeError 0.25s linear;
+}
+
+@keyframes shakeError {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
+    75% { transform: translateX(-2px); }
+    100% { transform: translateX(0); }
+}

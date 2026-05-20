@@ -42,12 +42,9 @@
 
             <!-- BOTÃO PAINEL -->
 
-            <a href="${pageContext.request.contextPath}/paineladm"
-               class="painel-btn">
-
-                Painel Admin
-
-            </a>
+           <a href="${pageContext.request.contextPath}/admin/painel"  class="painel-btn">
+               Painel Admin
+           </a>
 
             <!-- NOVO USUÁRIO -->
 

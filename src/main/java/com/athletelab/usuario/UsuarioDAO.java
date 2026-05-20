@@ -412,4 +412,34 @@ public class UsuarioDAO {
             System.out.println("Erro ao atualizar perfil: " + e.getMessage());
         }
     }
+
+    public UsuarioModel buscarPorEmail(String email) {
+
+        String sql = "SELECT * FROM usuario WHERE email = ?";
+
+        try (Connection conn = ConnectionDataBase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+                UsuarioModel u = new UsuarioModel();
+
+                u.setIdUsuario(rs.getInt("id_usuario"));
+                u.setNome(rs.getString("nome"));
+                u.setEmail(rs.getString("email"));
+                u.setTipoUsuario(rs.getString("tipo_usuario"));
+
+                return u;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

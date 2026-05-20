@@ -17,10 +17,32 @@
 <header class="top-bar">
 
     <div class="filters">
-        <button class="filter-btn" data-filter="Musculação">Musculação</button>
+        <button class="filter-btn" data-filter="Alongamento">Alongamento</button>
+        <button class="filter-btn" data-filter="Boxe">Boxe</button>
+        <button class="filter-btn" data-filter="Calistenia">Calistenia</button>
         <button class="filter-btn" data-filter="Cardio">Cardio</button>
-        <button class="filter-btn" data-filter="Funcional">Funcional</button>
+        <button class="filter-btn" data-filter="Corrida">Corrida</button>
         <button class="filter-btn" data-filter="Cross">Cross</button>
+        <button class="filter-btn" data-filter="Crossfit">Crossfit</button>
+        <button class="filter-btn" data-filter="Ciclismo">Ciclismo</button>
+        <button class="filter-btn" data-filter="Dança">Dança</button>
+        <button class="filter-btn" data-filter="Funcional">Funcional</button>
+        <button class="filter-btn" data-filter="Futebol">Futebol</button>
+        <button class="filter-btn" data-filter="Handebol">Handebol</button>
+        <button class="filter-btn" data-filter="HIIT">HIIT</button>
+        <button class="filter-btn" data-filter="Jiu-Jitsu">Jiu-Jitsu</button>
+        <button class="filter-btn" data-filter="Karatê">Karatê</button>
+        <button class="filter-btn" data-filter="Kickboxing">Kickboxing</button>
+        <button class="filter-btn" data-filter="Muay Thai">Muay Thai</button>
+        <button class="filter-btn" data-filter="Musculação">Musculação</button>
+        <button class="filter-btn" data-filter="Natação">Natação</button>
+        <button class="filter-btn" data-filter="Pilates">Pilates</button>
+        <button class="filter-btn" data-filter="Powerlifting">Powerlifting</button>
+        <button class="filter-btn" data-filter="Skate">Skate</button>
+        <button class="filter-btn" data-filter="Surf">Surf</button>
+        <button class="filter-btn" data-filter="Tênis">Tênis</button>
+        <button class="filter-btn" data-filter="Vôlei">Vôlei</button>
+        <button class="filter-btn" data-filter="Yoga">Yoga</button>
     </div>
 
     <a href="${pageContext.request.contextPath}/criartreino" class="add-btn">

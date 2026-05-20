@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil Treinador - Athlete Lab</title>
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/treinos_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
     <style>
@@ -160,8 +160,120 @@
             <h2 style="opacity: 0.5;">Painel de Estatísticas em breve...</h2>
         </section>
 
-            <section class="tab" id="treinos">
-            </section>
+          <section class="tab" id="treinos">
+
+              <header class="top-bar">
+
+                  <div class="filters">
+                             <button class="filter-btn" data-filter="Boxe">Boxe</button>
+                             <button class="filter-btn" data-filter="Calistenia">Calistenia</button>
+                             <button class="filter-btn" data-filter="Corrida">Corrida</button>
+                             <button class="filter-btn" data-filter="Ciclismo">Ciclismo</button>
+                             <button class="filter-btn" data-filter="Futebol">Futebol</button>
+                             <button class="filter-btn" data-filter="Handebol">Handebol</button>
+                             <button class="filter-btn" data-filter="Jiu-Jitsu">Jiu-Jitsu</button>
+                             <button class="filter-btn" data-filter="Karatê">Karatê</button>
+                             <button class="filter-btn" data-filter="Kickboxing">Kickboxing</button>
+                             <button class="filter-btn" data-filter="Muay Thai">Muay Thai</button>
+                             <button class="filter-btn" data-filter="Musculação">Musculação</button>
+                             <button class="filter-btn" data-filter="Natação">Natação</button>
+                             <button class="filter-btn" data-filter="Surf">Surf</button>
+                             <button class="filter-btn" data-filter="Tênis">Tênis</button>
+                             <button class="filter-btn" data-filter="Vôlei">Vôlei</button>
+                  </div>
+
+                  <a href="${pageContext.request.contextPath}/criartreino" class="add-btn">
+                      Adicionar
+                  </a>
+
+              </header>
+
+              <main class="container">
+
+                  <c:forEach var="treino" items="${treinos}">
+
+                      <div class="treino-card" data-categoria="${treino.categoria}">
+
+                          <div class="treino-header">
+
+                              <div class="left-info">
+                                  <h3>${treino.nome}</h3>
+                                  <span class="categoria">${treino.categoria}</span>
+                              </div>
+
+                              <div class="right-info">
+
+                                  <span class="data">
+                                      ${treino.dataCriacao}
+                                  </span>
+
+                                  <a href="${pageContext.request.contextPath}/treino/editar?idTreino=${treino.idTreino}"
+                                     class="edit-btn">
+                                      Editar
+                                  </a>
+
+                              </div>
+
+                          </div>
+
+                          <div class="treino-body">
+
+                              <c:forEach var="ex" items="${treino.exercicios}">
+
+                                  <div class="exercicio">
+
+                                      <div class="ex-header">
+
+                                          <strong>${ex.nome}</strong>
+
+                                          <div class="actions">
+
+                                              <form action="${pageContext.request.contextPath}/exercicio"
+                                                    method="post"
+                                                    style="display:inline;">
+
+                                                  <input type="hidden" name="acao" value="deletar">
+
+                                                  <input type="hidden"
+                                                         name="idExercicio"
+                                                         value="${ex.idExercicio}">
+
+                                                  <input type="hidden"
+                                                         name="idTreino"
+                                                         value="${treino.idTreino}">
+
+                                                  <button type="submit"
+                                                          style="background:none;border:none;color:red;cursor:pointer;">
+                                                      Excluir
+                                                  </button>
+
+                                              </form>
+
+                                          </div>
+
+                                      </div>
+
+                                      <p>Séries: ${ex.series}</p>
+                                      <p>Repetições: ${ex.repeticoes}</p>
+                                      <p>Tempo: ${ex.tempoMin} min</p>
+
+                                      <div class="obs">
+                                          ${ex.observacao}
+                                      </div>
+
+                                  </div>
+
+                              </c:forEach>
+
+                          </div>
+
+                      </div>
+
+                  </c:forEach>
+
+              </main>
+
+          </section>
 
 
         <section class="tab" id="config"></section>
@@ -184,6 +296,41 @@
             document.getElementById(item.dataset.tab).classList.add("active");
         });
     });
+
+document.querySelectorAll(".treino-card").forEach(card => {
+    const header = card.querySelector(".treino-header");
+
+    header.addEventListener("click", () => {
+        card.classList.toggle("active");
+    });
+});
+
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+const cards = document.querySelectorAll(".treino-card");
+
+filterButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        btn.classList.toggle("active");
+
+        const activeFilters = Array.from(document.querySelectorAll(".filter-btn.active"))
+            .map(btn => btn.dataset.filter);
+
+        cards.forEach(card => {
+            const categoria = card.dataset.categoria;
+
+            if (activeFilters.length === 0) {
+                card.style.display = "block";
+                return;
+            }
+
+            card.style.display = activeFilters.includes(categoria)
+                ? "block"
+                : "none";
+        });
+    });
+});
+
 </script>
 
 </body>

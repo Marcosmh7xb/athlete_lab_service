@@ -11,329 +11,43 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
-    <style>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/treinos_style.css">
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
-
-        body{
-            background:#000;
-            font-family:"Inter", sans-serif;
-            color:white;
-            overflow-x:hidden;
-        }
-
-        .layout{
-            display:flex;
-            min-height:100vh;
-        }
-
-        /* ================= SIDEBAR ================= */
-
-        .sidebar{
-            width:80px;
-            background:#0a0a0a;
-            border-right:1px solid #222;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            position:fixed;
-            height:100vh;
-            z-index:100;
-        }
-
-        .menu{
-            display:flex;
-            flex-direction:column;
-            gap:20px;
-        }
-
-        .menu-item{
-            width:60px;
-            height:60px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            border-radius:12px;
-            cursor:pointer;
-            transition:0.3s;
-        }
-
-        .menu-item:hover{
-            background:#111;
-        }
-
-        .menu-item img{
-            width:26px;
-            filter:brightness(0) invert(1);
-        }
-
-        .menu-item.active{
-            background:#111;
-            box-shadow:0 0 10px rgba(255,0,0,0.3);
-        }
-
-        .menu-item.active img{
-            filter:invert(21%) sepia(96%) saturate(7470%) hue-rotate(358deg);
-        }
-
-        /* ================= CONTEÚDO ================= */
-
-        .content{
-            flex:1;
-            padding:40px;
-            margin-left:80px;
-        }
-
-        .top-logo{
-            margin-bottom:30px;
-        }
-
-        .top-logo img{
-            width:150px;
-        }
-
-        /* ================= ABAS ================= */
-
-        .tab{
-            display:none;
-        }
-
-        .tab.active{
-            display:block;
-        }
-
-        /* ================= CARD ================= */
-
-        .card{
-            background:#0f0f0f;
-            border-radius:15px;
-            padding:35px;
-            border:1px solid #222;
-        }
-
-        .card-header{
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            margin-bottom:40px;
-            gap:20px;
-        }
-
-        .user-info{
-            display:flex;
-            gap:20px;
-            align-items:center;
-        }
-
-        /* ================= AVATAR ================= */
-
-        .avatar-container{
-            position:relative;
-            width:75px;
-            height:75px;
-        }
-
-        .avatar-container img{
-            width:100%;
-            height:100%;
-            border-radius:50%;
-            border:2px solid red;
-            object-fit:cover;
-        }
-
-        .avatar-overlay{
-            position:absolute;
-            inset:0;
-            background:rgba(0,0,0,0.7);
-            color:white;
-            font-size:9px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            border-radius:50%;
-            opacity:0;
-            cursor:pointer;
-            transition:0.3s;
-            text-align:center;
-            text-transform:uppercase;
-            font-weight:bold;
-        }
-
-        .avatar-container:hover .avatar-overlay{
-            opacity:1;
-        }
-
-        /* ================= BOTÃO ================= */
-
-        .btn-edit{
-            background:red;
-            color:white;
-            padding:10px 25px;
-            border-radius:25px;
-            text-decoration:none;
-            font-weight:bold;
-            font-size:14px;
-            transition:0.3s;
-        }
-
-        .btn-edit:hover{
-            background:#cc0000;
-        }
-
-        /* ================= GRID ================= */
-
-        .info-grid{
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:25px;
-            align-items:start;
-        }
-
-        .section-title{
-            color:red;
-            font-size:11px;
-            text-transform:uppercase;
-            border-bottom:1px solid #222;
-            padding-bottom:5px;
-            margin-bottom:15px;
-        }
-
-        .info-box{
-            background:#161616;
-            border:1px solid #222;
-            padding:15px;
-            border-radius:10px;
-            margin-bottom:12px;
-            min-height:75px;
-        }
-
-        .info-box label{
-            font-size:10px;
-            color:#666;
-            text-transform:uppercase;
-            display:block;
-            margin-bottom:8px;
-        }
-
-        .info-box p{
-            font-size:14px;
-            font-weight:500;
-            word-break:break-word;
-            line-height:1.5;
-        }
-
-        .full-width{
-            grid-column:span 2;
-        }
-
-        @media(max-width:900px){
-
-            .info-grid{
-                grid-template-columns:1fr;
-            }
-
-            .full-width{
-                grid-column:span 1;
-            }
-
-            .card-header{
-                flex-direction:column;
-                align-items:flex-start;
-            }
-
-        }
-
-        /* ================= BLOQUEIO ================= */
-
-        .bloqueio-total{
-            position:fixed;
-            inset:0;
-            background:rgba(0,0,0,0.88);
-            z-index:9999;
-
-            display:flex;
-            align-items:center;
-            justify-content:center;
-
-            backdrop-filter:blur(4px);
-        }
-
-        .card-alerta{
-            width:420px;
-            background:#111;
-            border:1px solid #222;
-            border-radius:18px;
-            padding:40px;
-            text-align:center;
-
-            box-shadow:0 0 30px rgba(255,0,0,0.15);
-        }
-
-        .card-alerta h2{
-            color:white;
-            font-size:28px;
-        }
-
-        .card-alerta p{
-            line-height:1.6;
-            font-size:15px;
-        }
-
-        .btn{
-            display:inline-block;
-            background:red;
-            color:white;
-            text-decoration:none;
-            padding:14px 28px;
-            border-radius:30px;
-            font-weight:bold;
-            transition:0.3s;
-        }
-
-        .btn:hover{
-            background:#cc0000;
-            transform:translateY(-2px);
-        }
-
-    </style>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/perfil_atleta_style.css">
 </head>
 
 <body>
 
+<!-- ================= BLOQUEIO PERFIL INCOMPLETO ================= -->
 
- <!-- ================= BLOQUEIO PERFIL INCOMPLETO ================= -->
+<c:if test="${empty perfil.perfilAtleta}">
 
-    <c:if test="${empty perfil.perfilAtleta}">
+    <div class="bloqueio-total">
 
-        <div class="bloqueio-total">
+        <div class="card-alerta">
 
-            <div class="card-alerta">
+            <h2 style="margin-bottom:15px;">
+                Perfil Incompleto! ⚠️
+            </h2>
 
-                <h2 style="margin-bottom:15px;">
-                    Perfil Incompleto! ⚠️
-                </h2>
+            <p style="color:#888; margin-bottom:25px;">
+                Complete seu cadastro para liberar o painel.
+            </p>
 
-                <p style="color:#888; margin-bottom:25px;">
-                    Detectamos que você ainda não configurou suas informações
-                    técnicas. Complete seu cadastro para liberar o painel.
-                </p>
+            <a href="${pageContext.request.contextPath}/editar-perfil-atleta"
+               class="btn">
 
-                <a href="${pageContext.request.contextPath}/editar-perfil-atleta"
-                   class="btn">
-                    Completar Agora
-                </a>
+                Completar Agora
 
-            </div>
+            </a>
 
         </div>
 
-    </c:if>
+    </div>
 
+</c:if>
 
 <div class="layout">
 
@@ -343,20 +57,32 @@
 
         <div class="menu">
 
-            <div class="menu-item active" data-tab="aba-perfil">
+            <div class="menu-item active"
+                 data-tab="perfil">
+
                 <img src="${pageContext.request.contextPath}/banco_imagens/icones/Customer.png">
+
             </div>
 
-            <div class="menu-item" data-tab="aba-dashboard">
+            <div class="menu-item"
+                 data-tab="dashboard">
+
                 <img src="${pageContext.request.contextPath}/banco_imagens/icones/Dashboard Layout.png">
+
             </div>
 
-            <div class="menu-item" data-tab="aba-treinos">
+            <div class="menu-item"
+                 data-tab="treinos">
+
                 <img src="${pageContext.request.contextPath}/banco_imagens/icones/Trainers.png">
+
             </div>
 
-            <div class="menu-item" data-tab="aba-config">
+            <div class="menu-item"
+                 data-tab="config">
+
                 <img src="${pageContext.request.contextPath}/banco_imagens/icones/Settings.png">
+
             </div>
 
         </div>
@@ -375,7 +101,8 @@
 
         <!-- ================= PERFIL ================= -->
 
-        <section class="tab active" id="aba-perfil">
+        <section class="tab active"
+                 id="perfil">
 
             <div class="card">
 
@@ -397,7 +124,9 @@
 
                                 <label for="input-foto-atleta"
                                        class="avatar-overlay">
+
                                     Trocar Foto
+
                                 </label>
 
                             </form>
@@ -413,7 +142,9 @@
                             <span style="color:red;
                                          font-size:12px;
                                          font-weight:bold;">
+
                                 ATLETA
+
                             </span>
 
                         </div>
@@ -422,164 +153,10 @@
 
                     <a href="${pageContext.request.contextPath}/editar-perfil-atleta"
                        class="btn-edit">
+
                         Editar Perfil
+
                     </a>
-
-                </div>
-
-                <!-- ================= GRID ================= -->
-
-                <div class="info-grid">
-
-                    <!-- ================= DADOS DE CADASTRO ================= -->
-
-                    <div>
-
-                        <h4 class="section-title">
-                            Dados de Cadastro
-                        </h4>
-
-                        <div class="info-box">
-                            <label>E-mail</label>
-                            <p>
-                                ${not empty perfil.email
-                                    ? perfil.email
-                                    : 'Não informado'}
-                            </p>
-                        </div>
-
-                        <div class="info-box">
-                            <label>Cidade/UF</label>
-                            <p>
-                                ${not empty perfil.cidadeUF
-                                    ? perfil.cidadeUF
-                                    : 'Não informado'}
-                            </p>
-                        </div>
-
-                        <div class="info-box">
-                            <label>Telefone</label>
-                            <p>
-                                ${not empty perfil.telefone
-                                    ? perfil.telefone
-                                    : 'Não informado'}
-                            </p>
-                        </div>
-
-                        <div class="info-box">
-                            <label>Data de Nascimento</label>
-                            <p>
-                                ${not empty perfil.dataNascimento
-                                    ? perfil.dataNascimento
-                                    : 'Não informado'}
-                            </p>
-                        </div>
-
-                    </div>
-
-                    <!-- ================= DADOS DE TREINO ================= -->
-
-                    <div>
-
-                        <h4 class="section-title">
-                            Dados de Treino
-                        </h4>
-
-                        <div class="info-box">
-                            <label>Modalidade</label>
-                            <p>
-                                ${not empty perfil.perfilAtleta.modalidade
-                                    ? perfil.perfilAtleta.modalidade
-                                    : 'Não informado'}
-                            </p>
-                        </div>
-
-                        <div class="info-box">
-                            <label>Nível de Experiência</label>
-                            <p>
-                                ${not empty perfil.perfilAtleta.nivelExperiencia
-                                    ? perfil.perfilAtleta.nivelExperiencia
-                                    : 'Não informado'}
-                            </p>
-                        </div>
-
-                        <div class="info-box">
-                            <label>Peso</label>
-                            <p>
-                                ${perfil.perfilAtleta.peso > 0
-                                    ? perfil.perfilAtleta.peso
-                                    : 'Não informado'} kg
-                            </p>
-                        </div>
-
-                        <div class="info-box">
-                            <label>Altura</label>
-                            <p>
-                                ${perfil.perfilAtleta.altura > 0
-                                    ? perfil.perfilAtleta.altura
-                                    : 'Não informado'} m
-                            </p>
-                        </div>
-
-                        <div class="info-box">
-                            <label>Objetivo</label>
-                            <p>
-                                ${not empty perfil.perfilAtleta.objetivo
-                                    ? perfil.perfilAtleta.objetivo
-                                    : 'Não informado'}
-                            </p>
-                        </div>
-
-                        <div class="info-box">
-                            <label>Dias Disponíveis</label>
-                            <p>
-                                ${not empty perfil.perfilAtleta.diasSemana
-                                    ? perfil.perfilAtleta.diasSemana
-                                    : 'Não informado'}
-                            </p>
-                        </div>
-
-                        <div class="info-box">
-                            <label>Ambiente</label>
-                            <p>
-                                ${not empty perfil.perfilAtleta.ambiente
-                                    ? perfil.perfilAtleta.ambiente
-                                    : 'Não informado'}
-                            </p>
-                        </div>
-
-                        <div class="info-box">
-                            <label>Sexo</label>
-                            <p>
-                                ${not empty perfil.perfilAtleta.sexo
-                                    ? perfil.perfilAtleta.sexo
-                                    : 'Não informado'}
-                            </p>
-                        </div>
-
-                    </div>
-
-                    <!-- ================= RESTRIÇÕES ================= -->
-
-                    <div class="full-width">
-
-                        <h4 class="section-title">
-                            Restrições e Notas
-                        </h4>
-
-                        <div class="info-box">
-
-                            <label>Observações</label>
-
-                            <p>
-                                ${not empty perfil.perfilAtleta.restricaoFisica
-                                    ? perfil.perfilAtleta.restricaoFisica
-                                    : 'Nenhuma'}
-                            </p>
-
-                        </div>
-
-                    </div>
 
                 </div>
 
@@ -589,7 +166,8 @@
 
         <!-- ================= DASHBOARD ================= -->
 
-        <section class="tab" id="aba-dashboard">
+        <section class="tab"
+                 id="dashboard">
 
             <div class="card">
 
@@ -603,21 +181,148 @@
 
         <!-- ================= TREINOS ================= -->
 
-        <section class="tab" id="aba-treinos">
+        <section class="tab"
+                 id="treinos">
 
-            <div class="card">
+            <header class="top-bar">
 
-                <h2>Meus Treinos</h2>
+                <div class="filters">
 
-                <p>Treinos agendados aqui.</p>
+                    <button class="filter-btn active"
+                            data-filter="meus">
 
-            </div>
+                        Meus Treinos
+
+                    </button>
+
+                    <button class="filter-btn"
+                            data-filter="Boxe">
+
+                        Boxe
+
+                    </button>
+
+                    <button class="filter-btn"
+                            data-filter="Calistenia">
+
+                        Calistenia
+
+                    </button>
+
+                    <button class="filter-btn"
+                            data-filter="Corrida">
+
+                        Corrida
+
+                    </button>
+
+                    <button class="filter-btn"
+                            data-filter="Musculação">
+
+                        Musculação
+
+                    </button>
+
+                </div>
+
+            </header>
+
+            <main class="container">
+
+                <c:if test="${empty treinos}">
+
+                    <div class="card">
+
+                        <h2>
+                            Nenhum treino encontrado
+                        </h2>
+
+                        <p style="margin-top:10px; color:#888;">
+
+                            Seu treinador ainda não cadastrou
+                            treinos para você.
+
+                        </p>
+
+                    </div>
+
+                </c:if>
+
+                <c:forEach var="treino"
+                           items="${treinos}">
+
+                    <div class="treino-card"
+                         data-categoria="${treino.categoria}"
+                         data-meu-treino="true">
+
+                        <div class="treino-header">
+
+                            <div class="left-info">
+
+                                <h3>
+                                    ${treino.nome}
+                                </h3>
+
+                                <span class="categoria">
+
+                                    ${treino.categoria}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="treino-body">
+
+                            <c:forEach var="ex"
+                                       items="${treino.exercicios}">
+
+                                <div class="exercicio">
+
+                                    <strong>
+                                        ${ex.nome}
+                                    </strong>
+
+                                    <p>
+                                        Séries:
+                                        ${ex.series}
+                                    </p>
+
+                                    <p>
+                                        Repetições:
+                                        ${ex.repeticoes}
+                                    </p>
+
+                                    <p>
+                                        Tempo:
+                                        ${ex.tempoMin} min
+                                    </p>
+
+                                    <div class="obs">
+
+                                        ${ex.observacao}
+
+                                    </div>
+
+                                </div>
+
+                            </c:forEach>
+
+                        </div>
+
+                    </div>
+
+                </c:forEach>
+
+            </main>
 
         </section>
 
         <!-- ================= CONFIG ================= -->
 
-        <section class="tab" id="aba-config">
+        <section class="tab"
+                 id="config">
 
             <div class="card">
 
@@ -637,35 +342,119 @@
 
 <script>
 
+    // =========================
+    // TROCA DE ABAS
+    // =========================
+
     const menuItems =
-            document.querySelectorAll(".menu-item");
+        document.querySelectorAll(".menu-item");
 
     const tabs =
-            document.querySelectorAll(".tab");
+        document.querySelectorAll(".tab");
 
     menuItems.forEach(item => {
 
         item.addEventListener("click", () => {
 
             const target =
-                    item.getAttribute("data-tab");
+                item.dataset.tab;
 
-            // remove active
             menuItems.forEach(i =>
-                    i.classList.remove("active"));
+                i.classList.remove("active")
+            );
 
             tabs.forEach(t =>
-                    t.classList.remove("active"));
+                t.classList.remove("active")
+            );
 
-            // adiciona active
             item.classList.add("active");
 
-            const targetSection =
-                    document.getElementById(target);
+            const section =
+                document.getElementById(target);
 
-            if(targetSection){
-                targetSection.classList.add("active");
+            if (section) {
+
+                section.classList.add("active");
+
             }
+
+        });
+
+    });
+
+    // =========================
+    // ABRIR / FECHAR TREINO
+    // =========================
+
+    document.querySelectorAll(".treino-card")
+        .forEach(card => {
+
+            const header =
+                card.querySelector(".treino-header");
+
+            header.addEventListener("click", () => {
+
+                card.classList.toggle("active");
+
+            });
+
+        });
+
+    // =========================
+    // FILTRO DE TREINOS
+    // =========================
+
+    const filterButtons =
+        document.querySelectorAll(".filter-btn");
+
+    const cards =
+        document.querySelectorAll(".treino-card");
+
+    filterButtons.forEach(btn => {
+
+        btn.addEventListener("click", () => {
+
+            filterButtons.forEach(b =>
+                b.classList.remove("active")
+            );
+
+            btn.classList.add("active");
+
+            const filtro =
+                btn.dataset.filter;
+
+            cards.forEach(card => {
+
+                const categoria =
+                    card.dataset.categoria;
+
+                const meuTreino =
+                    card.dataset.meuTreino;
+
+                // =========================
+                // MEUS TREINOS
+                // =========================
+
+                if (filtro === "meus") {
+
+                    card.style.display =
+                        meuTreino === "true"
+                            ? "block"
+                            : "none";
+
+                    return;
+                }
+
+                // =========================
+                // CATEGORIA
+                // =========================
+
+                card.style.display =
+                    categoria === filtro
+                        ? "block"
+                        : "none";
+
+            });
 
         });
 

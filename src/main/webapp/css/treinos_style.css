@@ -1,3 +1,4 @@
+
 body {
     margin: 0;
     font-family: "Inter", sans-serif;
@@ -5,83 +6,180 @@ body {
     color: white;
 }
 
-/* TOPO */
+/* =========================
+   TOPO
+========================= */
+
 .top-bar {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+
     padding: 20px 40px;
-    align-items: center;
+    border-bottom: 1px solid #222;
+
+    flex-wrap: wrap;
 }
 
-.filters button {
-    background: #888;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-right: 10px;
-    border-radius: 6px;
+/* =========================
+   FILTROS
+========================= */
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    max-width: 85%;
+}
+
+.filter-btn {
+    background: #1a1a1a;
+    color: #ddd;
+
+    border: 1px solid #333;
+
+    padding: 10px 18px;
+
+    border-radius: 10px;
+
     cursor: pointer;
-    transition: 0.2s ease;
+
+    transition: 0.25s ease;
+
+    font-size: 13px;
+    font-weight: 600;
 }
 
-.filters button:hover {
-    background: red;
-    transform: scale(1.05);
+.filter-btn:hover {
+    background: #222;
+    border-color: red;
+    color: white;
+
+    transform: translateY(-2px);
 }
+
+.filter-btn.active {
+    background: red;
+    border-color: red;
+    color: white;
+
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
+}
+
+/* =========================
+   BOTÃO ADICIONAR
+========================= */
 
 .add-btn {
     background: red;
     color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s ease;
+
+    text-decoration: none;
+
+    padding: 12px 22px;
+
+    border-radius: 10px;
+
+    font-weight: 700;
+    font-size: 14px;
+
+    transition: 0.25s ease;
+
+    white-space: nowrap;
 }
 
 .add-btn:hover {
-    transform: scale(1.05);
+    background: #cc0000;
+    transform: scale(1.03);
 }
 
-/* CONTAINER */
+/* =========================
+   CONTAINER
+========================= */
+
 .container {
-    padding: 20px 40px;
+    padding: 30px 40px;
 }
 
-/* CARD */
+/* =========================
+   CARD TREINO
+========================= */
+
 .treino-card {
-    background: #1a1a1a;
-    border-radius: 12px;
+    background: #111;
+
+    border: 1px solid #222;
+
+    border-radius: 16px;
+
     overflow: hidden;
-    margin-bottom: 20px;
+
+    margin-bottom: 22px;
+
+    transition: 0.25s ease;
 }
 
-/* HEADER */
+.treino-card:hover {
+    border-color: #444;
+}
+
+/* =========================
+   HEADER
+========================= */
+
 .treino-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+
+    gap: 20px;
+
+    padding: 18px 24px;
+
     cursor: pointer;
-    border-bottom: 1px solid #333;
-    transition: background 0.2s ease;
+
+    transition: 0.2s ease;
 }
 
 .treino-header:hover {
-    background: #222;
+    background: #181818;
+}
+
+/* =========================
+   ESQUERDA
+========================= */
+
+.left-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .left-info h3 {
     margin: 0;
-    font-size: 18px;
-    font-family: "Be Vietnam Pro", sans-serif;
+
+    font-size: 20px;
     font-weight: 800;
+
+    color: white;
 }
 
 .categoria {
     color: red;
+
     font-size: 13px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
 }
+
+/* =========================
+   DIREITA
+========================= */
 
 .right-info {
     display: flex;
@@ -90,113 +188,230 @@ body {
 }
 
 .data {
-    font-size: 13px;
-    opacity: 0.8;
+    font-size: 12px;
+    color: #888;
 }
+
+/* =========================
+   EDITAR
+========================= */
 
 .edit-btn {
-    background: none;
-    border: none;
+    background: transparent;
+
+    border: 1px solid red;
+
     color: red;
+
+    padding: 8px 14px;
+
+    border-radius: 8px;
+
     cursor: pointer;
-    text-decoration: underline;
+
+    transition: 0.25s ease;
+
+    font-size: 13px;
+    font-weight: 600;
 }
 
-/* BOTÃO */
+.edit-btn:hover {
+    background: red;
+    color: white;
+}
+
+/* =========================
+   SETA
+========================= */
+
 .toggle-btn {
-    background: none;
+    background: transparent;
     border: none;
     cursor: pointer;
-    padding: 0;
 }
 
-/* ÍCONE */
 .arrow-icon {
     width: 18px;
     height: 18px;
+
     transition: transform 0.35s ease;
 }
 
-/* rotação */
 .treino-card.active .arrow-icon {
     transform: rotate(180deg);
 }
 
-/* BODY */
+/* =========================
+   BODY
+========================= */
+
 .treino-body {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 18px;
 
     max-height: 0;
+
     opacity: 0;
-    transform: translateY(-8px);
 
     overflow: hidden;
 
-    padding: 0 20px;
+    padding: 0 24px;
 
     transition:
-        max-height 0.45s ease,
-        opacity 0.25s ease,
-        transform 0.25s ease,
-        padding 0.25s ease;
+            max-height 0.45s ease,
+            opacity 0.25s ease,
+            padding 0.25s ease;
 }
 
 .treino-card.active .treino-body {
-    max-height: 420px;
-    opacity: 1;
-    transform: translateY(0);
-    padding: 20px;
+    max-height: 800px;
 
-    overflow-y: auto;
-    overflow-x: hidden;
+    opacity: 1;
+
+    padding: 0 24px 24px;
 }
 
-/* SCROLL */
+/* =========================
+   EXERCÍCIO
+========================= */
+
+.exercicio {
+    background: #0c0c0c;
+
+    border: 1px solid #222;
+
+    border-radius: 14px;
+
+    padding: 18px;
+
+    transition: 0.25s ease;
+}
+
+.exercicio:hover {
+    border-color: red;
+
+    transform: translateY(-3px);
+}
+
+/* =========================
+   HEADER EXERCÍCIO
+========================= */
+
+.ex-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.ex-header strong {
+    font-size: 16px;
+}
+
+/* =========================
+   AÇÕES
+========================= */
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit {
+    color: #4ea1ff;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.actions button {
+    background: transparent;
+    border: none;
+
+    color: red;
+
+    cursor: pointer;
+
+    font-size: 13px;
+}
+
+/* =========================
+   TEXTOS
+========================= */
+
+.exercicio p {
+    margin: 6px 0;
+
+    color: #ccc;
+
+    font-size: 14px;
+}
+
+.obs {
+    margin-top: 14px;
+
+    background: #151515;
+
+    border-left: 3px solid red;
+
+    padding: 10px 12px;
+
+    border-radius: 8px;
+
+    color: #aaa;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+/* =========================
+   SCROLL
+========================= */
+
 .treino-body::-webkit-scrollbar {
     width: 6px;
 }
 
 .treino-body::-webkit-scrollbar-thumb {
-    background: #444;
+    background: #333;
     border-radius: 10px;
 }
 
-.treino-body::-webkit-scrollbar-thumb:hover {
-    background: #666;
-}
-
-/* EXERCÍCIOS */
-.exercicio {
-    border: 1px solid #333;
-    border-radius: 12px;
-    padding: 15px;
-    background: #111;
-    transition: 0.2s ease;
-}
-
-.exercicio:hover {
-    border-color: red;
-    transform: translateY(-2px);
-}
-
-.obs {
-    margin-top: 10px;
-    font-size: 12px;
-    opacity: 0.8;
-}
-
-p {
-    font-weight: 500;
-}
-
 /* =========================
-   🔥 FILTROS (NOVO)
+   RESPONSIVO
 ========================= */
 
-.filter-btn.active {
-    background: red;
-    color: white;
-    transform: scale(1.05);
+@media (max-width: 768px) {
+
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filters {
+        max-width: 100%;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    .treino-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .right-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .treino-body {
+        grid-template-columns: 1fr;
+    }
 }
+
