@@ -3,14 +3,17 @@ package com.athletelab.admin;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.athletelab.usuario.UsuarioDAO;
 import com.athletelab.usuario.UsuarioModel;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-
-import org.mindrot.jbcrypt.BCrypt;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/admin/usuario")
 public class UsuarioAdminServlet extends HttpServlet {
@@ -23,7 +26,7 @@ public class UsuarioAdminServlet extends HttpServlet {
 
         if (sessao == null) return false;
 
-        UsuarioModel user = (UsuarioModel) sessao.getAttribute("usuario");
+        UsuarioModel user = (UsuarioModel) sessao.getAttribute("usuarioLogado");
 
         return user != null && "ADMIN".equals(user.getTipoUsuario());
     }

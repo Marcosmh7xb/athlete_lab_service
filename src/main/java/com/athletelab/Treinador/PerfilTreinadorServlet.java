@@ -50,7 +50,7 @@ public class PerfilTreinadorServlet extends HttpServlet {
             // 🔹 TREINOS (Mantido o que você já tinha)
             TreinoDAO treinoDAO = new TreinoDAO();
             List<TreinoModel> treinos =
-                    treinoDAO.listarPorUsuario(usuarioSessao.getIdUsuario());
+                    treinoDAO.listarParaTreinador(usuarioSessao.getIdUsuario());
 
             // ==========================================
             // 🔹 EQUIPES (Nova parte adicionada)

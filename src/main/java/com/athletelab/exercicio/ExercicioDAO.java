@@ -68,6 +68,7 @@ public class ExercicioDAO {
                 lista.add(e);
             }
 
+
         } catch (SQLException ex) {
             System.out.println("Erro ao listar exercícios: " + ex.getMessage());
         }
@@ -90,6 +91,39 @@ public class ExercicioDAO {
 
         } catch (SQLException ex) {
             System.out.println("Erro ao deletar exercício: " + ex.getMessage());
+        }
+    }
+
+    public static void atualizar(ExercicioModel e) {
+
+        String sql = """
+        UPDATE exercicio
+        SET nome = ?,
+            series = ?,
+            repeticoes = ?,
+            tempo_min = ?,
+            observacao = ?
+        WHERE id_exercicio = ?
+    """;
+
+        try (Connection conn = ConnectionDataBase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, e.getNome());
+            stmt.setInt(2, e.getSeries());
+            stmt.setInt(3, e.getRepeticoes());
+            stmt.setInt(4, e.getTempoMin());
+            stmt.setString(5, e.getObservacao());
+            stmt.setInt(6, e.getIdExercicio());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+
+            System.out.println(
+                    "Erro ao atualizar exercício: "
+                            + ex.getMessage()
+            );
         }
     }
 }

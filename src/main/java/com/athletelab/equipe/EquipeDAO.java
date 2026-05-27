@@ -17,7 +17,7 @@ public class EquipeDAO {
             stmt.setString(1, e.getNome());
             stmt.setString(2, e.getDescricao());
             stmt.setString(3, e.getEsporte());
-            stmt.setDate(4, java.sql.Date.valueOf(LocalDate.now()));
+            stmt.setDate(4, Date.valueOf(LocalDate.now()));
             stmt.setInt(5, e.getIdTreinador());
             stmt.executeUpdate();
         } catch (SQLException ex) { ex.printStackTrace(); }
@@ -36,7 +36,7 @@ public class EquipeDAO {
         } catch (SQLException ex) { ex.printStackTrace(); }
     }
 
-    // BUSCAR EQUIPE POR ID (COM SEUS ATLETAS)
+    // BUSCAR EQUIPE POR ID (COM OS SEUS ATLETAS)
     public EquipeModel buscarPorId(int idEquipe) {
         EquipeModel eq = null;
         // JOIN para pegar os dados do treinador responsável
@@ -126,7 +126,7 @@ public class EquipeDAO {
         return lista;
     }
 
-    // ADICIONAR ATLETA POR E-MAIL
+    // ADICIONAR ATLETAS POR E-MAIL
     public boolean convidarAtleta(int idEquipe, String email) {
         String sqlBusca = "SELECT id_usuario FROM usuario WHERE email = ? AND tipo_usuario = 'ATLETA'";
         String sqlInsere = "INSERT INTO equipe_atleta (id_equipe, id_atleta) VALUES (?, ?)";

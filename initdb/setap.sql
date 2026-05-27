@@ -3,7 +3,7 @@ USE athlete_lab;
 
 -- USUARIO
 CREATE TABLE IF NOT EXISTS usuario (
-id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     telefone VARCHAR(20),
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS perfil_treinador (
 -- TREINO
 CREATE TABLE IF NOT EXISTS treino (
     id_treino INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL,
+    id_usuario INT,
     nome VARCHAR(150) NOT NULL,
     categoria VARCHAR(50) NOT NULL,
     status VARCHAR(20) DEFAULT 'ATIVO',
@@ -105,4 +105,16 @@ CREATE TABLE IF NOT EXISTS perfil_atleta (
                                      REFERENCES usuario(id_usuario)
                                      ON DELETE CASCADE
   );
+
+CREATE TABLE treino_atribuido (
+                                  id INT AUTO_INCREMENT PRIMARY KEY,
+                                  id_treino INT NOT NULL,
+                                  id_usuario INT NOT NULL,   -- atleta
+                                  id_treinador INT NOT NULL,
+                                  data_atribuicao DATE DEFAULT (CURRENT_DATE),
+
+                                  FOREIGN KEY (id_treino) REFERENCES treino(id_treino) ON DELETE CASCADE,
+                                  FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE,
+                                  FOREIGN KEY (id_treinador) REFERENCES usuario(id_usuario) ON DELETE CASCADE
+);
 

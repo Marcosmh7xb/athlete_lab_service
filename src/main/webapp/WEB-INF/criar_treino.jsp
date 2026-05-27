@@ -26,15 +26,34 @@
 
             <input type="hidden" name="acao" value="salvar">
 
+            <label>E-mail do atleta</label>
+            <input type="email" name="email" placeholder="email@exemplo.com" required>
+
             <label>Nome do treino</label>
             <input type="text" name="nome" placeholder="Ex: Treino de peito" required>
 
             <label>Categoria</label>
             <select name="categoria">
-                <option>Musculação</option>
+                <option>Alongamento</option>
+                <option>Boxe</option>
+                <option>Calistenia</option>
                 <option>Cardio</option>
-                <option>Funcional</option>
+                <option>Corrida</option>
                 <option>Cross</option>
+                <option>Ciclismo</option>
+                <option>Funcional</option>
+                <option>Futebol</option>
+                <option>Handebol</option>
+                <option>Jiu-Jitsu</option>
+                <option>Karatê</option>
+                <option>Kickboxing</option>
+                <option>Muay Thai</option>
+                <option>Musculação</option>
+                <option>Natação</option>
+                <option>Surf</option>
+                <option>Tênis</option>
+                <option>Vôlei</option>
+                <option>Yoga</option>
             </select>
 
             <label>Status</label>
