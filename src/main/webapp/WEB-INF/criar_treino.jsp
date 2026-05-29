@@ -5,21 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Criar Treino</title>
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/criar_treino.css">
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/criar_treino.cs
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
 <div class="page">
-
     <div class="card">
-
         <h2>Criar Novo Treino</h2>
 
         <form action="${pageContext.request.contextPath}/criartreino" method="post">

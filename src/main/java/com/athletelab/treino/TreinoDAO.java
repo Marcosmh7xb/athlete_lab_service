@@ -9,9 +9,8 @@ import java.util.List;
 
 public class TreinoDAO {
 
-    // =========================
+
     // CREATE
-    // =========================
     public static int inserir(TreinoModel t) {
 
         String sql =
@@ -27,9 +26,8 @@ public class TreinoDAO {
                              Statement.RETURN_GENERATED_KEYS
                      )) {
 
-            // ====================================
+
             // TREINO COM OU SEM DONO
-            // ====================================
 
             if (t.getIdUsuario() > 0) {
 

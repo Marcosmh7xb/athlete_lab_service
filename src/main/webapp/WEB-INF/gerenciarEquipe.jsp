@@ -6,16 +6,6 @@
     <meta charset="UTF-8">
     <title>Gerenciar Equipe</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <style>
-        body { background: #000; font-family: "Inter", sans-serif; color: white; padding: 40px; }
-        .container { max-width: 800px; margin: 0 auto; background: #0f0f0f; padding: 30px; border-radius: 15px; border: 1px solid #222; }
-        h2 { color: red; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; }
-        .form-group { margin-bottom: 15px; }
-        input, textarea { width: 100%; padding: 10px; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 5px; }
-        .btn { background: red; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .lista-atletas { margin-top: 30px; }
-        .atleta-item { display: flex; justify-content: space-between; background: #161616; padding: 15px; margin-bottom: 10px; border-radius: 8px; align-items: center; }
-    </style>
 </head>
 <body>
 

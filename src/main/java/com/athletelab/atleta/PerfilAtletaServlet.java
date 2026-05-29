@@ -1,10 +1,14 @@
-package com.athletelab.atleta;
+
+        package com.athletelab.atleta;
 
 import com.athletelab.usuario.UsuarioDAO;
 import com.athletelab.usuario.UsuarioModel;
 
 import com.athletelab.treino.TreinoDAO;
 import com.athletelab.treino.TreinoModel;
+
+import com.athletelab.equipe.EquipeDAO;
+import com.athletelab.equipe.EquipeModel;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,11 +20,25 @@ import java.util.List;
 @WebServlet("/perfil-atleta")
 public class PerfilAtletaServlet extends HttpServlet {
 
+    @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
+
+        // =========================
+        // VERIFICA SESSÃO
+        // =========================
+
+        if (session == null) {
+
+            response.sendRedirect(
+                    request.getContextPath() + "/login"
+            );
+
+            return;
+        }
 
         UsuarioModel logado =
                 (UsuarioModel) session.getAttribute("usuarioLogado");
@@ -34,42 +52,82 @@ public class PerfilAtletaServlet extends HttpServlet {
             return;
         }
 
-        // =========================
-        // PERFIL COMPLETO
-        // =========================
+        try {
 
-        UsuarioModel perfilCompleto =
-                new UsuarioDAO().buscarPorId(
-                        logado.getIdUsuario()
+            // =========================
+            // PERFIL COMPLETO
+            // =========================
+
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+            UsuarioModel perfilCompleto =
+                    usuarioDAO.buscarPorId(
+                            logado.getIdUsuario()
+                    );
+
+            if (perfilCompleto == null) {
+
+                response.sendRedirect(
+                        request.getContextPath()
+                                + "/login?erro=usuario_inexistente"
                 );
 
-        request.setAttribute(
-                "perfil",
-                perfilCompleto
-        );
+                return;
+            }
 
-        // =========================
-        // TREINOS DO ATLETA
-        // =========================
+            request.setAttribute(
+                    "perfil",
+                    perfilCompleto
+            );
 
-        TreinoDAO treinoDAO = new TreinoDAO();
+            // =========================
+            // TREINOS DO ATLETA
+            // =========================
 
-        List<TreinoModel> treinos =
-                treinoDAO.listarPorAtleta(
-                        logado.getIdUsuario()
-                );
+            TreinoDAO treinoDAO = new TreinoDAO();
 
-        request.setAttribute(
-                "treinos",
-                treinos
-        );
+            List<TreinoModel> treinos =
+                    treinoDAO.listarPorAtleta(
+                            logado.getIdUsuario()
+                    );
 
-        // =========================
-        // FORWARD
-        // =========================
+            request.setAttribute(
+                    "treinos",
+                    treinos
+            );
 
-        request.getRequestDispatcher(
-                "/WEB-INF/perfilAtleta.jsp"
-        ).forward(request, response);
+            // =========================
+            // EQUIPES DO ATLETA
+            // =========================
+
+            EquipeDAO equipeDAO = new EquipeDAO();
+
+            List<EquipeModel> equipes =
+                    equipeDAO.buscarEquipesDoAtleta(
+                            logado.getIdUsuario()
+                    );
+
+            request.setAttribute(
+                    "minhasEquipes",
+                    equipes
+            );
+
+            // =========================
+            // FORWARD
+            // =========================
+
+            request.getRequestDispatcher(
+                    "/WEB-INF/perfilAtleta.jsp"
+            ).forward(request, response);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            response.sendRedirect(
+                    request.getContextPath()
+                            + "/login?erro=falha_interna"
+            );
+        }
     }
 }

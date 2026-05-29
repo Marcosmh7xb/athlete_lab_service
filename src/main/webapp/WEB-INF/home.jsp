@@ -7,13 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Athlete Lab</title>
 
-    <link rel="stylesheet" href="css/home_style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home_style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100..900&display=swap" rel="stylesheet">
+
+    <script src="${pageContext.request.contextPath}/js/home_script.js"></script>
+
 </head>
 
 <body>
@@ -340,103 +343,6 @@
     <div class="footer-container"></div>
 
 </footer>
-
-<!-- ================= SCRIPT ================= -->
-
-<script>
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    // ================= CARROSSEL =================
-
-    let current = 0;
-
-    const slides = document.querySelectorAll(".slide");
-    const dots = document.querySelectorAll(".dot");
-
-    function showSlide(index) {
-
-        slides.forEach(s => s.classList.remove("active"));
-        dots.forEach(d => d.classList.remove("active"));
-
-        slides[index].classList.add("active");
-        dots[index].classList.add("active");
-
-        current = index;
-    }
-
-    dots.forEach(dot => {
-
-        dot.addEventListener("click", () => {
-
-            showSlide(parseInt(dot.dataset.index));
-
-            resetInterval();
-
-        });
-
-    });
-
-    function nextSlide() {
-
-        current = (current + 1) % slides.length;
-
-        showSlide(current);
-
-    }
-
-    let interval = setInterval(nextSlide, 5000);
-
-    function resetInterval() {
-
-        clearInterval(interval);
-
-        interval = setInterval(nextSlide, 5000);
-
-    }
-
-    // ================= MENU =================
-
-    const menuBtn = document.getElementById("menuBtn");
-    const menuPopup = document.getElementById("menuPopup");
-
-    menuBtn.addEventListener("click", (e) => {
-
-        e.stopPropagation();
-
-        menuPopup.classList.toggle("active");
-
-        profilePopup.classList.remove("active");
-
-    });
-
-    // ================= PERFIL =================
-
-    const profileBtn = document.getElementById("profileBtn");
-    const profilePopup = document.getElementById("profilePopup");
-
-    profileBtn.addEventListener("click", (e) => {
-
-        e.stopPropagation();
-
-        profilePopup.classList.toggle("active");
-
-        menuPopup.classList.remove("active");
-
-    });
-
-    // ================= FECHAR POPUPS =================
-
-    document.addEventListener("click", () => {
-
-        menuPopup.classList.remove("active");
-        profilePopup.classList.remove("active");
-
-    });
-
-});
-
-</script>
 
 </body>
 </html>

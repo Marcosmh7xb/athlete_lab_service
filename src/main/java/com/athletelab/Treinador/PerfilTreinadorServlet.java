@@ -4,8 +4,6 @@ import com.athletelab.treino.TreinoDAO;
 import com.athletelab.treino.TreinoModel;
 import com.athletelab.usuario.UsuarioDAO;
 import com.athletelab.usuario.UsuarioModel;
-import com.athletelab.equipe.EquipeDAO;
-import com.athletelab.equipe.EquipeModel;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -47,22 +45,14 @@ public class PerfilTreinadorServlet extends HttpServlet {
                 return;
             }
 
-            // 🔹 TREINOS (Mantido o que você já tinha)
+            // 🔥 TREINOS (CORRETO AQUI)
             TreinoDAO treinoDAO = new TreinoDAO();
             List<TreinoModel> treinos =
                     treinoDAO.listarParaTreinador(usuarioSessao.getIdUsuario());
 
-            // ==========================================
-            // 🔹 EQUIPES (Nova parte adicionada)
-            // ==========================================
-            EquipeDAO equipeDAO = new EquipeDAO();
-            List<EquipeModel> equipes =
-                    equipeDAO.buscarEquipesDoTreinador(usuarioSessao.getIdUsuario());
-
-            // Atributos para JSP
+            // atributos para JSP
             request.setAttribute("perfil", perfilCompleto);
             request.setAttribute("treinos", treinos);
-            request.setAttribute("minhasEquipes", equipes); // 🔹 Enviando as equipes pro JSP
 
             // forward único
             request.getRequestDispatcher("/WEB-INF/perfilTreinador.jsp")

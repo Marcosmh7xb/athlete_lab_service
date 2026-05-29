@@ -12,6 +12,7 @@ public class TreinoModel {
     private String categoria;
     private String status;
     private String dataCriacao;
+    private String nomeTreinador;
     private List<ExercicioModel> exercicios;
 
     public TreinoModel() {
@@ -71,6 +72,14 @@ public class TreinoModel {
 
     public void setExercicios(List<ExercicioModel> exercicios) {
         this.exercicios = exercicios;
+    }
+
+    public String getNomeTreinador() {
+        return nomeTreinador;
+    }
+
+    public void setNomeTreinador(String nomeTreinador) {
+        this.nomeTreinador = nomeTreinador;
     }
 
 }

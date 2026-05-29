@@ -5,17 +5,20 @@
 <html lang="pt_BR">
 
 <head>
+
     <meta charset="UTF-8">
 
     <title>Perfil Atleta | Athlete Lab</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+          rel="stylesheet">
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/treinos_style.css">
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/perfil_atleta_style.css">
+
 </head>
 
 <body>
@@ -37,7 +40,7 @@
             </p>
 
             <a href="${pageContext.request.contextPath}/editar-perfil-atleta"
-               class="btn">
+               class="btn-edit">
 
                 Completar Agora
 
@@ -65,7 +68,7 @@
             </div>
 
             <div class="menu-item"
-                 data-tab="dashboard">
+                 data-tab="equipes">
 
                 <img src="${pageContext.request.contextPath}/banco_imagens/icones/Dashboard Layout.png">
 
@@ -160,20 +163,188 @@
 
                 </div>
 
+                <!-- ================= INFORMAÇÕES ================= -->
+
+                <div class="info-grid">
+
+                    <div>
+
+                        <h4 class="section-title">
+                            Dados de Cadastro
+                        </h4>
+
+                        <div class="info-box">
+
+                            <label>E-mail</label>
+
+                            <p>${perfil.email}</p>
+
+                        </div>
+
+                        <div class="info-box"
+                             style="margin-top:10px;">
+
+                            <label>Telefone</label>
+
+                            <p>
+                                ${not empty perfil.telefone ? perfil.telefone : 'Não informado'}
+                            </p>
+
+                        </div>
+
+                        <div class="info-box"
+                             style="margin-top:10px;">
+
+                            <label>Cidade/UF</label>
+
+                            <p>
+                                ${not empty perfil.cidadeUF ? perfil.cidadeUF : 'Não informado'}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <h4 class="section-title">
+                            Informações Técnicas
+                        </h4>
+
+                        <div class="info-box">
+
+                            <label>Modalidade</label>
+
+                            <p>${perfil.perfilAtleta.modalidade}</p>
+
+                        </div>
+
+                        <div class="info-box"
+                             style="margin-top:10px;">
+
+                            <label>Nível</label>
+
+                            <p>${perfil.perfilAtleta.nivelExperiencia}</p>
+
+                        </div>
+
+                        <div class="info-box"
+                             style="margin-top:10px;">
+
+                            <label>Dias de treino</label>
+
+                            <p>${perfil.perfilAtleta.diasSemana}</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="info-box">
+
+                        <label>Peso</label>
+
+                        <p>${perfil.perfilAtleta.peso} kg</p>
+
+                    </div>
+
+                    <div class="info-box">
+
+                        <label>Altura</label>
+
+                        <p>${perfil.perfilAtleta.altura} m</p>
+
+                    </div>
+
+                    <div class="full-width">
+
+                        <div class="info-box">
+
+                            <label>Objetivo principal</label>
+
+                            <p>${perfil.perfilAtleta.objetivo}</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="full-width">
+
+                        <div class="info-box">
+
+                            <label>Restrições / Observações</label>
+
+                            <p>
+                                ${not empty perfil.perfilAtleta.restricaoFisica ? perfil.perfilAtleta.restricaoFisica : 'Nenhuma'}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </section>
 
-        <!-- ================= DASHBOARD ================= -->
+        <!-- ================= EQUIPES ================= -->
 
         <section class="tab"
-                 id="dashboard">
+                 id="equipes">
 
             <div class="card">
 
-                <h2>Dashboard</h2>
+                <h2 style="margin-bottom:25px;">
+                    Minhas Equipes
+                </h2>
 
-                <p>Estatísticas em breve...</p>
+                <div class="info-grid">
+
+                    <c:forEach var="equipe"
+                               items="${minhasEquipes}">
+
+                        <div class="info-box">
+
+                            <span style="color:red;
+                                         font-size:10px;
+                                         font-weight:bold;">
+
+                                ${equipe.esporte}
+
+                            </span>
+
+                            <p style="font-size:18px;
+                                      font-weight:bold;
+                                      margin-top:5px;">
+
+                                ${equipe.nome}
+
+                            </p>
+
+                            <p style="font-size:12px;
+                                      color:#888;
+                                      margin-top:5px;">
+
+                                ${equipe.descricao}
+
+                            </p>
+
+                            <a href="${pageContext.request.contextPath}/equipe?acao=ver&id=${equipe.idEquipe}"
+                               style="color:red;
+                                      text-decoration:none;
+                                      font-weight:bold;
+                                      display:block;
+                                      margin-top:15px;">
+
+                                Ver detalhes →
+
+                            </a>
+
+                        </div>
+
+                    </c:forEach>
+
+                </div>
 
             </div>
 
@@ -257,17 +428,19 @@
 
                         <div class="treino-header">
 
-                            <div class="left-info">
+                           <div class="left-info">
 
-                                <h3>
-                                    ${treino.nome}
-                                </h3>
+                               <h3>${treino.nome}</h3>
 
-                                <span class="categoria">
+                               <span class="categoria">
+                                   ${treino.categoria}
+                               </span>
 
-                                    ${treino.categoria}
+                           </div>
 
-                                </span>
+                           <span class="treinador">
+                               ${treino.nomeTreinador}
+                           </span>
 
                             </div>
 
@@ -280,9 +453,7 @@
 
                                 <div class="exercicio">
 
-                                    <strong>
-                                        ${ex.nome}
-                                    </strong>
+                                    <strong>${ex.nome}</strong>
 
                                     <p>
                                         Séries:
@@ -372,7 +543,7 @@
             const section =
                 document.getElementById(target);
 
-            if (section) {
+            if(section){
 
                 section.classList.add("active");
 
@@ -431,11 +602,7 @@
                 const meuTreino =
                     card.dataset.meuTreino;
 
-                // =========================
-                // MEUS TREINOS
-                // =========================
-
-                if (filtro === "meus") {
+                if(filtro === "meus"){
 
                     card.style.display =
                         meuTreino === "true"
@@ -443,11 +610,8 @@
                             : "none";
 
                     return;
-                }
 
-                // =========================
-                // CATEGORIA
-                // =========================
+                }
 
                 card.style.display =
                     categoria === filtro

@@ -1,0 +1,186 @@
+body {
+    background: #000;
+    font-family: "Inter", sans-serif;
+    color: white;
+    padding: 40px;
+    margin: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #0f0f0f;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid #222;
+}
+
+/* Link voltar */
+.btn-voltar {
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.btn-voltar:hover {
+    color: red;
+}
+
+/* Títulos */
+h2 {
+    color: red;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 10px;
+}
+
+.section-spacing {
+    margin-top: 40px;
+}
+
+/* Formulários */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #bbb;
+    font-weight: 500;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 12px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: white;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.25);
+}
+
+/* Botões */
+.btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #cc0000;
+    transform: translateY(-2px);
+}
+
+/* Form convite */
+.convite-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.convite-form input {
+    flex: 1;
+}
+
+/* Mensagens */
+.msg {
+    color: #ffd700;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Lista de atletas */
+.lista-atletas {
+    margin-top: 30px;
+}
+
+.atleta-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #161616;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #222;
+    transition: 0.3s;
+}
+
+.atleta-item:hover {
+    border-color: red;
+}
+
+.atleta-info strong {
+    font-size: 15px;
+}
+
+.atleta-info small {
+    color: #888;
+}
+
+/* Botão remover */
+.btn-remover {
+    background: transparent;
+    border: 1px solid red;
+    color: red;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-remover:hover {
+    background: red;
+    color: white;
+}
+
+/* Texto vazio */
+.empty-message {
+    color: #666;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    .convite-form {
+        flex-direction: column;
+    }
+
+    .atleta-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .btn-remover {
+        width: 100%;
+    }
+}

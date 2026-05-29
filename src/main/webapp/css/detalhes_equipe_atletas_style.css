@@ -1,0 +1,163 @@
+body {
+    background: #000;
+    font-family: "Inter", sans-serif;
+    color: white;
+    padding: 40px;
+    margin: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Link de Voltar */
+.btn-voltar {
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.btn-voltar:hover {
+    color: red;
+}
+
+/* Cabeçalho da Equipe */
+.header-equipe {
+    margin-bottom: 40px;
+}
+
+.header-equipe .tag {
+    color: red;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.header-equipe h1 {
+    font-size: 38px;
+    margin: 10px 0;
+}
+
+.header-equipe p {
+    color: #888;
+    font-size: 16px;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+/* Cards */
+.card {
+    background: #0f0f0f;
+    border: 1px solid #222;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 25px;
+}
+
+.section-title {
+    color: red;
+    font-size: 11px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 8px;
+    font-weight: 800;
+}
+
+/* Criador / Treinador */
+.perfil-treinador {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #161616;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #222;
+}
+
+.perfil-treinador img {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    border: 2px solid red;
+    object-fit: cover;
+}
+
+.perfil-treinador h3 {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.perfil-treinador p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Grade de Membros */
+.membros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.membro-card {
+    background: #161616;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #222;
+    transition: 0.3s;
+}
+
+.membro-card:hover {
+    border-color: red;
+    transform: translateY(-5px);
+}
+
+.membro-card img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    border: 1px solid #333;
+    object-fit: cover;
+}
+
+.membro-card p {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.membro-card span {
+    font-size: 11px;
+    color: #555;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 4px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+
+    .header-equipe h1 {
+        font-size: 28px;
+    }
+
+    .perfil-treinador {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .membros-grid {
+        grid-template-columns: 1fr;
+    }
+}

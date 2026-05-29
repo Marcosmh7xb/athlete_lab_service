@@ -52,69 +52,49 @@ CREATE TABLE IF NOT EXISTS exercicio (
     FOREIGN KEY (id_treino) REFERENCES treino(id_treino) ON DELETE CASCADE
     ) ENGINE=InnoDB;
 
-CREATE TABLE perfil_atleta (
-
-                               id_perfil_atleta INT PRIMARY KEY AUTO_INCREMENT,
-
-                               id_usuario INT UNIQUE,
-
-                               modalidade VARCHAR(100),
-
-                               nivel_experiencia VARCHAR(100),
-
-                               objetivo TEXT,
-
-                               altura FLOAT,
-
-                               peso FLOAT,
-
-                               dias_semana VARCHAR(100),
-
-                               ambiente VARCHAR(100),
-
-                               sexo VARCHAR(50),
-
-                               restricao_fisica TEXT
-);
 
 CREATE TABLE IF NOT EXISTS perfil_atleta (
-
-                                 id_perfil_atleta INT PRIMARY KEY AUTO_INCREMENT,
-
-                                 id_usuario INT UNIQUE,
-
-                                 modalidade VARCHAR(100),
-
-                                 nivel_experiencia VARCHAR(100),
-
-                                 objetivo TEXT,
-
-                                 altura FLOAT,
-
-                                 peso FLOAT,
-
-                                 dias_semana VARCHAR(100),
-
-                                 ambiente VARCHAR(100),
-
-                                 sexo VARCHAR(50),
-
-                                 restricao_fisica TEXT,
-
-                                 FOREIGN KEY (id_usuario)
-                                     REFERENCES usuario(id_usuario)
-                                     ON DELETE CASCADE
+    id_perfil_atleta INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT UNIQUE,
+    modalidade VARCHAR(100),
+    nivel_experiencia VARCHAR(100),
+    objetivo TEXT,
+    altura FLOAT,
+    peso FLOAT,
+    dias_semana VARCHAR(100),
+    ambiente VARCHAR(100),
+    sexo VARCHAR(50),
+    restricao_fisica TEXT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE
   );
 
-CREATE TABLE treino_atribuido (
-                                  id INT AUTO_INCREMENT PRIMARY KEY,
-                                  id_treino INT NOT NULL,
-                                  id_usuario INT NOT NULL,   -- atleta
-                                  id_treinador INT NOT NULL,
-                                  data_atribuicao DATE DEFAULT (CURRENT_DATE),
-
-                                  FOREIGN KEY (id_treino) REFERENCES treino(id_treino) ON DELETE CASCADE,
-                                  FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE,
-                                  FOREIGN KEY (id_treinador) REFERENCES usuario(id_usuario) ON DELETE CASCADE
+CREATE TABLE  IF NOT EXISTS treino_atribuido (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_treino INT NOT NULL,
+    id_usuario INT NOT NULL,   -- atleta
+    id_treinador INT NOT NULL,
+    data_atribuicao DATE DEFAULT (CURRENT_DATE),
+    FOREIGN KEY (id_treino) REFERENCES treino(id_treino) ON DELETE CASCADE,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_treinador) REFERENCES usuario(id_usuario) ON DELETE CASCADE
 );
 
+CREATE TABLE  IF NOT EXISTS equipe (
+    id_equipe INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    esporte VARCHAR(50),
+    id_treinador INT,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_treinador) REFERENCES usuario(id_usuario) ON DELETE CASCADE
+);
+
+
+CREATE TABLE  IF NOT EXISTS equipe_atleta (
+    id_equipe INT,
+    id_atleta INT,
+    data_ingresso TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id_equipe, id_atleta),
+    FOREIGN KEY (id_equipe) REFERENCES equipe(id_equipe) ON DELETE CASCADE,
+    FOREIGN KEY (id_atleta) REFERENCES usuario(id_usuario) ON DELETE CASCADE
+);
