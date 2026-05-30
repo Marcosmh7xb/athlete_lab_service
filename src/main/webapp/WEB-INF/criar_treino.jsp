@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Criar Treino</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/criar_treino.cs
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/criar_treino.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -60,6 +60,12 @@
             <div class="actions">
                 <button type="submit">Criar Treino</button>
             </div>
+
+            <% if (request.getAttribute("erro") != null) { %>
+                <div class="erro">
+                    <%= request.getAttribute("erro") %>
+                </div>
+            <% } %>
 
         </form>
 

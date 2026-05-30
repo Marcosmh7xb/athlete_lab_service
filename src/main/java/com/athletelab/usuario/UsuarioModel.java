@@ -1,6 +1,6 @@
 package com.athletelab.usuario;
 
-import com.athletelab.Treinador.PerfilTreinadorModel;
+import com.athletelab.treinador.PerfilTreinadorModel;
 import com.athletelab.atleta.PerfilAtletaModel;
 
 import java.time.LocalDate;

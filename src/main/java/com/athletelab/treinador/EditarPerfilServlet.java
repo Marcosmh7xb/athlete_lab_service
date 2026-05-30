@@ -1,4 +1,4 @@
-package com.athletelab.Treinador;
+package com.athletelab.treinador;
 
 import com.athletelab.usuario.UsuarioDAO;
 import com.athletelab.usuario.UsuarioModel;

@@ -98,3 +98,176 @@ CREATE TABLE  IF NOT EXISTS equipe_atleta (
     FOREIGN KEY (id_equipe) REFERENCES equipe(id_equipe) ON DELETE CASCADE,
     FOREIGN KEY (id_atleta) REFERENCES usuario(id_usuario) ON DELETE CASCADE
 );
+
+INSERT INTO usuario
+(nome, email, telefone, cidade_uf, senha, data_nascimento, tipo_usuario, foto, ativo)
+VALUES
+
+    ('Administrador','admin@gmail.com','(77) 99999-9999','Guanambi - BA','admin123','2000-01-01','ADMIN','adm.jpeg',true),
+
+    ('Carlos Silva','carlos@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','TREINADOR','1.jpeg',true),
+
+    ('Fernanda Rocha','fernanda@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','TREINADOR','2.jpeg',true),
+
+    ('Lucas Almeida','lucas@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','3.jpeg',true),
+
+    ('Mariana Souza','mariana@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','4.jpeg',true),
+
+    ('Pedro Henrique','pedro@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','5.jpeg',true),
+
+    ('Ana Clara','ana@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','6.jpeg',true),
+
+    ('Gabriel Santos','gabriel@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','7.jpeg',true),
+
+    ('Juliana Lima','juliana@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','8.jpeg',true),
+
+    ('Rafael Costa','rafael@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','9.jpeg',true),
+
+    ('Beatriz Martins','beatriz@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','10.jpeg',true),
+
+    ('Thiago Oliveira','thiago@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','11.jpeg',true);
+
+INSERT INTO perfil_treinador
+(id_usuario, modalidade, nivel_experiencia, objetivo, ambiente, sexo, restricao_fisica)
+VALUES
+
+    (
+        (SELECT id_usuario FROM usuario WHERE email = 'carlos@gmail.com'),
+        'Musculação',
+        'Avançado',
+        'Hipertrofia e performance esportiva',
+        'Academia',
+        'Masculino',
+        NULL
+    ),
+
+    (
+        (SELECT id_usuario FROM usuario WHERE email = 'fernanda@gmail.com'),
+        'Funcional',
+        'Intermediário',
+        'Condicionamento físico e emagrecimento',
+        'Academia / Ar livre',
+        'Feminino',
+        NULL
+    );
+
+INSERT INTO perfil_atleta
+(id_usuario, modalidade, nivel_experiencia, objetivo, altura, peso, dias_semana, ambiente, sexo, restricao_fisica)
+VALUES
+
+    (
+        (SELECT id_usuario FROM usuario WHERE email='lucas@gmail.com'),
+        'Musculação',
+        'Iniciante',
+        'Ganhar massa muscular',
+        1.78,
+        72.5,
+        'Segunda, Quarta, Sexta',
+        'Academia',
+        'Masculino',
+        NULL
+    ),
+
+    (
+        (SELECT id_usuario FROM usuario WHERE email='mariana@gmail.com'),
+        'Corrida',
+        'Intermediário',
+        'Melhorar resistência',
+        1.65,
+        58.0,
+        'Terça, Quinta, Sábado',
+        'Ar livre',
+        'Feminino',
+        NULL
+    ),
+
+    (
+        (SELECT id_usuario FROM usuario WHERE email='pedro@gmail.com'),
+        'Cross',
+        'Intermediário',
+        'Condicionamento físico',
+        1.82,
+        80.0,
+        'Segunda a Sexta',
+        'Academia',
+        'Masculino',
+        NULL
+    ),
+
+    (
+        (SELECT id_usuario FROM usuario WHERE email='ana@gmail.com'),
+        'Yoga',
+        'Iniciante',
+        'Flexibilidade e bem-estar',
+        1.60,
+        54.0,
+        'Segunda, Quarta',
+        'Casa',
+        'Feminino',
+        NULL
+    ),
+
+    (
+        (SELECT id_usuario FROM usuario WHERE email='gabriel@gmail.com'),
+        'Futebol',
+        'Avançado',
+        'Preparação competitiva',
+        1.76,
+        70.0,
+        'Terça, Quinta, Domingo',
+        'Campo',
+        'Masculino',
+        NULL
+    ),
+
+    (
+        (SELECT id_usuario FROM usuario WHERE email='juliana@gmail.com'),
+        'Natação',
+        'Intermediário',
+        'Melhorar técnica',
+        1.68,
+        60.0,
+        'Segunda, Quarta, Sexta',
+        'Piscina',
+        'Feminino',
+        NULL
+    ),
+
+    (
+        (SELECT id_usuario FROM usuario WHERE email='rafael@gmail.com'),
+        'Ciclismo',
+        'Avançado',
+        'Resistência cardiovascular',
+        1.80,
+        74.0,
+        'Terça, Quinta, Sábado',
+        'Ar livre',
+        'Masculino',
+        NULL
+    ),
+
+    (
+        (SELECT id_usuario FROM usuario WHERE email='beatriz@gmail.com'),
+        'Pilates',
+        'Iniciante',
+        'Postura e mobilidade',
+        1.63,
+        56.0,
+        'Segunda e Quinta',
+        'Studio',
+        'Feminino',
+        NULL
+    ),
+
+    (
+        (SELECT id_usuario FROM usuario WHERE email='thiago@gmail.com'),
+        'Calistenia',
+        'Intermediário',
+        'Força funcional',
+        1.75,
+        69.0,
+        'Segunda, Quarta, Sexta',
+        'Parque',
+        'Masculino',
+        NULL
+    );

@@ -1,4 +1,4 @@
-package com.athletelab.Treinador;
+package com.athletelab.treinador;
 
 import com.athletelab.configBD.ConnectionDataBase;
 

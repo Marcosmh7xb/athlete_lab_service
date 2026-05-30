@@ -1,4 +1,4 @@
-package com.athletelab.Treinador;
+package com.athletelab.treinador;
 
 public class PerfilTreinadorModel {
     private int idPerfilTreinador;

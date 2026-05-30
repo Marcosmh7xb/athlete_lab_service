@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import com.athletelab.Treinador.PerfilTreinadorModel;
+import com.athletelab.treinador.PerfilTreinadorModel;
 import com.athletelab.atleta.PerfilAtletaModel;
 import com.athletelab.configBD.ConnectionDataBase;
 
@@ -98,13 +98,17 @@ public class UsuarioDAO {
         String sql = "UPDATE usuario SET nome=?, email=?, telefone=?, cidade_uf=?, senha=? WHERE id_usuario=?";
 
         try (Connection conn = ConnectionDataBase.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) { /// Prepara o comando sql para execução, mas não executa.
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, u.getNome());
             stmt.setString(2, u.getEmail());
             stmt.setString(3, u.getTelefone());
             stmt.setString(4, u.getCidadeUF());
-            stmt.setString(5, u.getSenha());
+
+            // Criptografa a senha antes de salvar
+            String senhaCriptografada = BCrypt.hashpw(u.getSenha(), BCrypt.gensalt());
+            stmt.setString(5, senhaCriptografada);
+
             stmt.setInt(6, u.getIdUsuario());
 
             stmt.executeUpdate();
@@ -115,7 +119,6 @@ public class UsuarioDAO {
             System.out.println("Erro ao atualizar: " + e.getMessage());
         }
     }
-
     // DELETE
     public void deletar(int idUsuario) {
 
@@ -441,5 +444,22 @@ public class UsuarioDAO {
         }
 
         return null;
+    }
+
+    public void atualizarSenha(int idUsuario, String senhaHash) {
+
+        String sql = "UPDATE usuario SET senha=? WHERE id_usuario=?";
+
+        try (Connection conn = ConnectionDataBase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, senhaHash);
+            stmt.setInt(2, idUsuario);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar senha: " + e.getMessage());
+        }
     }
 }

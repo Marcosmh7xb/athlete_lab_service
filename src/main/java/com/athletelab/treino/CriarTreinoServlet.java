@@ -27,108 +27,91 @@ public class CriarTreinoServlet extends HttpServlet {
                 .forward(request, response);
     }
 
+
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
 
-        String acao = request.getParameter("acao");
+        try {
 
-        if ("salvar".equals(acao)) {
+            String acao = request.getParameter("acao");
 
-            HttpSession session = request.getSession();
+            if ("salvar".equals(acao)) {
 
-            UsuarioModel usuarioLogado =
-                    (UsuarioModel) session.getAttribute("usuarioLogado");
+                HttpSession session = request.getSession();
 
-            if (usuarioLogado == null) {
+                UsuarioModel usuarioLogado =
+                        (UsuarioModel) session.getAttribute("usuarioLogado");
 
-                response.sendRedirect(
-                        request.getContextPath() + "/login.jsp"
-                );
+                if (usuarioLogado == null) {
+                    response.sendRedirect(request.getContextPath() + "/login.jsp");
+                    return;
+                }
 
-                return;
-            }
+                String nome = request.getParameter("nome");
+                String categoria = request.getParameter("categoria");
+                String status = request.getParameter("status");
+                String email = request.getParameter("email");
 
-            String nome = request.getParameter("nome");
-            String categoria = request.getParameter("categoria");
-            String status = request.getParameter("status");
+                TreinoModel treino = new TreinoModel();
+                treino.setNome(nome);
+                treino.setCategoria(categoria);
+                treino.setStatus(status);
 
-            String email = request.getParameter("email");
+                // ============================
+                // ADMIN
+                // ============================
+                if ("ADMIN".equals(usuarioLogado.getTipoUsuario())) {
 
-            TreinoModel treino = new TreinoModel();
+                    treino.setIdUsuario(usuarioLogado.getIdUsuario());
 
-            treino.setNome(nome);
-            treino.setCategoria(categoria);
-            treino.setStatus(status);
+                    int idTreino = treinoDAO.inserir(treino);
 
-            // =====================================
-            // ADMIN
-            // cria treino global do sistema
-            // =====================================
+                    response.sendRedirect(
+                            request.getContextPath()
+                                    + "/treino/editar?idTreino="
+                                    + idTreino
+                    );
+                    return;
+                }
 
-            if ("ADMIN".equals(usuarioLogado.getTipoUsuario())) {
+                // ============================
+                // TREINADOR
+                // ============================
+                if (email == null || email.isBlank()) {
+                    throw new Exception("Informe o e-mail do atleta.");
+                }
 
-                treino.setIdUsuario(
+                UsuarioModel atleta = usuarioDAO.buscarPorEmail(email);
+
+                if (atleta == null) {
+                    throw new Exception("Nenhum atleta encontrado com esse e-mail.");
+                }
+
+                treino.setIdUsuario(usuarioLogado.getIdUsuario());
+
+                int idTreino = treinoDAO.inserir(treino);
+
+                treinoDAO.atribuirTreino(
+                        idTreino,
+                        atleta.getIdUsuario(),
                         usuarioLogado.getIdUsuario()
                 );
 
-                int idTreino =
-                        treinoDAO.inserir(treino);
-
                 response.sendRedirect(
-
                         request.getContextPath()
                                 + "/treino/editar?idTreino="
                                 + idTreino
                 );
-
-                return;
             }
 
-            // =====================================
-            // TREINADOR
-            // precisa do email do atleta
-            // =====================================
+        } catch (Exception e) {
 
-            if (email == null || email.isBlank()) {
+            request.setAttribute("erro", e.getMessage());
 
-                throw new RuntimeException(
-                        "Informe o email do atleta."
-                );
-            }
-
-            UsuarioModel atleta =
-                    usuarioDAO.buscarPorEmail(email);
-
-            if (atleta == null) {
-
-                throw new RuntimeException(
-                        "Atleta não encontrado."
-                );
-            }
-
-            // treino pertence ao treinador
-            treino.setIdUsuario(
-                    usuarioLogado.getIdUsuario()
-            );
-
-            int idTreino =
-                    treinoDAO.inserir(treino);
-
-            // atribui ao atleta
-            treinoDAO.atribuirTreino(
-                    idTreino,
-                    atleta.getIdUsuario(),
-                    usuarioLogado.getIdUsuario()
-            );
-
-            response.sendRedirect(
-
-                    request.getContextPath()
-                            + "/treino/editar?idTreino="
-                            + idTreino
-            );
+            request.getRequestDispatcher("/WEB-INF/criar_treino.jsp")
+                    .forward(request, response);
         }
     }
 

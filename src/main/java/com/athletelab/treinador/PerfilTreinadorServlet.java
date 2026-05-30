@@ -1,9 +1,13 @@
-package com.athletelab.Treinador;
+
+        package com.athletelab.Treinador;
 
 import com.athletelab.treino.TreinoDAO;
 import com.athletelab.treino.TreinoModel;
 import com.athletelab.usuario.UsuarioDAO;
 import com.athletelab.usuario.UsuarioModel;
+import com.athletelab.equipe.EquipeDAO;
+import com.athletelab.equipe.EquipeModel;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -15,13 +19,22 @@ import java.util.List;
 public class PerfilTreinadorServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
 
+        // =========================
+        // VERIFICA SESSÃO
+        // =========================
+
         if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
+
+            response.sendRedirect(
+                    request.getContextPath() + "/index.jsp"
+            );
+
             return;
         }
 
@@ -29,39 +42,94 @@ public class PerfilTreinadorServlet extends HttpServlet {
                 (UsuarioModel) session.getAttribute("usuarioLogado");
 
         if (usuarioSessao == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+
+            response.sendRedirect(
+                    request.getContextPath() + "/login"
+            );
+
             return;
         }
 
         try {
 
-            UsuarioDAO dao = new UsuarioDAO();
+            // =========================
+            // PERFIL COMPLETO
+            // =========================
+
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
 
             UsuarioModel perfilCompleto =
-                    dao.buscarPorId(usuarioSessao.getIdUsuario());
+                    usuarioDAO.buscarPorId(
+                            usuarioSessao.getIdUsuario()
+                    );
 
             if (perfilCompleto == null) {
-                response.sendRedirect(request.getContextPath() + "/login?erro=usuario_inexistente");
+
+                response.sendRedirect(
+                        request.getContextPath()
+                                + "/login?erro=usuario_inexistente"
+                );
+
                 return;
             }
 
-            // 🔥 TREINOS (CORRETO AQUI)
+            // =========================
+            // TREINOS DO TREINADOR
+            // =========================
+
             TreinoDAO treinoDAO = new TreinoDAO();
+
             List<TreinoModel> treinos =
-                    treinoDAO.listarParaTreinador(usuarioSessao.getIdUsuario());
+                    treinoDAO.listarParaTreinador(
+                            usuarioSessao.getIdUsuario()
+                    );
 
-            // atributos para JSP
-            request.setAttribute("perfil", perfilCompleto);
-            request.setAttribute("treinos", treinos);
+            // =========================
+            // EQUIPES DO TREINADOR
+            // =========================
 
-            // forward único
-            request.getRequestDispatcher("/WEB-INF/perfilTreinador.jsp")
-                    .forward(request, response);
+            EquipeDAO equipeDAO = new EquipeDAO();
+
+            List<EquipeModel> equipes =
+                    equipeDAO.buscarEquipesDoTreinador(
+                            usuarioSessao.getIdUsuario()
+                    );
+
+            // =========================
+            // ATRIBUTOS JSP
+            // =========================
+
+            request.setAttribute(
+                    "perfil",
+                    perfilCompleto
+            );
+
+            request.setAttribute(
+                    "treinos",
+                    treinos
+            );
+
+            request.setAttribute(
+                    "minhasEquipes",
+                    equipes
+            );
+
+            // =========================
+            // FORWARD
+            // =========================
+
+            request.getRequestDispatcher(
+                    "/WEB-INF/perfilTreinador.jsp"
+            ).forward(request, response);
 
         } catch (Exception e) {
+
             e.printStackTrace();
 
-            response.sendRedirect(request.getContextPath() + "/login?erro=falha_interna");
+            response.sendRedirect(
+                    request.getContextPath()
+                            + "/login?erro=falha_interna"
+            );
         }
     }
 }

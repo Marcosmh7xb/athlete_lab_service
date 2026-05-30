@@ -1,298 +1,140 @@
 body {
-    font-family: Inter, sans-serif;
-    background: #050505;
+    background: #000;
+    font-family: "Inter", sans-serif;
+    color: white;
     margin: 0;
-    color: #fff;
+    padding: 40px;
+    min-height: 100vh;
 }
 
-/* CENTRALIZA */
 .page {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     min-height: 100vh;
-
-    padding-top: 70px;
 }
 
-/* CARD PRINCIPAL */
 .card {
-    width: 650px;
-
-    background: linear-gradient(
-            180deg,
-            #1a1a1a 0%,
-            #111111 100%
-    );
-
-    border-radius: 18px;
-
-    padding: 24px 28px;
-
-    border: 1px solid rgba(255,255,255,0.05);
-
-    box-shadow:
-            0 0 20px rgba(0,0,0,0.5);
-}
-
-/* TOPO */
-.top-bar {
-    margin-bottom: 20px;
-}
-
-.back-button {
-    color: #bdbdbd;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.back-button:hover {
-    color: white;
-}
-
-/* LABELS */
-label {
-    display: block;
-
-    margin-bottom: 8px;
-    margin-top: 18px;
-
-    font-size: 14px;
-    color: #d1d1d1;
-}
-
-/* INPUTS */
-input,
-select,
-textarea {
-
     width: 100%;
+    max-width: 650px;
+    background: #0f0f0f;
+    border: 1px solid #222;
+    border-radius: 18px;
+    padding: 40px;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.05);
+}
 
-    background: #2b2b2b;
-
-    border: none;
-
-    border-radius: 10px;
-
-    padding: 12px;
-
+.card h2 {
+    margin: 0 0 30px;
+    font-size: 32px;
+    font-weight: 800;
     color: white;
+    position: relative;
+}
 
-    outline: none;
+.card h2::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 3px;
+    background: red;
+    margin-top: 12px;
+    border-radius: 10px;
+}
 
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-size: 13px;
+    font-weight: 700;
+    color: red;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 15px 16px;
+    background: #161616;
+    border: 1px solid #222;
+    border-radius: 12px;
+    color: white;
+    font-size: 15px;
+    font-family: "Inter", sans-serif;
+    transition: all 0.3s ease;
     box-sizing: border-box;
+}
 
-    transition: 0.2s;
+input::placeholder {
+    color: #666;
 }
 
 input:focus,
-select:focus,
-textarea:focus {
-    background: #343434;
+select:focus {
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.15);
 }
 
-/* LINHAS */
-.row {
-    display: flex;
-    gap: 14px;
-    margin-top: 10px;
-}
-
-/* ADD EXERCÍCIO */
-.add-ex {
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    margin-top: 28px;
-
+select {
     cursor: pointer;
-
-    font-weight: 600;
-
-    color: white;
-}
-
-.add-ex:hover {
-    opacity: 0.8;
-}
-
-.icon-plus {
-    font-size: 22px;
-}
-
-/* DIVISÓRIA */
-.divider {
-    height: 1px;
-    background: rgba(255,255,255,0.08);
-
-    margin: 20px 0;
-}
-
-/* LISTA */
-.exercicios {
-    margin-top: 10px;
-}
-
-/* CARD EXERCÍCIO */
-.ex-card {
-
-    background: #1f1f1f;
-
-    border-radius: 12px;
-
-    padding: 16px;
-
-    margin-bottom: 14px;
-
-    border: 1px solid rgba(255,255,255,0.05);
-}
-
-.ex-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 12px;
 }
 
 .actions {
-    display: flex;
-    gap: 14px;
+    margin-top: 20px;
 }
 
-.edit {
-    color: #5ea6ff;
-    cursor: pointer;
-}
-
-.delete {
-    color: #ff5d5d;
-    cursor: pointer;
-}
-
-/* OBS */
-.obs {
-    margin-top: 10px;
-
-    background: rgba(255,255,255,0.03);
-
-    padding: 10px;
-
-    border-radius: 8px;
-
-    color: #bdbdbd;
-}
-
-/* BOTÃO */
-.save {
-    display: flex;
-    justify-content: center;
-
-    margin-top: 30px;
-}
-
-.save button {
-
-    background: #ff2a2a;
-
+button {
+    width: 100%;
+    padding: 16px;
+    background: red;
     border: none;
-
+    border-radius: 12px;
     color: white;
-
-    padding: 12px 26px;
-
-    border-radius: 10px;
-
+    font-size: 16px;
     font-weight: 700;
-
     cursor: pointer;
-
-    transition: 0.2s;
+    transition: all 0.3s ease;
+    font-family: "Inter", sans-serif;
 }
 
-.save button:hover {
-    background: #ff4040;
+button:hover {
+    background: #cc0000;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.25);
 }
 
-/* MODAL */
-.modal {
-
-    display: none;
-
-    position: fixed;
-
-    inset: 0;
-
-    background: rgba(0,0,0,0.7);
-
-    justify-content: center;
-    align-items: center;
-
-    z-index: 999;
+button:active {
+    transform: translateY(0);
 }
 
-.modal-content {
-
-    width: 500px;
-
-    background: #161616;
-
-    border-radius: 16px;
-
-    padding: 24px;
+.erro {
+    background: rgba(255, 0, 0, 0.08);
+    border: 1px solid red;
+    color: #ff6b6b;
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
-/* SELECTORS */
-.selectors {
-    display: flex;
-    gap: 10px;
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
 
-    margin-top: 20px;
-}
+    .card {
+        padding: 25px;
+    }
 
-.select-box {
-    flex: 1;
-}
-
-/* AÇÕES MODAL */
-.modal-actions {
-
-    display: flex;
-    justify-content: flex-end;
-
-    gap: 10px;
-
-    margin-top: 20px;
-}
-
-.btn-cancel {
-
-    background: #2b2b2b;
-
-    border: none;
-
-    color: white;
-
-    padding: 10px 18px;
-
-    border-radius: 8px;
-
-    cursor: pointer;
-}
-
-.btn-save {
-
-    background: #ff2a2a;
-
-    border: none;
-
-    color: white;
-
-    padding: 10px 18px;
-
-    border-radius: 8px;
-
-    cursor: pointer;
+    .card h2 {
+        font-size: 24px;
+    }
 }
