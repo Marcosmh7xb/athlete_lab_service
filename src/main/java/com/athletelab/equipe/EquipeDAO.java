@@ -1,11 +1,17 @@
 package com.athletelab.equipe;
 
-import com.athletelab.configBD.ConnectionDataBase;
-import com.athletelab.usuario.UsuarioModel;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.athletelab.configBD.ConnectionDataBase;
+import com.athletelab.usuario.UsuarioModel;
 
 public class EquipeDAO {
 
@@ -36,10 +42,19 @@ public class EquipeDAO {
         } catch (SQLException ex) { ex.printStackTrace(); }
     }
 
-    // BUSCAR EQUIPE POR ID (COM OS SEUS ATLETAS)
+    // DELETAR EQUIPE
+    public void deletar(int idEquipe) {
+        String sql = "DELETE FROM equipe WHERE id_equipe = ?";
+        try (Connection conn = ConnectionDataBase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idEquipe);
+            stmt.executeUpdate();
+        } catch (SQLException ex) { ex.printStackTrace(); }
+    }
+
+    // BUSCAR EQUIPE POR ID (COM SEUS ATLETAS)
     public EquipeModel buscarPorId(int idEquipe) {
         EquipeModel eq = null;
-        // JOIN para pegar os dados do treinador responsável
         String sql = "SELECT e.*, u.nome as nome_treinador, u.email as email_treinador, u.foto as foto_treinador " +
                 "FROM equipe e " +
                 "JOIN usuario u ON e.id_treinador = u.id_usuario " +
@@ -60,18 +75,12 @@ public class EquipeDAO {
                 eq.setDataCriacao(rs.getString("data_criacao"));
                 eq.setIdTreinador(rs.getInt("id_treinador"));
 
-                // Criamos um objeto temporário para o treinador dentro do modelo
                 UsuarioModel treinador = new UsuarioModel();
                 treinador.setNome(rs.getString("nome_treinador"));
                 treinador.setEmail(rs.getString("email_treinador"));
                 treinador.setFoto(rs.getString("foto_treinador"));
                 eq.setTreinador(treinador);
 
-                // Você pode adicionar um atributo 'treinador' no seu EquipeModel
-                // Ou simplesmente usar request.setAttribute("treinador", treinador) no Servlet
-                eq.setAtletas(listarAtletasDaEquipe(idEquipe));
-
-                // Busca os membros (Atletas)
                 eq.setAtletas(listarAtletasDaEquipe(idEquipe));
             }
         } catch (SQLException ex) { ex.printStackTrace(); }
@@ -81,7 +90,6 @@ public class EquipeDAO {
     // LISTAR EQUIPES DE UM TREINADOR
     public List<EquipeModel> buscarEquipesDoTreinador(int idTreinador) {
         List<EquipeModel> lista = new ArrayList<>();
-        // Use nomes explícitos das colunas para evitar erros de mapeamento
         String sql = "SELECT id_equipe, nome, descricao, esporte, data_criacao, id_treinador FROM equipe WHERE id_treinador = ?";
 
         try (Connection conn = ConnectionDataBase.getConnection();
@@ -101,7 +109,6 @@ public class EquipeDAO {
                 lista.add(eq);
             }
         } catch (SQLException ex) {
-            // MUITO IMPORTANTE: Relançar a exceção para o Servlet capturar na 'falha_interna'
             throw new RuntimeException("Erro ao buscar equipes do treinador no banco", ex);
         }
         return lista;
@@ -126,7 +133,7 @@ public class EquipeDAO {
         return lista;
     }
 
-    // ADICIONAR ATLETAS POR E-MAIL
+    // ADICIONAR ATLETA POR E-MAIL
     public boolean convidarAtleta(int idEquipe, String email) {
         String sqlBusca = "SELECT id_usuario FROM usuario WHERE email = ? AND tipo_usuario = 'ATLETA'";
         String sqlInsere = "INSERT INTO equipe_atleta (id_equipe, id_atleta) VALUES (?, ?)";
@@ -145,11 +152,11 @@ public class EquipeDAO {
                     stmtIns.executeUpdate();
                     return true;
                 } catch (SQLIntegrityConstraintViolationException e) {
-                    return false; // Já está na equipe
+                    return false;
                 }
             }
         } catch (SQLException ex) { ex.printStackTrace(); }
-        return false; // E-mail não encontrado ou não é atleta
+        return false;
     }
 
     // REMOVER ATLETA
@@ -181,5 +188,31 @@ public class EquipeDAO {
             }
         } catch (SQLException ex) { ex.printStackTrace(); }
         return atletas;
+    }
+
+    // LISTAR TODAS AS EQUIPES (ADMIN)
+    public List<EquipeModel> listarTodas() {
+        List<EquipeModel> lista = new ArrayList<>();
+        String sql = "SELECT e.*, u.nome as nome_treinador FROM equipe e " +
+                     "LEFT JOIN usuario u ON e.id_treinador = u.id_usuario";
+        try (Connection conn = ConnectionDataBase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                EquipeModel eq = new EquipeModel();
+                eq.setIdEquipe(rs.getInt("id_equipe"));
+                eq.setNome(rs.getString("nome"));
+                eq.setDescricao(rs.getString("descricao"));
+                eq.setEsporte(rs.getString("esporte"));
+                eq.setDataCriacao(rs.getString("data_criacao"));
+                eq.setIdTreinador(rs.getInt("id_treinador"));
+                UsuarioModel t = new UsuarioModel();
+                t.setNome(rs.getString("nome_treinador"));
+                eq.setTreinador(t);
+                eq.setAtletas(listarAtletasDaEquipe(eq.getIdEquipe()));
+                lista.add(eq);
+            }
+        } catch (SQLException ex) { ex.printStackTrace(); }
+        return lista;
     }
 }

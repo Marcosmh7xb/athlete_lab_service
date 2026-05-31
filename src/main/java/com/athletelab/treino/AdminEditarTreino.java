@@ -1,38 +1,46 @@
 package com.athletelab.treino;
 
-import com.google.gson.Gson;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-
 import java.io.IOException;
+
+import com.google.gson.Gson;
+
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/api/treino")
 public class AdminEditarTreino extends HttpServlet {
 
-    private TreinoDAO treinoDAO =
-            new TreinoDAO();
-
-    private Gson gson =
-            new Gson();
+    private final TreinoDAO treinoDAO = new TreinoDAO();
+    private final Gson gson = new Gson();
 
     @Override
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp)
             throws IOException {
 
-        int idTreino =
-                Integer.parseInt(
-                        req.getParameter("id")
-                );
+        try {
 
-        TreinoModel treino =
-                treinoDAO.buscarPorId(idTreino);
+            int idTreino = Integer.parseInt(req.getParameter("id"));
 
-        resp.setContentType("application/json");
+            TreinoModel treino = treinoDAO.buscarPorId(idTreino);
 
-        resp.getWriter().write(
-                gson.toJson(treino)
-        );
+            if (treino == null) {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+
+            resp.getWriter().write(gson.toJson(treino));
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -40,26 +48,51 @@ public class AdminEditarTreino extends HttpServlet {
                           HttpServletResponse resp)
             throws IOException {
 
-        int idTreino =
-                Integer.parseInt(
-                        req.getParameter("idTreino")
-                );
+        try {
 
-        TreinoModel treino =
-                treinoDAO.buscarPorId(idTreino);
+            String idStr = req.getParameter("idTreino");
+            String nome = req.getParameter("nome");
+            String categoria = req.getParameter("categoria");
+            String status = req.getParameter("status");
 
-        treino.setNome(
-                req.getParameter("nome")
-        );
+            System.out.println("==============");
+            System.out.println("ID RECEBIDO: " + idStr);
+            System.out.println("NOME: " + nome);
+            System.out.println("CAT: " + categoria);
+            System.out.println("STATUS: " + status);
+            System.out.println("==============");
 
-        treino.setCategoria(
-                req.getParameter("categoria")
-        );
+            if (idStr == null || idStr.isBlank()) {
+                resp.sendError(400, "idTreino não enviado");
+                return;
+            }
 
-        treino.setStatus(
-                req.getParameter("status")
-        );
+            int idTreino = Integer.parseInt(idStr);
 
-        treinoDAO.atualizar(treino);
+            TreinoModel treino = treinoDAO.buscarPorId(idTreino);
+
+            if (treino == null) {
+                resp.sendError(404, "Treino não encontrado");
+                return;
+            }
+
+            treino.setNome(nome);
+            treino.setCategoria(categoria);
+            treino.setStatus(status);
+
+            treinoDAO.atualizar(treino);
+
+            resp.setContentType("application/json");
+            resp.getWriter().write("{\"sucesso\":true}");
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            resp.sendError(
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    e.getMessage()
+            );
+        }
     }
 }

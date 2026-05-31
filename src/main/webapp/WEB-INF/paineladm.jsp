@@ -63,10 +63,10 @@
 
                 </div>
 
-                <h2>Treinos e Times</h2>
+                <h2>Treinos</h2>
 
                 <p>
-                    Crie equipes, organize treinos
+                    Crie treinos, organize
                     e gerencie atividades esportivas.
                 </p>
 
