@@ -1,17 +1,17 @@
 package com.athletelab.treinador;
 
 import com.athletelab.configBD.ConnectionDataBase;
-
+import com.athletelab.usuario.BaseDAO;
 import java.sql.*;
 
-public class TreinadorDAO {
+public class TreinadorDAO extends BaseDAO {
     public void salvarOuAtualizar(PerfilTreinadorModel p) {
         // ON DUPLICATE KEY UPDATE: Se não existir o id_usuario lá, ele cria. Se existir, ele atualiza.
         String sql = "INSERT INTO perfil_treinador (id_usuario, modalidade, nivel_experiencia, objetivo, ambiente, sexo, restricao_fisica) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE modalidade=?, nivel_experiencia=?, objetivo=?, ambiente=?, sexo=?, restricao_fisica=?";
 
-        try (Connection conn = ConnectionDataBase.getConnection();
+        try (Connection conn = obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             // Dados para o INSERT
@@ -34,7 +34,7 @@ public class TreinadorDAO {
             stmt.executeUpdate();
             System.out.println("DEBUG: Perfil técnico do treinador processado com sucesso.");
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Erro no TreinadorDAO: " + e.getMessage());
             e.printStackTrace();
         }

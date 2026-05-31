@@ -1,5 +1,5 @@
 
-        package com.athletelab.Treinador;
+package com.athletelab.treinador;
 
 import com.athletelab.treino.TreinoDAO;
 import com.athletelab.treino.TreinoModel;
@@ -114,9 +114,7 @@ public class PerfilTreinadorServlet extends HttpServlet {
                     equipes
             );
 
-            // =========================
-            // FORWARD
-            // =========================
+
 
             request.getRequestDispatcher(
                     "/WEB-INF/perfilTreinador.jsp"

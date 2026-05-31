@@ -112,9 +112,7 @@ public class PerfilAtletaServlet extends HttpServlet {
                     equipes
             );
 
-            // =========================
-            // FORWARD
-            // =========================
+
 
             request.getRequestDispatcher(
                     "/WEB-INF/perfilAtleta.jsp"

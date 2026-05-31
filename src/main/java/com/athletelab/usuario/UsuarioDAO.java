@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import com.athletelab.usuario.BaseDAO;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -14,14 +15,15 @@ import com.athletelab.treinador.PerfilTreinadorModel;
 import com.athletelab.atleta.PerfilAtletaModel;
 import com.athletelab.configBD.ConnectionDataBase;
 
-public class UsuarioDAO {
+public class UsuarioDAO extends BaseDAO implements IUsuarioDAO{
 
     // CREATE
-    public static void inserir(UsuarioModel u) { /// Pasasando o argumento pelo construto de Usuario e recebendo o objeto.
+    @Override
+    public  void inserir(UsuarioModel u) {
 
         String sql = "INSERT INTO usuario(nome, email, telefone, cidade_uf, senha, data_nascimento, data_criacao, tipo_usuario, ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
-        try (Connection connection = ConnectionDataBase.getConnection(); /// Abre a conexão com o Banco de Dados.
+        try (Connection connection = obterConexao(); /// Abre a conexão com o Banco de Dados.
              PreparedStatement stmt = connection.prepareStatement(sql)) { /// Criar um objeto que executa os comandos SQL
 
             stmt.setString(1, u.getNome());
@@ -49,19 +51,20 @@ public class UsuarioDAO {
 
             System.out.println("Usuário salvo no banco.");
 
-        } catch (SQLException erro) {
+        } catch (Exception erro) {
             System.out.println("Erro ao inserir: " + erro.getMessage());
             erro.printStackTrace();
         }
     }
 
     // READ
+    @Override
     public List<UsuarioModel> listar() {
 
         List<UsuarioModel> lista = new ArrayList<>();
         String sql = "SELECT * FROM usuario";
 
-        try (Connection connection = ConnectionDataBase.getConnection();
+        try (Connection connection = obterConexao();
              Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) { /// Execuatar o comando sql e quarda em rs; E o stmt.executeQuery(sql) é usado somente com SELECT; E depois fecha tudo automaticamente (por causa do try-with-resources) não precisando do connection.close().
 
@@ -77,15 +80,14 @@ public class UsuarioDAO {
                 u.setSenha(rs.getString("senha"));
                 u.setAtivo(rs.getBoolean("ativo"));
 
-                // ================= CAMPOS ADICIONADOS =================
 
                 u.setTipoUsuario(rs.getString("tipo_usuario"));
                 u.setDataNascimento(rs.getString("data_nascimento"));
 
-                lista.add(u); /// Pegar o objeto que foi criado e ardicionar na lista criada assima;
+                lista.add(u); /// Pegar o objeto que foi criado e ardicionar na lista criada acima;
             }
 
-        } catch (SQLException erro) {
+        } catch (Exception erro) {
             System.out.println("Erro ao listar: " + erro.getMessage());
         }
 
@@ -93,11 +95,12 @@ public class UsuarioDAO {
     }
 
     // UPDATE
+    @Override
     public void atualizar(UsuarioModel u) {
 
         String sql = "UPDATE usuario SET nome=?, email=?, telefone=?, cidade_uf=?, senha=? WHERE id_usuario=?";
 
-        try (Connection conn = ConnectionDataBase.getConnection();
+        try (Connection conn = obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) { /// Prepara o comando sql para execução, mas não executa.
 
             stmt.setString(1, u.getNome());
@@ -111,17 +114,18 @@ public class UsuarioDAO {
 
             System.out.println("Usuário atualizado no banco.");
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Erro ao atualizar: " + e.getMessage());
         }
     }
 
     // DELETE
+    @Override
     public void deletar(int idUsuario) {
 
         String sql = "DELETE FROM usuario WHERE id_usuario=?";
 
-        try (Connection conn = ConnectionDataBase.getConnection();
+        try (Connection conn = obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idUsuario); /// Pega o id do usuario pra usar de referencia pra deleta o usuario.
@@ -129,16 +133,16 @@ public class UsuarioDAO {
 
             System.out.println("Usuário removido do banco.");
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Erro ao deletar: " + e.getMessage());
         }
     }
-
-    public static UsuarioModel login(String email, String senha, String tipo_usuario) {
+    @Override
+    public  UsuarioModel login(String email, String senha, String tipo_usuario) {
 
         UsuarioModel usuario = null;
 
-        try (Connection conn = ConnectionDataBase.getConnection()) {
+        try (Connection conn = obterConexao()) {
 
             String sql = "SELECT * FROM usuario WHERE email = ?";
 
@@ -207,12 +211,12 @@ public class UsuarioDAO {
 
         return null;
     }
-
+    @Override
     public UsuarioModel buscarPorId(int id) {
 
         UsuarioModel u = null;
 
-        try (Connection conn = ConnectionDataBase.getConnection()) {
+        try (Connection conn = obterConexao()) {
 
             // ================= USUARIO =================
 
@@ -371,7 +375,7 @@ public class UsuarioDAO {
                 }
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
 
             System.out.println(
                     "Erro ao buscar usuário: " + e.getMessage()
@@ -384,11 +388,12 @@ public class UsuarioDAO {
     }
 
     //ATUALIZAR o PERFIL
+    @Override
     public void atualizarPerfil(UsuarioModel u) {
 
         String sql = "UPDATE usuario SET nome=?, email=?, telefone=?, cidade_uf=?, data_nascimento=?, foto=? WHERE id_usuario=?";
 
-        try (Connection conn = ConnectionDataBase.getConnection();
+        try (Connection conn = obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, u.getNome());
@@ -408,16 +413,16 @@ public class UsuarioDAO {
             stmt.executeUpdate();
             System.out.println("DEBUG DAO: Perfil e foto atualizados com sucesso.");
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Erro ao atualizar perfil: " + e.getMessage());
         }
     }
-
+    @Override
     public UsuarioModel buscarPorEmail(String email) {
 
         String sql = "SELECT * FROM usuario WHERE email = ?";
 
-        try (Connection conn = ConnectionDataBase.getConnection();
+        try (Connection conn = obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, email);
@@ -442,6 +447,7 @@ public class UsuarioDAO {
 
         return null;
     }
+    @Override
     public UsuarioModel buscarFichaCompletaAtleta(int idAtleta) {
         UsuarioModel usuario = null;
         Connection conn = null;
@@ -449,7 +455,7 @@ public class UsuarioDAO {
         ResultSet rs = null;
 
         try {
-            conn = ConnectionDataBase.getConnection(); // Ajuste para a sua classe de conexão
+            conn = obterConexao(); // Ajuste para a sua classe de conexão
             String sql = "SELECT u.nome, u.email, u.telefone, u.cidade_uf, u.foto, " +
                     "a.peso, a.altura, a.objetivo, a.modalidade, a.nivel_experiencia, a.dias_semana, a.restricao_fisica " +
                     "FROM usuario u " +
@@ -487,14 +493,14 @@ public class UsuarioDAO {
         }
         return usuario;
     }
+    @Override
     public boolean atualizarSenha(int idUsuario, String novaSenha) {
         Connection conn = null;
         PreparedStatement ps = null;
         String sql = "UPDATE usuario SET senha = ? WHERE id_usuario = ?";
 
         try {
-            // Use a sua classe de conexão padrão (ex: ConexaoBanco ou FabricaConexao)
-            conn = com.athletelab.configBD.ConnectionDataBase.getConnection();
+            conn = obterConexao();
             ps = conn.prepareStatement(sql);
             ps.setString(1, novaSenha);
             ps.setInt(2, idUsuario);
@@ -505,7 +511,7 @@ public class UsuarioDAO {
             e.printStackTrace();
             return false;
         } finally {
-            // Feche as conexões aqui se o seu projeto não fizer isso automaticamente
+
             try { if (ps != null) ps.close(); } catch (Exception e) {}
             try { if (conn != null) conn.close(); } catch (Exception e) {}
         }

@@ -26,7 +26,6 @@ public class EditarPerfilServlet extends HttpServlet {
         UsuarioModel logado = (UsuarioModel) session.getAttribute("usuarioLogado");
 
         if (logado != null) {
-            // O buscarPorId agora traz o Usuario + PerfilTreinador (via JOIN)
             UsuarioModel perfil = dao.buscarPorId(logado.getIdUsuario());
             request.setAttribute("perfil", perfil);
             request.getRequestDispatcher("/WEB-INF/editarPerfil.jsp").forward(request, response);
@@ -37,7 +36,7 @@ public class EditarPerfilServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. Iniciamos o try para capturar qualquer erro e evitar o "Erro 500" seco
+
         try {
             System.out.println(">>>> [DEBUG] INICIANDO PROCESSAMENTO DO POST <<<<");
             HttpSession session = request.getSession();
@@ -55,7 +54,7 @@ public class EditarPerfilServlet extends HttpServlet {
             logado.setCidadeUF(request.getParameter("cidadeUF"));
             logado.setDataNascimento(request.getParameter("dataNascimento"));
 
-            // 3. Processamento da Foto (Sua lógica original)
+            // 3. Processamento da Foto
             Part filePart = request.getPart("foto");
             if (filePart != null && filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
                 String fileName = filePart.getSubmittedFileName();
@@ -68,7 +67,7 @@ public class EditarPerfilServlet extends HttpServlet {
                 logado.setFoto(fileName);
             }
 
-            // 4. Lógica Específica do Treinador (Aqui é onde o bicho costuma pegar)
+            // 4. Lógica Específica do Treinador
             if ("TREINADOR".equals(logado.getTipoUsuario())) {
                 System.out.println(">>>> [DEBUG] PREPARANDO PERFIL TÉCNICO...");
 
@@ -84,7 +83,7 @@ public class EditarPerfilServlet extends HttpServlet {
                 // Chamada ao DAO do Treinador
                 treinadorDao.salvarOuAtualizar(pt);
 
-                // Importante: Vincula o perfil ao objeto logado
+                // Vincula o perfil ao objeto logado
                 logado.setPerfilTreinador(pt);
             }
 
@@ -92,7 +91,6 @@ public class EditarPerfilServlet extends HttpServlet {
             dao.atualizarPerfil(logado);
 
             // 6. Busca o usuário atualizado com o JOIN do banco
-            // Isso garante que o atributo 'perfilTreinador' venha preenchido
             UsuarioModel usuarioAtualizado = dao.buscarPorId(logado.getIdUsuario());
 
             // 7. Atualiza a sessão com o objeto que tem os dados do JOIN
@@ -100,16 +98,15 @@ public class EditarPerfilServlet extends HttpServlet {
 
             System.out.println(">>>> [DEBUG] Sessão atualizada. Perfil técnico presente? " + (usuarioAtualizado.getPerfilTreinador() != null));
 
-            // 8. REDIRECIONA APENAS UMA VEZ E PARA O MÉTODO IMEDIATAMENTE
+            // 8. REDIRECIONA APENAS UMA VEZ E PARA O MÉTODO
             response.sendRedirect(request.getContextPath() + "/perfil-treinador?sucesso=1");
-            return; // Importante para não executar nada abaixo
+            return;
 
         } catch (Exception e) {
-            // Se der Erro 500, o motivo aparecerá aqui no terminal do Docker/IDE
             System.err.println(">>>> [ERRO NO EDITAR PERFIL]: " + e.getMessage());
             e.printStackTrace();
 
-            // Opcional: Redirecionar para uma página de erro amigável
+
             response.sendRedirect(request.getContextPath() + "/perfil-treinador?erro=processamento");
         }
 

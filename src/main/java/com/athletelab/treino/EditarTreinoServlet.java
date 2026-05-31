@@ -37,8 +37,8 @@ public class EditarTreinoServlet extends HttpServlet {
         System.out.println("TREINO: " + treino);
 
         // 🔥 busca exercícios
-        List<ExercicioModel> exercicios =
-                ExercicioDAO.listarPorTreino(idTreino);
+        ExercicioDAO exercicioDAO = new ExercicioDAO();
+        List<ExercicioModel> exercicios = exercicioDAO.listarPorTreino(idTreino);
 
         // envia para o JSP
         request.setAttribute("treino", treino);

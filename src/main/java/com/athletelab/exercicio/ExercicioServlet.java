@@ -49,8 +49,8 @@ public class ExercicioServlet extends HttpServlet {
             exercicio.setObservacao(
                     request.getParameter("observacao")
             );
-
-            ExercicioDAO.inserir(exercicio);
+            ExercicioDAO exercicioDAO = new ExercicioDAO();
+            exercicioDAO.inserir(exercicio);
 
             response.sendRedirect(
                     request.getContextPath()
@@ -95,8 +95,8 @@ public class ExercicioServlet extends HttpServlet {
             exercicio.setObservacao(
                     request.getParameter("observacao")
             );
-
-            ExercicioDAO.atualizar(exercicio);
+            ExercicioDAO exercicioDAO = new ExercicioDAO();
+            exercicioDAO.atualizar(exercicio);
 
             response.sendRedirect(
                     request.getContextPath()
@@ -115,8 +115,8 @@ public class ExercicioServlet extends HttpServlet {
 
             int idTreino =
                     Integer.parseInt(request.getParameter("idTreino"));
-
-            ExercicioDAO.deletar(idExercicio);
+            ExercicioDAO exercicioDAO = new ExercicioDAO();
+            exercicioDAO.deletar(idExercicio);
 
             response.sendRedirect(
                     request.getContextPath()

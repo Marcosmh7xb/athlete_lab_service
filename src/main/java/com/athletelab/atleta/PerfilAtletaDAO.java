@@ -2,16 +2,18 @@ package com.athletelab.atleta;
 
 
 import com.athletelab.configBD.ConnectionDataBase;
+import com.athletelab.usuario.BaseDAO;
+
 import java.sql.*;
 
-public class PerfilAtletaDAO {
+public class PerfilAtletaDAO extends BaseDAO {
 
     public void salvarOuAtualizar(PerfilAtletaModel a) {
         String sql = "INSERT INTO perfil_atleta (id_usuario, modalidade, nivel_experiencia, objetivo, altura, peso, dias_semana, ambiente, sexo, restricao_fisica) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE modalidade=?, nivel_experiencia=?, objetivo=?, altura=?, peso=?, dias_semana=?, ambiente=?, sexo=?, restricao_fisica=?";
 
-        try (Connection conn = ConnectionDataBase.getConnection();
+        try (Connection conn = obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, a.getIdUsuario());
@@ -37,7 +39,7 @@ public class PerfilAtletaDAO {
             stmt.setString(19, a.getRestricaoFisica());
 
             stmt.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
