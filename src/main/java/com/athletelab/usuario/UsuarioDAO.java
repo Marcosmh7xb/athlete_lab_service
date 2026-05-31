@@ -98,17 +98,13 @@ public class UsuarioDAO {
         String sql = "UPDATE usuario SET nome=?, email=?, telefone=?, cidade_uf=?, senha=? WHERE id_usuario=?";
 
         try (Connection conn = ConnectionDataBase.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) { /// Prepara o comando sql para execução, mas não executa.
 
             stmt.setString(1, u.getNome());
             stmt.setString(2, u.getEmail());
             stmt.setString(3, u.getTelefone());
             stmt.setString(4, u.getCidadeUF());
-
-            // Criptografa a senha antes de salvar
-            String senhaCriptografada = BCrypt.hashpw(u.getSenha(), BCrypt.gensalt());
-            stmt.setString(5, senhaCriptografada);
-
+            stmt.setString(5, u.getSenha());
             stmt.setInt(6, u.getIdUsuario());
 
             stmt.executeUpdate();
@@ -119,6 +115,7 @@ public class UsuarioDAO {
             System.out.println("Erro ao atualizar: " + e.getMessage());
         }
     }
+
     // DELETE
     public void deletar(int idUsuario) {
 
@@ -445,21 +442,72 @@ public class UsuarioDAO {
 
         return null;
     }
+    public UsuarioModel buscarFichaCompletaAtleta(int idAtleta) {
+        UsuarioModel usuario = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-    public void atualizarSenha(int idUsuario, String senhaHash) {
+        try {
+            conn = ConnectionDataBase.getConnection(); // Ajuste para a sua classe de conexão
+            String sql = "SELECT u.nome, u.email, u.telefone, u.cidade_uf, u.foto, " +
+                    "a.peso, a.altura, a.objetivo, a.modalidade, a.nivel_experiencia, a.dias_semana, a.restricao_fisica " +
+                    "FROM usuario u " +
+                    "INNER JOIN perfil_atleta a ON u.id_usuario = a.id_usuario " +
+                    "WHERE u.id_usuario = ?";
 
-        String sql = "UPDATE usuario SET senha=? WHERE id_usuario=?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idAtleta);
+            rs = ps.executeQuery();
 
-        try (Connection conn = ConnectionDataBase.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            if (rs.next()) {
+                usuario = new UsuarioModel();
+                usuario.setNome(rs.getString("nome"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setTelefone(rs.getString("telefone"));
+                usuario.setCidadeUF(rs.getString("cidade_uf"));
+                usuario.setFoto(rs.getString("foto"));
 
-            stmt.setString(1, senhaHash);
-            stmt.setInt(2, idUsuario);
+                // Instancia o objeto interno do perfil atleta
+                PerfilAtletaModel atleta = new PerfilAtletaModel();
+                atleta.setPeso(rs.getFloat("peso"));
+                atleta.setAltura(rs.getFloat("altura"));
+                atleta.setObjetivo(rs.getString("objetivo"));
+                atleta.setModalidade(rs.getString("modalidade"));
+                atleta.setNivelExperiencia(rs.getString("nivel_experiencia"));
+                atleta.setDiasSemana(rs.getString("dias_semana"));
+                atleta.setRestricaoFisica(rs.getString("restricao_fisica"));
 
-            stmt.executeUpdate();
+                usuario.setPerfilAtleta(atleta);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Feche as conexões aqui (rs, ps, conn)
+        }
+        return usuario;
+    }
+    public boolean atualizarSenha(int idUsuario, String novaSenha) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        String sql = "UPDATE usuario SET senha = ? WHERE id_usuario = ?";
 
-        } catch (SQLException e) {
-            System.out.println("Erro ao atualizar senha: " + e.getMessage());
+        try {
+            // Use a sua classe de conexão padrão (ex: ConexaoBanco ou FabricaConexao)
+            conn = com.athletelab.configBD.ConnectionDataBase.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, novaSenha);
+            ps.setInt(2, idUsuario);
+
+            int linhasAfetadas = ps.executeUpdate();
+            return linhasAfetadas > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            // Feche as conexões aqui se o seu projeto não fizer isso automaticamente
+            try { if (ps != null) ps.close(); } catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
     }
 }

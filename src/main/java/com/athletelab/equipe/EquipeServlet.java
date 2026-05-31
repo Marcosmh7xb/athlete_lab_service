@@ -32,7 +32,7 @@ public class EquipeServlet extends HttpServlet {
             request.setAttribute("equipe", equipe);
             request.getRequestDispatcher("/WEB-INF/gerenciarEquipe.jsp").forward(request, response);
         }
-        // Dentro do doGet do EquipeServlet
+
         if ("ver".equals(acao)) {
             int idEquipe = Integer.parseInt(request.getParameter("id"));
 
@@ -47,6 +47,23 @@ public class EquipeServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/detalhesEquipeAtleta.jsp").forward(request, response);
             } else {
                 response.sendRedirect("perfil-atleta?erro=equipe_nao_encontrada");
+            }
+        }
+         acao = request.getParameter("acao");
+
+        if ("verAtleta".equals(acao)) {
+            int idAtleta = Integer.parseInt(request.getParameter("idAtleta"));
+
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            // Busca a ficha do atleta no banco
+            UsuarioModel atleta = usuarioDAO.buscarFichaCompletaAtleta(idAtleta);
+
+            if (atleta != null) {
+                request.setAttribute("atleta", atleta);
+                // Despacha para a nova página de exibição
+                request.getRequestDispatcher("/WEB-INF/detalhesAtleta.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/home?erro=atletaNaoEncontrado");
             }
         }
     }
