@@ -3,7 +3,6 @@ package com.athletelab.treino;
 import com.athletelab.exercicio.ExercicioDAO;
 import com.athletelab.usuario.UsuarioModel;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -31,36 +30,36 @@ public class TreinoServlet extends HttpServlet {
         ExercicioDAO exercicioDAO = new ExercicioDAO();
 
         List<TreinoModel> treinos;
-
         String tipo = usuario.getTipoUsuario();
 
-        // =========================
-        // ATLETA → TREINOS ATRIBUÍDOS
-        // =========================
+        // ATLETA
         if ("ATLETA".equals(tipo)) {
 
             treinos = treinoDAO.listarPorAtleta(usuario.getIdUsuario());
+
+            // só ativos
+            treinos.removeIf(t ->
+                    !"ATIVO".equalsIgnoreCase(t.getStatus()));
         }
 
-        // =========================
-        // TREINADOR → ATIVOS + ATRIBUÍDOS
-        // =========================
+        // TREINADOR
         else if ("TREINADOR".equals(tipo)) {
 
-            treinos = treinoDAO.listarParaTreinador(usuario.getIdUsuario());
+            treinos = treinoDAO.listarParaTreinador(
+                    usuario.getIdUsuario()
+            );
         }
 
-        // =========================
-        // ADMIN → TUDO
-        // =========================
+        // ADMIN
         else {
 
             treinos = treinoDAO.listarTodos();
         }
 
-        // carregar exercícios
         for (TreinoModel t : treinos) {
-            t.setExercicios(exercicioDAO.listarPorTreino(t.getIdTreino()));
+            t.setExercicios(
+                    exercicioDAO.listarPorTreino(t.getIdTreino())
+            );
         }
 
         req.setAttribute("treinos", treinos);

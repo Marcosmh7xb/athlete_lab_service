@@ -26,6 +26,7 @@ public class PerfilTreinadorDao extends BaseDAO {
         }
     }
 
+
     public PerfilTreinadorModel buscarPorIdTreinador(int idTreinador) {//busca o treinador no banco para exibir suas informações ou altera-las
         String sql = "SELECT * FROM perfil_treinador WHERE id_treinador = ?";
 

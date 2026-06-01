@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/admin/treinos")
-public class AdminGerenciarServlet extends HttpServlet {
+public class AdminGerenciaServlet extends HttpServlet {
 
     private TreinoDAO treinoDAO = new TreinoDAO();
 
@@ -36,13 +36,7 @@ public class AdminGerenciarServlet extends HttpServlet {
         UsuarioModel admin =
                 (UsuarioModel) session.getAttribute("usuarioLogado");
 
-        // ================= VALIDAÇÃO =================
-        if (admin == null) {
-            resp.sendRedirect(req.getContextPath() + "/index.jsp");
-            return;
-        }
-
-        if (!"ADMIN".equals(admin.getTipoUsuario())) {
+        if (admin == null || !"ADMIN".equals(admin.getTipoUsuario())) {
             resp.sendRedirect(req.getContextPath() + "/index.jsp");
             return;
         }
@@ -51,7 +45,7 @@ public class AdminGerenciarServlet extends HttpServlet {
         List<TreinoModel> treinos = treinoDAO.listarTodos();
         req.setAttribute("treinos", treinos);
 
-        // ================= ACESSO LIBERADO =================
+        // ================= ABRIR TELA =================
         req.getRequestDispatcher("/WEB-INF/admin_treino.jsp")
                 .forward(req, resp);
     }
@@ -80,30 +74,36 @@ public class AdminGerenciarServlet extends HttpServlet {
         String acao = req.getParameter("acao");
 
         // ================= CRIAR =================
-        // reutiliza inserir() que já existe no TreinoDAO
         if ("criar".equals(acao)) {
 
-            TreinoModel t = new TreinoModel();
-            t.setNome(req.getParameter("nome"));
-            t.setCategoria(req.getParameter("categoria"));
-            t.setStatus(req.getParameter("status"));
-            t.setIdUsuario(admin.getIdUsuario());
+            TreinoModel treino = new TreinoModel();
+            treino.setNome(req.getParameter("nome"));
+            treino.setCategoria(req.getParameter("categoria"));
+            treino.setStatus(req.getParameter("status"));
+            treino.setIdUsuario(admin.getIdUsuario());
 
-            int idTreino = treinoDAO.inserir(t);
+            int idTreino = treinoDAO.inserir(treino);
 
-            resp.sendRedirect(req.getContextPath()
-                    + "/treino/editar?idTreino=" + idTreino);
+
+            resp.sendRedirect(
+                    req.getContextPath()
+                            + "/admin/treinos"
+            );
             return;
         }
 
         // ================= DELETAR =================
-        // reutiliza deletar() adicionado no TreinoDAO
         if ("deletar".equals(acao)) {
 
-            int idTreino = Integer.parseInt(req.getParameter("idTreino"));
+            int idTreino = Integer.parseInt(
+                    req.getParameter("idTreino")
+            );
+
             treinoDAO.deletar(idTreino);
 
-            resp.sendRedirect(req.getContextPath() + "/admin/criartreino");
+            resp.sendRedirect(
+                    req.getContextPath() + "/admin/treinos"
+            );
         }
     }
 }

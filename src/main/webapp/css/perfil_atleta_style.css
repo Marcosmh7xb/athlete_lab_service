@@ -44,6 +44,30 @@ body {
     width: 26px;
     filter: brightness(0) invert(1);
 }
+.right-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-btn {
+    padding: 8px 14px;
+    background: #5f46ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.edit-btn:hover {
+    opacity: 0.85;
+}
+
+.treino-btn {
+    background: transparent;
+    border: 1px solid white;
+}
 .menu-item:hover {
     background: #111;
 }
@@ -200,6 +224,36 @@ body {
     justify-content: center;
     text-align: center;
     backdrop-filter: blur(5px);
+}
+.left-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.treino-titulo {
+    display: flex;
+    flex-direction: column;
+}
+
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-badge.ativo {
+    background: rgba(0, 255, 120, 0.15);
+    color: #00ff88;
+    border: 1px solid #00ff88;
+}
+
+.status-badge.inativo {
+    background: rgba(255, 0, 0, 0.15);
+    color: #ff4d4d;
+    border: 1px solid #ff4d4d;
 }
 .card-alerta {
     background: #0f0f0f;

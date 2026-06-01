@@ -38,7 +38,7 @@
         <!-- POPUP MENU -->
         <div class="menu-popup" id="menuPopup">
 
-            <a href="#">A Plataforma</a>
+            <a href="${pageContext.request.contextPath}/sobre">A Plataforma</a>
             <a href="#">Benefícios</a>
             <a href="#">Estatísticas</a>
 
@@ -337,11 +337,41 @@
 </section>
 
 <!-- ================= FOOTER ================= -->
-
+ 
 <footer class="footer">
-
-    <div class="footer-container"></div>
-
+ 
+    <div class="footer-container">
+ 
+        <!-- LOGO + SLOGAN -->
+        <div class="footer-brand">
+            <img src="banco_imagens/imagens/Athlete logo white.png" class="footer-logo" alt="Athlete Lab">
+            <p class="footer-slogan">Eleve o nível. A qualquer hora,<br>de qualquer lugar.</p>
+        </div>
+ 
+        <!-- LINKS -->
+        <div class="footer-links">
+            <span class="footer-title">Navegação</span>
+            <a href="${pageContext.request.contextPath}/sobre">A Plataforma</a>
+            <a href="${pageContext.request.contextPath}/home">Home</a>
+            <a href="${pageContext.request.contextPath}/perfil">Meu Perfil</a>
+        </div>
+ 
+        <!-- ACADÊMICO -->
+        <div class="footer-links">
+            <span class="footer-title">Projeto</span>
+            <a href="${pageContext.request.contextPath}/sobre#academico">Sobre o Projeto</a>
+            <a href="${pageContext.request.contextPath}/sobre#equipe">Equipe</a>
+            <a href="${pageContext.request.contextPath}/sobre#tecnologias">Tecnologias</a>
+        </div>
+ 
+    </div>
+ 
+    <!-- RODAPÉ INFERIOR -->
+    <div class="footer-bottom">
+        <span>© 2025 Athlete Lab &mdash; Projeto Acadêmico &bull; LPOO &bull; ADS</span>
+        <span>Prof. Woquiton Fernandes</span>
+    </div>
+ 
 </footer>
 
 </body>

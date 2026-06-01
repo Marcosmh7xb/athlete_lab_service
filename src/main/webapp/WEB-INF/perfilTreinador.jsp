@@ -166,13 +166,40 @@
                 <c:forEach var="treino" items="${treinos}">
                     <div class="treino-card" data-categoria="${treino.categoria}">
                         <div class="treino-header">
-                            <div class="left-info">
-                                <h3>${treino.nome}</h3>
-                                <span class="categoria">${treino.categoria}</span>
-                            </div>
+                           <div class="left-info">
+
+                               <div class="treino-titulo">
+                                   <h3>${treino.nome}</h3>
+                                   <span class="categoria">${treino.categoria}</span>
+                               </div>
+
+                               <c:choose>
+                                   <c:when test="${treino.status == 'ATIVO' || treino.status == 'Ativo' || treino.status == 'ativo'}">
+                                       <span class="status-badge ativo">
+                                           ATIVO
+                                       </span>
+                                   </c:when>
+
+                                   <c:otherwise>
+                                       <span class="status-badge inativo">
+                                           INATIVO
+                                       </span>
+                                   </c:otherwise>
+                               </c:choose>
+
+                           </div>
                             <div class="right-info">
                                 <span class="data">${treino.dataCriacao}</span>
-                                <a href="${pageContext.request.contextPath}/treino/editar?idTreino=${treino.idTreino}" class="edit-btn">Editar</a>
+
+                                <a href="${pageContext.request.contextPath}/treino/editar?idTreino=${treino.idTreino}"
+                                   class="edit-btn">
+                                    Editar Exercícios
+                                </a>
+
+                                <a href="${pageContext.request.contextPath}/treino/editarInfo?idTreino=${treino.idTreino}"
+                                   class="edit-btn treino-btn">
+                                    Editar Treino
+                                </a>
                             </div>
                         </div>
 

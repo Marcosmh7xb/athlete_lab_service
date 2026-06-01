@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Treinos</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adm_treinos_equipes_style.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -205,7 +206,7 @@
 </div>
 
 <!-- FORM OCULTO PARA EXCLUIR -->
-<form id="formExcluir" action="${pageContext.request.contextPath}/admin/treinos" method="post" style="display:none;">
+<form id="formExcluir" action="${pageContext.request.contextPath}/admin/criartreino" method="post" style="display:none;">
     <input type="hidden" name="acao" value="deletar">
     <input type="hidden" name="idTreino" id="idTreinoExcluir">
 </form>

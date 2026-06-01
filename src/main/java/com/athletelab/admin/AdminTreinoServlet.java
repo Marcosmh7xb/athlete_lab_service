@@ -160,7 +160,7 @@ public class AdminTreinoServlet extends HttpServlet {
             }
 
             response.sendRedirect(
-                    request.getContextPath() + "/admin/gerenciar"
+                    request.getContextPath() + "/admin/treinos"
             );
 
         } catch (Exception e) {

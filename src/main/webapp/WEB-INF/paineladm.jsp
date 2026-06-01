@@ -32,7 +32,7 @@
 
             <!-- CARD 1 -->
 
-            <a href="${pageContext.request.contextPath}/admin" class="admin-card">
+            <a href="${pageContext.request.contextPath}/admin/registros" class="admin-card">
 
                 <div class="icon-area">
 

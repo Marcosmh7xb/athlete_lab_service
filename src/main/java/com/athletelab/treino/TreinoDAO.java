@@ -1,28 +1,24 @@
 package com.athletelab.treino;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.athletelab.configBD.ConnectionDataBase;
+import com.athletelab.exercicio.ExercicioModel;
+import com.athletelab.usuario.BaseDAO;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.athletelab.configBD.ConnectionDataBase;
-import com.athletelab.exercicio.ExercicioModel;
-
-public class TreinoDAO {
+public class TreinoDAO extends BaseDAO {
 
 
     // CREATE
-    public static int inserir(TreinoModel t) {
+    public int inserir(TreinoModel t) {
 
         String sql =
                 "INSERT INTO treino " +
                         "(id_usuario, nome, categoria, status) " +
                         "VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = ConnectionDataBase.getConnection();
+        try (Connection conn = obterConexao();
 
              PreparedStatement stmt =
                      conn.prepareStatement(
@@ -55,7 +51,7 @@ public class TreinoDAO {
                 return rs.getInt(1);
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
 
             System.out.println(
                     "Erro ao inserir treino: "
@@ -73,7 +69,7 @@ public class TreinoDAO {
 
         String sql = "SELECT * FROM treino WHERE id_treino = ?";
 
-        try (Connection conn = ConnectionDataBase.getConnection();
+        try (Connection conn = obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
@@ -111,7 +107,8 @@ public class TreinoDAO {
         String sql =
                 "SELECT t.* FROM treino t " +
                         "JOIN treino_atribuido ta ON ta.id_treino = t.id_treino " +
-                        "WHERE ta.id_usuario = ?";
+                        "WHERE ta.id_usuario = ? " +
+                        "AND t.status = 'ATIVO'";
 
         return listarGenerico(sql, idUsuario);
     }
@@ -146,7 +143,7 @@ public class TreinoDAO {
 
         List<TreinoModel> lista = new ArrayList<>();
 
-        try (Connection conn = ConnectionDataBase.getConnection();
+        try (Connection conn = obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             if (idUsuario != null) {
@@ -192,7 +189,7 @@ public class TreinoDAO {
 
         String sql = "SELECT * FROM exercicio WHERE id_treino = ?";
 
-        try (Connection conn = ConnectionDataBase.getConnection();
+        try (Connection conn = obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idTreino);
@@ -229,7 +226,7 @@ public class TreinoDAO {
                 "INSERT INTO treino_atribuido (id_treino, id_usuario, id_treinador) " +
                         "VALUES (?, ?, ?)";
 
-        try (Connection conn = ConnectionDataBase.getConnection();
+        try (Connection conn = obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idTreino);
@@ -250,7 +247,7 @@ public class TreinoDAO {
                         "SET nome=?, categoria=?, status=? " +
                         "WHERE id_treino=?";
 
-        try (Connection conn = ConnectionDataBase.getConnection();
+        try (Connection conn = obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, treino.getNome());
@@ -258,10 +255,14 @@ public class TreinoDAO {
             stmt.setString(3, treino.getStatus());
             stmt.setInt(4, treino.getIdTreino());
 
-            stmt.executeUpdate();
+            System.out.println("Atualizando treino ID: " + treino.getIdTreino());
+            System.out.println("Novo status: " + treino.getStatus());
+
+            int linhas = stmt.executeUpdate();
+
+            System.out.println("Linhas afetadas: " + linhas);
 
         } catch (Exception e) {
-
             e.printStackTrace();
         }
     }
@@ -282,5 +283,28 @@ public class TreinoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean treinoJaAtribuido(int idTreino, int idUsuario) {
+
+        String sql = "SELECT COUNT(*) FROM treino_atribuido WHERE id_treino = ? AND id_usuario = ?";
+
+        try (Connection conn = obterConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idTreino);
+            stmt.setInt(2, idUsuario);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

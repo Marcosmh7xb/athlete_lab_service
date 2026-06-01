@@ -68,11 +68,11 @@ public class UsuarioAdminServlet extends HttpServlet {
 
                 dao.deletar(id);
 
-                response.sendRedirect(request.getContextPath() + "/admin");
+                response.sendRedirect(request.getContextPath() + "/admin/registros");
             }
 
             else {
-                response.sendRedirect(request.getContextPath() + "/admin");
+                response.sendRedirect(request.getContextPath() + "/admin/painel");
             }
 
         } catch (Exception e) {
@@ -123,7 +123,7 @@ public class UsuarioAdminServlet extends HttpServlet {
                 dao.atualizar(u);
             }
 
-            response.sendRedirect(request.getContextPath() + "/admin");
+            response.sendRedirect(request.getContextPath() + "/admin/registros");
 
         } catch (Exception e) {
             throw new ServletException(e);

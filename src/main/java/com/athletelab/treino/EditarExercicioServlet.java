@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/treino/editar")
-public class EditarTreinoServlet extends HttpServlet {
+public class EditarExercicioServlet extends HttpServlet {
 
     private TreinoDAO treinoDAO = new TreinoDAO();
 
