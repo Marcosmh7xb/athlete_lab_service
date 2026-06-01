@@ -1,34 +1,45 @@
 package com.athletelab.usuario;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.time.LocalDate;
+
 import org.mindrot.jbcrypt.BCrypt;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/cadastro")
 public class UsuarioServletCadastro extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest requisicao, HttpServletResponse resposta) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest requisicao, HttpServletResponse resposta)
+            throws ServletException, IOException {
+
         String tipoUsuario = requisicao.getParameter("tipoUsuario");
         requisicao.setAttribute("tipoUsuario", tipoUsuario);
-        RequestDispatcher dispatcher = requisicao.getRequestDispatcher("WEB-INF/cadastro.jsp");
+
+        RequestDispatcher dispatcher =
+                requisicao.getRequestDispatcher("WEB-INF/cadastro.jsp");
         dispatcher.forward(requisicao, resposta);
     }
 
     @Override
-    protected void doPost(HttpServletRequest requisicao, HttpServletResponse resposta) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest requisicao, HttpServletResponse resposta)
+            throws ServletException, IOException {
 
         String nome = requisicao.getParameter("nome");
         String email = requisicao.getParameter("email");
         String senha = requisicao.getParameter("senha");
-        String senhaCriptografada = BCrypt.hashpw(senha, BCrypt.gensalt()); /// Pegar a senha e trasforma e salva o hash da senha, e depois conpara a senha digiatda com o hash salvo.
+        String senhaCriptografada = BCrypt.hashpw(senha, BCrypt.gensalt());
+
         String telefone = requisicao.getParameter("telefone");
         String cidadeUF = requisicao.getParameter("cidadeUF");
 
-        String tipoUsuario =requisicao.getParameter("tipoUsuario");
+        String tipoUsuario = requisicao.getParameter("tipoUsuario");
         requisicao.setAttribute("tipoUsuario", tipoUsuario);
 
         String dataNascimentoStr = requisicao.getParameter("dataNascimento");
@@ -50,7 +61,8 @@ public class UsuarioServletCadastro extends HttpServlet {
         usuario.setDataCriacao(LocalDate.now());
         usuario.setAtivo(true);
 
-        UsuarioDAO.inserir(usuario);
+        UsuarioDAO dao = new UsuarioDAO();
+        dao.inserir(usuario);
 
         resposta.sendRedirect(
                 requisicao.getContextPath() + "/index.jsp"
