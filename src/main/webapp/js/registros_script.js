@@ -127,19 +127,19 @@
 
     /* ===================== FECHAR ===================== */
 
-    function fecharChoice(){
+    window.fecharChoice = function(){
 
     modalChoice.classList.remove("active");
 }
 
-    function fecharForm(){
+    window.fecharForm = function(){
 
     modalForm.classList.remove("active");
 }
 
     /* ===================== CRIAR ===================== */
 
-    function abrirForm(tipo){
+    window.abrirForm = function(tipo){
 
     usuarioId.value = "";
 

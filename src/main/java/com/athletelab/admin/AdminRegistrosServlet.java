@@ -15,8 +15,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/admin")
-public class AdminServlet extends HttpServlet {
+@WebServlet("/admin/registros")
+public class AdminRegistrosServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest requisicao,
@@ -25,23 +25,22 @@ public class AdminServlet extends HttpServlet {
 
         HttpSession sessao = requisicao.getSession(false);
 
-        // ================= VERIFICA LOGIN =================
+
         if (sessao == null) {
             resposta.sendRedirect(requisicao.getContextPath() + "/index.jsp");
             return;
         }
 
-        // ================= PEGA USUÁRIO =================
         UsuarioModel admin =
                 (UsuarioModel) sessao.getAttribute("usuarioLogado");
 
-        // ================= VERIFICA NULL =================
+
         if (admin == null) {
             resposta.sendRedirect(requisicao.getContextPath() + "/index.jsp");
             return;
         }
 
-        // ================= VERIFICA ADMIN =================
+
         if (!"ADMIN".equals(admin.getTipoUsuario())) {
             resposta.sendRedirect(requisicao.getContextPath() + "/index.jsp");
             return;
@@ -81,10 +80,7 @@ public class AdminServlet extends HttpServlet {
         }
 
         requisicao.setAttribute("usuarios", usuarios);
-
-        RequestDispatcher dispatcher =
-                requisicao.getRequestDispatcher("WEB-INF/registros.jsp");
-
+        RequestDispatcher dispatcher = requisicao.getRequestDispatcher("/WEB-INF/registros.jsp");
         dispatcher.forward(requisicao, resposta);
     }
 }

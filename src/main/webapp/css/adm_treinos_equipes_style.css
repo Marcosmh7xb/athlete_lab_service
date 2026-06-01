@@ -38,7 +38,7 @@ body {
     gap: 15px;
 }
 
-.painel-btn{
+.painel-btn {
     background: #141414;
     border: 1px solid #333;
     color: #d4d4d4;
@@ -49,49 +49,10 @@ body {
     font-size: 14px;
 }
 
-.painel-btn:hover{
+.painel-btn:hover {
     border-color: red;
     color: white;
     background: #1a1a1a;
-}
-
-/* ================= TABS ================= */
-
-.tabs-container {
-    display: flex;
-    gap: 10px;
-    margin: 25px 0;
-}
-
-.tab-btn {
-    background: #111;
-    border: 1px solid #2a2a2a;
-    color: #aaa;
-    padding: 12px 22px;
-    border-radius: 10px 10px 0 0;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.tab-btn:hover {
-    background: #1a1a1a;
-    color: white;
-}
-
-.tab-btn.active {
-    background: red;
-    border-color: red;
-    color: white;
-}
-
-/* ================= SEÇÕES ================= */
-
-.tab-section {
-    display: none;
-}
-
-.tab-section.active {
-    display: block;
 }
 
 /* ================= BOTÃO NOVO ================= */
@@ -103,48 +64,25 @@ body {
     padding: 12px 20px;
     border-radius: 10px;
     cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
     transition: 0.3s;
-    margin-bottom: 20px;
+    margin-top: 25px;
+    display: inline-block;
 }
 
 .novo-btn:hover {
     background: #cc0000;
 }
 
-/* ================= TABELA ================= */
+/* ================= SEÇÃO ================= */
 
-.table-header {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr) 180px;
-    padding: 15px;
-    background: #0d0d0d;
-    border: 1px solid #222;
-    font-size: 13px;
-    opacity: 0.7;
+.tab-section {
+    display: none;
 }
 
-.row {
-    display: grid;
-    grid-template-columns: 1fr 180px;
-    border: 1px solid #222;
-    margin-top: 10px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    padding: 18px;
-    font-size: 14px;
-}
-
-.actions-cell {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: #0f0f0f;
+.tab-section.active {
+    display: block;
 }
 
 /* ================= BOTÕES ================= */
@@ -157,6 +95,8 @@ body {
     border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .btn-editar:hover {
@@ -191,7 +131,7 @@ body {
     padding: 15px;
     display: flex;
     justify-content: space-between;
-    cursor: pointer;
+    align-items: center;
     border-bottom: 1px solid #222;
 }
 
@@ -200,39 +140,56 @@ body {
     font-size: 13px;
 }
 
-.treino-body {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    padding: 0 15px;
-    transition: 0.35s ease;
+.actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
-.treino-card.active .treino-body {
-    max-height: 420px;
-    overflow-y: auto;
-    opacity: 1;
-    padding: 15px;
+/* ================= FORM CRIAR ================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 25px 0 15px 0;
 }
 
-/* SCROLL */
-.treino-body::-webkit-scrollbar {
-    width: 6px;
+.campo-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
-.treino-body::-webkit-scrollbar-thumb {
-    background: #444;
-    border-radius: 10px;
-}
-
-/* ================= EXERCÍCIO ================= */
-
-.exercicio {
-    background: #111;
+input, select {
+    background: #000;
+    border: 1px solid #fff;
+    color: white;
     padding: 12px;
     border-radius: 10px;
-    border: 1px solid #333;
-    margin-bottom: 10px;
+    outline: none;
+    width: 100%;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #222;
+    margin: 20px 0;
+}
+
+.criar-btn {
+    background: red;
+    border: none;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.criar-btn:hover {
+    background: #cc0000;
 }
 
 /* ================= MODAL ================= */
@@ -253,21 +210,17 @@ body {
 }
 
 .modal {
-    width: 900px;
+    width: 600px;
     max-width: 95vw;
     max-height: 90vh;
-
     background: #0f0f0f;
     border: 1px solid #222;
     border-radius: 16px;
-
     display: flex;
     flex-direction: column;
-
     overflow: hidden;
 }
 
-/* HEADER */
 .modal-header {
     padding: 18px;
     border-bottom: 1px solid #222;
@@ -277,7 +230,6 @@ body {
     background: #111;
 }
 
-/* BOTÃO X */
 .modal-close {
     background: transparent;
     border: none;
@@ -291,7 +243,6 @@ body {
     color: white;
 }
 
-/* FORM */
 .modal-form {
     padding: 18px;
     display: flex;
@@ -300,153 +251,121 @@ body {
     overflow-y: auto;
 }
 
-/* ================= GRID DE INPUTS ================= */
+/* ================= EXERCÍCIO ================= */
 
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-}
-
-.campo-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.campo-label {
-    font-size: 11px;
-    color: #888;
-}
-
-/* INPUTS PADRONIZADOS */
-
-input, select {
-    background: #000;
-    border: 1px solid #fff;
-    color: white;
+.exercicio-card {
+    background: #111;
     padding: 12px;
     border-radius: 10px;
-    outline: none;
-    width: 100%;
+    border: 1px solid #333;
+    margin-bottom: 10px;
 }
 
-/* ================= EXERCÍCIOS BOX ================= */
+/* ================= TOAST ================= */
 
-.exercicio-box {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr auto;
-    gap: 10px;
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.3s ease;
+    pointer-events: none;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.sucesso {
+    border-color: #1a7f4b;
+    color: #a8ffcf;
+}
+
+.toast.erro {
+    border-color: red;
+    color: #ffb3b3;
+}
+
+/* ================= MODAL CONFIRMAR ================= */
+
+.confirmar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.78);
+    display: none;
     align-items: center;
+    justify-content: center;
+    z-index: 9998;
+}
 
-    padding: 10px;
+.confirmar-overlay.active {
+    display: flex;
+}
+
+.confirmar-box {
+    background: #0f0f0f;
     border: 1px solid #333;
-    border-radius: 10px;
-    background: #0b0b0b;
+    border-radius: 14px;
+    padding: 30px;
+    text-align: center;
+    width: 360px;
 }
 
-.exercicio-box input {
-    background: #000;
-    border: 1px solid #fff;
-    padding: 10px;
+.confirmar-box p {
+    margin-bottom: 24px;
+    font-size: 15px;
+    color: #ccc;
 }
 
-.exercicio-box button {
-    background: #444;
-    border: none;
-    color: white;
-    padding: 10px 14px;
+.confirmar-acoes {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.confirmar-acoes button {
+    padding: 10px 24px;
     border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.exercicio-box button:hover {
-    background: red;
-}
-
-/* ================= BOTÕES MODAL ================= */
-
-.choice-btn {
-    background: #222;
-    border: 1px solid #333;
-    color: white;
-    padding: 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.choice-btn:hover {
-    background: #333;
-}
-
-.criar-btn {
-    background: red;
     border: none;
-    color: white;
-    padding: 14px;
-    border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
+    font-size: 14px;
+    transition: 0.2s;
 }
 
-.criar-btn:hover {
+.btn-confirmar-sim {
+    background: red;
+    color: white;
+}
+
+.btn-confirmar-sim:hover {
     background: #cc0000;
 }
 
-/* ================= OBSERVAÇÃO ================= */
-
-.obs-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.obs-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.obs-header button {
+.btn-confirmar-nao {
     background: #222;
-    border: 1px solid #333;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s;
+    color: #aaa;
+    border: 1px solid #333 !important;
 }
 
-.obs-header button:hover {
+.btn-confirmar-nao:hover {
     background: #333;
-}
-
-.obs-textarea {
-    background: #000;
-    border: 1px solid #fff;
     color: white;
-    padding: 12px;
-    border-radius: 10px;
-    resize: none;
-    height: 60px;
-    transition: 0.3s;
-}
-
-.obs-textarea.expanded {
-    height: 140px;
 }
 
 /* ================= RESPONSIVO ================= */
 
 @media (max-width: 900px) {
-
     .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .exercicio-box {
         grid-template-columns: 1fr;
     }
 
@@ -454,40 +373,27 @@ input, select {
         width: 95vw;
     }
 }
+/* ================= EXPANSÃO DOS TREINOS ================= */
 
-/* ================= MEMBRO BOX ================= */
-
-.membro-box {
-    grid-template-columns: 1fr 2fr 2fr auto !important;
+.treino-header {
+    cursor: pointer;
 }
 
-/* ================= VALIDATION VISUAL ================= */
+.treino-body {
+    max-height: 0;
+    overflow: hidden;
 
-.input-error {
-    border: 1px solid red !important;
-    box-shadow: 0 0 6px rgba(255, 0, 0, 0.35);
+    opacity: 0;
+
+    padding: 0 15px;
+
+    transition:
+            max-height 0.25s ease,
+            opacity 0.20s ease;
 }
 
-select.input-error {
-    border: 1px solid red !important;
-    box-shadow: 0 0 6px rgba(255, 0, 0, 0.35);
-}
-
-.exercicio-box.error {
-    border: 1px solid red;
-    box-shadow: 0 0 8px rgba(255, 0, 0, 0.25);
-    transition: 0.2s;
-}
-
-.input-error,
-.exercicio-box.error {
-    animation: shakeError 0.25s linear;
-}
-
-@keyframes shakeError {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-2px); }
-    50% { transform: translateX(2px); }
-    75% { transform: translateX(-2px); }
-    100% { transform: translateX(0); }
+.treino-card.active .treino-body {
+    max-height: 500px;
+    opacity: 1;
+    padding: 15px;
 }

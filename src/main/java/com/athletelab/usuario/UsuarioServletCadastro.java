@@ -50,7 +50,8 @@ public class UsuarioServletCadastro extends HttpServlet {
         usuario.setDataCriacao(LocalDate.now());
         usuario.setAtivo(true);
 
-        UsuarioDAO.inserir(usuario);
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuarioDAO.inserir(usuario);
 
         resposta.sendRedirect(
                 requisicao.getContextPath() + "/index.jsp"

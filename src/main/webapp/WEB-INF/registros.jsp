@@ -4,27 +4,17 @@
 
 
 <%
-    List<UsuarioModel> usuarios =
-            (List<UsuarioModel>) request.getAttribute("usuarios");
-
-    if (usuarios == null) {
-        usuarios = new java.util.ArrayList<>();
-    }
+    List<UsuarioModel> usuarios =(List<UsuarioModel>) request.getAttribute("usuarios");
+    if (usuarios == null) {usuarios = new java.util.ArrayList<>();}
 %>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
-
     <title>Painel Admin</title>
-
-    <link rel="stylesheet"
-      href="${pageContext.request.contextPath}/css/registros_style.css">
-       <script src="${pageContext.request.contextPath}/js/registros_script.js"></script>
-
+    <link rel="stylesheet"href="${pageContext.request.contextPath}/css/registros_style.css">
+    <script defer src="${pageContext.request.contextPath}/js/registros_script.js"></script>
 </head>
 
 <body>
@@ -73,12 +63,6 @@
         <input type="number"
                id="searchId"
                placeholder="ID">
-
-        <button type="submit">
-
-            Buscar
-
-        </button>
 
     </form>
 

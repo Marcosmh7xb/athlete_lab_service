@@ -36,25 +36,6 @@ public class UsuarioServletLogin extends HttpServlet {
         HttpSession sessao = requisicao.getSession();
         String tipoUsuario = (String) sessao.getAttribute("tipoUsuario");
 
-        // ================= ADMIN TEMPORÁRIO =================
-
-        if(email.equals("adm013@gmail.com")
-                && senha.equals("adm1234")){
-
-            UsuarioModel admin = new UsuarioModel();
-
-            admin.setNome("Cauã Lobato");
-            admin.setEmail(email);
-            admin.setTipoUsuario("ADMIN");
-
-            sessao.setAttribute("usuarioLogado", admin);
-
-            resposta.sendRedirect("admin");
-
-            return;
-        }
-
-
         if (email == null || email.isBlank() || senha == null || senha.isBlank() || tipoUsuario == null || tipoUsuario.isBlank()) {
 
             requisicao.setAttribute("erro", "Preencha email e senha");
@@ -67,7 +48,8 @@ public class UsuarioServletLogin extends HttpServlet {
             return;
         }
 
-        UsuarioModel usuario = UsuarioDAO.login(email, senha, tipoUsuario);
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        UsuarioModel usuario = usuarioDAO.login(email, senha, tipoUsuario);
 
         if (usuario != null) {
 
@@ -88,7 +70,7 @@ public class UsuarioServletLogin extends HttpServlet {
 
             } else if (usuario.getTipoUsuario().equals("ADMIN")) {
 
-                resposta.sendRedirect(requisicao.getContextPath() + "/admin");
+                resposta.sendRedirect(requisicao.getContextPath() + "/admin/painel");
 
             } else {
 

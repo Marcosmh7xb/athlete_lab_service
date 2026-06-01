@@ -40,6 +40,14 @@ CREATE TABLE IF NOT EXISTS treino (
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE
     ) ENGINE=InnoDB;
 
+CREATE TABLE admin_treino (
+                              id_treino SERIAL PRIMARY KEY,
+                              nome VARCHAR(120) NOT NULL,
+                              categoria VARCHAR(80),
+                              status VARCHAR(20),
+                              data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- EXERCICIO (AGORA É O MÓDULO OFICIAL)
 CREATE TABLE IF NOT EXISTS exercicio (
     id_exercicio INT AUTO_INCREMENT PRIMARY KEY,
@@ -271,3 +279,4 @@ VALUES
         'Masculino',
         NULL
     );
+

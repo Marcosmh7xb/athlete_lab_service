@@ -1,24 +1,28 @@
 package com.athletelab.treino;
 
-import com.athletelab.configBD.ConnectionDataBase;
-import com.athletelab.exercicio.ExercicioModel;
-import com.athletelab.usuario.BaseDAO;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreinoDAO extends BaseDAO {
+import com.athletelab.configBD.ConnectionDataBase;
+import com.athletelab.exercicio.ExercicioModel;
+
+public class TreinoDAO {
 
 
     // CREATE
-    public int inserir(TreinoModel t) {
+    public static int inserir(TreinoModel t) {
 
         String sql =
                 "INSERT INTO treino " +
                         "(id_usuario, nome, categoria, status) " +
                         "VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = obterConexao();
+        try (Connection conn = ConnectionDataBase.getConnection();
 
              PreparedStatement stmt =
                      conn.prepareStatement(
@@ -51,7 +55,7 @@ public class TreinoDAO extends BaseDAO {
                 return rs.getInt(1);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
 
             System.out.println(
                     "Erro ao inserir treino: "
@@ -69,7 +73,7 @@ public class TreinoDAO extends BaseDAO {
 
         String sql = "SELECT * FROM treino WHERE id_treino = ?";
 
-        try (Connection conn = obterConexao();
+        try (Connection conn = ConnectionDataBase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
@@ -142,7 +146,7 @@ public class TreinoDAO extends BaseDAO {
 
         List<TreinoModel> lista = new ArrayList<>();
 
-        try (Connection conn = obterConexao();
+        try (Connection conn = ConnectionDataBase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             if (idUsuario != null) {
@@ -188,7 +192,7 @@ public class TreinoDAO extends BaseDAO {
 
         String sql = "SELECT * FROM exercicio WHERE id_treino = ?";
 
-        try (Connection conn = obterConexao();
+        try (Connection conn = ConnectionDataBase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idTreino);
@@ -225,7 +229,7 @@ public class TreinoDAO extends BaseDAO {
                 "INSERT INTO treino_atribuido (id_treino, id_usuario, id_treinador) " +
                         "VALUES (?, ?, ?)";
 
-        try (Connection conn = obterConexao();
+        try (Connection conn = ConnectionDataBase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idTreino);
@@ -246,7 +250,7 @@ public class TreinoDAO extends BaseDAO {
                         "SET nome=?, categoria=?, status=? " +
                         "WHERE id_treino=?";
 
-        try (Connection conn = obterConexao();
+        try (Connection conn = ConnectionDataBase.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, treino.getNome());
@@ -262,5 +266,21 @@ public class TreinoDAO extends BaseDAO {
         }
     }
 
+    // =========================
+    // DELETAR
+    // =========================
+    public void deletar(int idTreino) {
 
+        String sql = "DELETE FROM treino WHERE id_treino = ?";
+
+        try (Connection conn = ConnectionDataBase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idTreino);
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
