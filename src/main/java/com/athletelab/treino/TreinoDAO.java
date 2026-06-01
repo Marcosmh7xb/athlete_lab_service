@@ -1,11 +1,14 @@
 package com.athletelab.treino;
 
-import com.athletelab.configBD.ConnectionDataBase;
-import com.athletelab.exercicio.ExercicioModel;
-import com.athletelab.usuario.BaseDAO;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.athletelab.exercicio.ExercicioModel;
+import com.athletelab.usuario.BaseDAO;
 
 public class TreinoDAO extends BaseDAO {
 

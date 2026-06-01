@@ -91,6 +91,9 @@ public class AdminGerenciaServlet extends HttpServlet {
 
             int idTreino = treinoDAO.inserir(t);
 
+            // 🔥 Nova função: atribuir treino automaticamente para todos os atletas
+            treinoDAO.atribuirTreinoParaTodosAtletas(idTreino, admin.getIdUsuario());
+
             resp.sendRedirect(req.getContextPath()
                     + "/treino/editar?idTreino=" + idTreino);
             return;

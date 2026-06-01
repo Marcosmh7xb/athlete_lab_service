@@ -8,7 +8,7 @@
     <title>Treinos</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/treinos_style.css">
-     <script src="${pageContext.request.contextPath}/js/treinos_script.js"></script>
+    <script src="${pageContext.request.contextPath}/js/treinos_script.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
@@ -46,20 +46,21 @@
         <button class="filter-btn" data-filter="Yoga">Yoga</button>
     </div>
 
-    <a href="${pageContext.request.contextPath}/criartreino" class="add-btn">
-        Adicionar
-    </a>
+    <!-- Botão de adicionar só aparece se não for atleta -->
+    <c:if test="${usuario.tipoUsuario != 'ATLETA'}">
+        <a href="${pageContext.request.contextPath}/criartreino" class="add-btn">
+            Adicionar
+        </a>
+    </c:if>
 </header>
 
 <main class="container">
 
-    <!-- 🔥 LOOP DE TREINOS -->
+    <!-- LOOP DE TREINOS -->
     <c:forEach var="treino" items="${treinos}">
-
         <div class="treino-card" data-categoria="${treino.categoria}">
 
             <div class="treino-header">
-
                 <div class="left-info">
                     <h3>${treino.nome}</h3>
                     <span class="categoria">${treino.categoria}</span>
@@ -68,44 +69,42 @@
                 <div class="right-info">
                     <span class="data">${treino.dataCriacao}</span>
 
-                    <button class="edit-btn">Editar</button>
+                    <!-- Botões só aparecem para não atletas -->
+                    <c:if test="${usuario.tipoUsuario != 'ATLETA'}">
+                        <button class="edit-btn">Editar</button>
+                    </c:if>
 
                     <button class="toggle-btn">
                         <img class="arrow-icon" src="banco_imagens/icones/Forward.png">
                     </button>
                 </div>
-
             </div>
 
             <div class="treino-body">
 
-                <!-- 🔥 LOOP DE EXERCÍCIOS -->
+                <!-- LOOP DE EXERCÍCIOS -->
                 <c:forEach var="ex" items="${treino.exercicios}">
-
                     <div class="exercicio">
-
                         <div class="ex-header">
                             <strong>${ex.nome}</strong>
 
                             <div class="actions">
+                                <!-- Somente não atletas podem editar/excluir exercícios -->
+                                <c:if test="${usuario.tipoUsuario != 'ATLETA'}">
+                                    <span class="edit">Editar</span>
 
-                                <span class="edit">Editar</span>
-
-                                <form action="${pageContext.request.contextPath}/exercicio"
-                                      method="post"
-                                      style="display:inline;">
-
-                                    <input type="hidden" name="acao" value="deletar">
-                                    <input type="hidden" name="idExercicio" value="${ex.idExercicio}">
-                                    <input type="hidden" name="idTreino" value="${treino.idTreino}">
-
-                                    <button type="submit"
-                                            style="background:none;border:none;color:red;cursor:pointer;">
-                                        Excluir
-                                    </button>
-
-                                </form>
-
+                                    <form action="${pageContext.request.contextPath}/exercicio"
+                                          method="post"
+                                          style="display:inline;">
+                                        <input type="hidden" name="acao" value="deletar">
+                                        <input type="hidden" name="idExercicio" value="${ex.idExercicio}">
+                                        <input type="hidden" name="idTreino" value="${treino.idTreino}">
+                                        <button type="submit"
+                                                style="background:none;border:none;color:red;cursor:pointer;">
+                                            Excluir
+                                        </button>
+                                    </form>
+                                </c:if>
                             </div>
                         </div>
 
@@ -116,15 +115,12 @@
                         <div class="obs">
                             ${ex.observacao}
                         </div>
-
                     </div>
-
                 </c:forEach>
 
             </div>
 
         </div>
-
     </c:forEach>
 
 </main>
