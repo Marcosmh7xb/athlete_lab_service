@@ -1,8 +1,6 @@
 package com.athletelab.usuario;
 
-
 import java.io.IOException;
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -39,12 +37,8 @@ public class UsuarioServletLogin extends HttpServlet {
         if (email == null || email.isBlank() || senha == null || senha.isBlank() || tipoUsuario == null || tipoUsuario.isBlank()) {
 
             requisicao.setAttribute("erro", "Preencha email e senha");
-
-            RequestDispatcher dispatcher =
-                    requisicao.getRequestDispatcher("WEB-INF/login.jsp");
-
+            RequestDispatcher dispatcher = requisicao.getRequestDispatcher("WEB-INF/login.jsp");
             dispatcher.forward(requisicao, resposta);
-
             return;
         }
 
@@ -55,18 +49,14 @@ public class UsuarioServletLogin extends HttpServlet {
 
             HttpSession sessaoAntiga = requisicao.getSession(false);
 
-            if (sessaoAntiga != null) {
-                sessaoAntiga.invalidate();
-            }
-
+            if (sessaoAntiga != null) {sessaoAntiga.invalidate();}
             sessao = requisicao.getSession();
             sessao.setAttribute("usuarioLogado", usuario);
-
             tipoUsuario = usuario.getTipoUsuario();
 
             if ("TREINADOR".equals(tipoUsuario) || "ATLETA".equals(tipoUsuario)) {
 
-                resposta.sendRedirect(requisicao.getContextPath() + "/home");
+                resposta.sendRedirect(requisicao.getContextPath() + "/sobre");
 
             } else if (usuario.getTipoUsuario().equals("ADMIN")) {
 
@@ -79,14 +69,9 @@ public class UsuarioServletLogin extends HttpServlet {
             }
 
         } else {
-
             requisicao.setAttribute("erro", "Email ou senha inválidos");
-
-            RequestDispatcher dispatcher =
-                    requisicao.getRequestDispatcher("WEB-INF/login.jsp");
-
+            RequestDispatcher dispatcher = requisicao.getRequestDispatcher("WEB-INF/login.jsp");
             dispatcher.forward(requisicao, resposta);
-
         }
     }
 }

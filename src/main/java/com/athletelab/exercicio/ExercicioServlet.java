@@ -18,45 +18,22 @@ public class ExercicioServlet extends HttpServlet {
 
         String acao = request.getParameter("acao");
 
-        // =========================
-        // SALVAR
-        // =========================
+
         if ("salvar".equals(acao)) {
 
-            int idTreino =
-                    Integer.parseInt(request.getParameter("idTreino"));
-
+            int idTreino =  Integer.parseInt(request.getParameter("idTreino"));
             ExercicioModel exercicio = new ExercicioModel();
-
             exercicio.setIdTreino(idTreino);
 
-            exercicio.setNome(
-                    request.getParameter("nome")
-            );
-
-            exercicio.setSeries(
-                    Integer.parseInt(request.getParameter("series"))
-            );
-
-            exercicio.setRepeticoes(
-                    Integer.parseInt(request.getParameter("repeticoes"))
-            );
-
-            exercicio.setTempoMin(
-                    Integer.parseInt(request.getParameter("tempoMin"))
-            );
-
-            exercicio.setObservacao(
-                    request.getParameter("observacao")
-            );
+            exercicio.setNome(request.getParameter("nome"));
+            exercicio.setSeries( Integer.parseInt(request.getParameter("series")));
+            exercicio.setRepeticoes(Integer.parseInt(request.getParameter("repeticoes")));
+            exercicio.setTempoMin(Integer.parseInt(request.getParameter("tempoMin")));
+            exercicio.setObservacao(request.getParameter("observacao"));
             ExercicioDAO exercicioDAO = new ExercicioDAO();
             exercicioDAO.inserir(exercicio);
 
-            response.sendRedirect(
-                    request.getContextPath()
-                            + "/treino/editar?idTreino="
-                            + idTreino
-            );
+            response.sendRedirect(request.getContextPath() + "/treino/editar?idTreino=" + idTreino);
         }
 
         // =========================

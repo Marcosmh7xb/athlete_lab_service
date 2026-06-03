@@ -1,9 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const header     = document.getElementById("siteHeader");
+    const header = document.getElementById("siteHeader");
     const headerLogo = document.getElementById("headerLogo");
-    const heroWrap   = document.getElementById("heroLogoWrap");
-    const hero       = document.getElementById("hero");
+    const heroWrap = document.getElementById("heroLogoWrap");
+    const hero = document.getElementById("hero");
+    const profileBtn = document.getElementById("profileBtn");
+    const profilePopup = document.getElementById("profilePopup");
+
 
     // ===== ANIMAÇÃO: LOGO DESCE DO HERO → SOBE E FICA FIXA NO HEADER =====
 
@@ -92,3 +95,59 @@ document.addEventListener("DOMContentLoaded", () => {
     onScroll();
 
 });
+
+// ===== MENU HAMBURGUER =====
+
+const menuBtn = document.getElementById("menuBtn");
+const menuPopup = document.getElementById("menuPopup");
+
+if(menuBtn && menuPopup){
+    menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        menuPopup.classList.toggle("active");
+
+        if(profilePopup){
+            profilePopup.classList.remove("active");
+        }
+    });
+}
+
+if(profileBtn && profilePopup){
+
+    profileBtn.addEventListener("click", function(e){
+
+        e.stopPropagation();
+
+        profilePopup.classList.toggle("active");
+
+    });
+
+    document.addEventListener("click", function(){
+
+        profilePopup.classList.remove("active");
+
+    });
+
+    profilePopup.addEventListener("click", function(e){
+
+        e.stopPropagation();
+
+    });
+}
+// ===== FECHAR AO CLICAR FORA =====
+
+document.addEventListener("click", () => {
+    if(menuPopup){
+        menuPopup.classList.remove("active");
+    }
+
+    if(profilePopup){
+        profilePopup.classList.remove("active");
+    }
+});
+
+// Impede fechar ao clicar dentro do popup
+
+menuPopup?.addEventListener("click", e => e.stopPropagation());
+profilePopup?.addEventListener("click", e => e.stopPropagation());

@@ -19,19 +19,13 @@ public class CriarTreinoServlet extends HttpServlet {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.getRequestDispatcher("/WEB-INF/criar_treino.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/criar_treino.jsp") .forward(request, response);
     }
 
-
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
 
@@ -41,8 +35,7 @@ public class CriarTreinoServlet extends HttpServlet {
 
                 HttpSession session = request.getSession();
 
-                UsuarioModel usuarioLogado =
-                        (UsuarioModel) session.getAttribute("usuarioLogado");
+                UsuarioModel usuarioLogado = (UsuarioModel) session.getAttribute("usuarioLogado");
 
                 if (usuarioLogado == null) {
                     response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -58,27 +51,17 @@ public class CriarTreinoServlet extends HttpServlet {
                 treino.setNome(nome);
                 treino.setCategoria(categoria);
                 treino.setStatus(status);
-
-                // ============================
-                // ADMIN
-                // ============================
+                
                 if ("ADMIN".equals(usuarioLogado.getTipoUsuario())) {
 
                     treino.setIdUsuario(usuarioLogado.getIdUsuario());
 
                     int idTreino = treinoDAO.inserir(treino);
 
-                    response.sendRedirect(
-                            request.getContextPath()
-                                    + "/treino/editar?idTreino="
-                                    + idTreino
-                    );
+                    response.sendRedirect(request.getContextPath() + "/treino/editar?idTreino=" + idTreino);
                     return;
                 }
 
-                // ============================
-                // TREINADOR
-                // ============================
                 if (email == null || email.isBlank()) {
                     throw new Exception("Informe o e-mail do atleta.");
                 }
@@ -90,28 +73,15 @@ public class CriarTreinoServlet extends HttpServlet {
                 }
 
                 treino.setIdUsuario(usuarioLogado.getIdUsuario());
-
                 int idTreino = treinoDAO.inserir(treino);
-
-                treinoDAO.atribuirTreino(
-                        idTreino,
-                        atleta.getIdUsuario(),
-                        usuarioLogado.getIdUsuario()
-                );
-
-                response.sendRedirect(
-                        request.getContextPath()
-                                + "/treino/editar?idTreino="
-                                + idTreino
-                );
+                treinoDAO.atribuirTreino(idTreino, atleta.getIdUsuario(), usuarioLogado.getIdUsuario());
+                response.sendRedirect(request.getContextPath() + "/treino/editar?idTreino=" + idTreino);
             }
 
-        } catch (Exception e) {
+        } catch (Exception erro) {
 
-            request.setAttribute("erro", e.getMessage());
-
-            request.getRequestDispatcher("/WEB-INF/criar_treino.jsp")
-                    .forward(request, response);
+            request.setAttribute("erro", erro.getMessage());
+            request.getRequestDispatcher("/WEB-INF/criar_treino.jsp").forward(request, response);
         }
     }
 

@@ -30,7 +30,6 @@
 
         <button class="menu-btn" id="menuBtn">
 
-            <!-- VOCÊ VAI COLOCAR SEU ÍCONE -->
             <img src="banco_imagens/icones/Menu.png" alt="Menu">
 
         </button>

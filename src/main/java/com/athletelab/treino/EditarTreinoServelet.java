@@ -38,9 +38,6 @@ public class EditarTreinoServelet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-
-            // DEBUG
-            System.out.println("===== EDITANDO TREINO =====");
             System.out.println("ID recebido: " + request.getParameter("idTreino"));
             System.out.println("Nome: " + request.getParameter("nome"));
             System.out.println("Categoria: " + request.getParameter("categoria"));
@@ -48,21 +45,16 @@ public class EditarTreinoServelet extends HttpServlet {
 
             TreinoModel treino = new TreinoModel();
 
-            treino.setIdTreino(
-                    Integer.parseInt(request.getParameter("idTreino"))
-            );
+            treino.setIdTreino(Integer.parseInt(request.getParameter("idTreino")));
 
             treino.setNome(request.getParameter("nome"));
             treino.setCategoria(request.getParameter("categoria"));
             treino.setStatus(request.getParameter("status"));
 
-            // Atualiza treino
             treinoDAO.atualizar(treino);
 
-            System.out.println("Treino atualizado com status: "
-                    + treino.getStatus());
+            System.out.println("Treino atualizado com status: " + treino.getStatus());
 
-            // atribuição opcional
             String email = request.getParameter("email");
 
             if (email != null && !email.isBlank()) {

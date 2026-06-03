@@ -16,12 +16,9 @@ public class AdminEditarTreino extends HttpServlet {
     private final Gson gson = new Gson();
 
     @Override
-    protected void doGet(HttpServletRequest req,
-                         HttpServletResponse resp)
-            throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         try {
-
             int idTreino = Integer.parseInt(req.getParameter("id"));
 
             TreinoModel treino = treinoDAO.buscarPorId(idTreino);
@@ -36,17 +33,15 @@ public class AdminEditarTreino extends HttpServlet {
 
             resp.getWriter().write(gson.toJson(treino));
 
-        } catch (Exception e) {
+        } catch (Exception erro) {
 
-            e.printStackTrace();
+            erro.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req,
-                          HttpServletResponse resp)
-            throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         try {
 
@@ -85,13 +80,10 @@ public class AdminEditarTreino extends HttpServlet {
             resp.setContentType("application/json");
             resp.getWriter().write("{\"sucesso\":true}");
 
-        } catch (Exception e) {
+        } catch (Exception erro) {
 
-            e.printStackTrace();
-
-            resp.sendError(
-                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-                    e.getMessage()
+            erro.printStackTrace();
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, erro.getMessage()
             );
         }
     }

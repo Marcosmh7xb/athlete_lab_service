@@ -1,4 +1,4 @@
-package com.athletelab;
+package com.athletelab.utilitarios;
 
 import java.io.IOException;
 
@@ -12,11 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SobreServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
-
-        request.getRequestDispatcher("/WEB-INF/sobre.jsp")
-                .forward(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/sobre.jsp").forward(request, response);
     }
 }

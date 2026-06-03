@@ -6,13 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Treinos</title>
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/treinos_style.css">
     <script src="${pageContext.request.contextPath}/js/treinos_script.js"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
 <header class="top-bar">
@@ -93,16 +90,11 @@
                                 <c:if test="${usuario.tipoUsuario != 'ATLETA'}">
                                     <span class="edit">Editar</span>
 
-                                    <form action="${pageContext.request.contextPath}/exercicio"
-                                          method="post"
-                                          style="display:inline;">
+                                    <form action="${pageContext.request.contextPath}/exercicio" method="post" style="display:inline;">
                                         <input type="hidden" name="acao" value="deletar">
                                         <input type="hidden" name="idExercicio" value="${ex.idExercicio}">
                                         <input type="hidden" name="idTreino" value="${treino.idTreino}">
-                                        <button type="submit"
-                                                style="background:none;border:none;color:red;cursor:pointer;">
-                                            Excluir
-                                        </button>
+                                        <button type="submit" style="background:none;border:none;color:red;cursor:pointer;"> Excluir </button>
                                     </form>
                                 </c:if>
                             </div>
@@ -117,13 +109,9 @@
                         </div>
                     </div>
                 </c:forEach>
-
             </div>
-
         </div>
     </c:forEach>
-
 </main>
-
 </body>
 </html>

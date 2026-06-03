@@ -5,57 +5,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Athlete Lab — Sobre o Projeto</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Bebas+Neue&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sobre_style.css">
+    <script src="${pageContext.request.contextPath}/js/sobre_script.js"></script>
 </head>
 
 <body>
 
-<!-- ===== HEADER FIXO ===== -->
-
 <header class="site-header" id="siteHeader">
 
+    <!-- MENU -->
+    <div class="header-left">
+    </div>
+
+    <!-- LOGO -->
     <div class="header-logo" id="headerLogo">
-        
-        <img src="banco_imagens/imagens/Athlete logo white.png"
-             class="logo" alt="Logo"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+
+        <img src="banco_imagens/imagens/Athlete logo white.png"class="logo" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+
         <div class="logo-text-fallback" style="display:none">
             ATHLETE <span>LAB</span>
         </div>
+
     </div>
 
+    <!-- NAVEGAÇÃO -->
     <nav class="header-nav">
-        <a href="${pageContext.request.contextPath}/home">Home</a>
         <a href="#sistema">O Sistema</a>
         <a href="#funcionalidades">Funcionalidades</a>
         <a href="#equipe">Equipe</a>
     </nav>
 
+    <!-- PERFIL -->
+    <div class="header-right">
+
+        <div class="profile-container">
+
+            <img
+                src="${pageContext.request.contextPath}/banco_imagens/icones/User Male.png"
+                class="fotoPerfil"
+                id="profileBtn"
+                alt="Perfil">
+
+            <div class="profile-popup" id="profilePopup">
+
+                <a href="${pageContext.request.contextPath}/perfil">
+                    Acessar Perfil
+                </a>
+
+                <a href="${pageContext.request.contextPath}/logout"
+                   class="logout-btn">
+                    Sair
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </header>
-
-
-<!-- ===== HERO — LOGO GRANDE CENTRALIZADA ===== -->
 
 <section class="hero" id="hero">
 
     <div class="hero-logo-wrap" id="heroLogoWrap">
-
-        <img class="hero-logo-img"
-             src="${pageContext.request.contextPath}/banco_imagens/imagens/Athlete logo white.png"
-             alt="Athlete Lab"
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <img class="hero-logo-img" src="${pageContext.request.contextPath}/banco_imagens/imagens/Athlete logo white.png" alt="Athlete Lab" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
 
         <div class="hero-logo-text" style="display:none">
             ATHLETE <span>LAB</span>
         </div>
 
         <p class="hero-tagline">Plataforma de Gestão Esportiva</p>
-
     </div>
 
     <div class="hero-scroll-hint">
@@ -65,11 +87,7 @@
 
 </section>
 
-
 <div class="divider"></div>
-
-
-<!-- ===== O SISTEMA ===== -->
 
 <section class="sistema" id="sistema">
     <div class="section-inner">
@@ -118,17 +136,11 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 </section>
 
-
 <div class="divider"></div>
-
-
-<!-- ===== O PROBLEMA ===== -->
 
 <section class="problema" id="problema">
     <div class="section-inner">
@@ -148,15 +160,11 @@
                 <strong>a evolução do atleta</strong>.
             </p>
         </div>
-
     </div>
 </section>
 
 
 <div class="divider"></div>
-
-
-<!-- ===== FUNCIONALIDADES ===== -->
 
 <section class="funcionalidades" id="funcionalidades">
     <div class="section-inner">
@@ -168,7 +176,6 @@
         </div>
 
         <div class="func-grid">
-
             <div class="func-card reveal reveal-delay-1">
                 <div class="func-num">01</div>
                 <div class="func-icon">👤</div>
@@ -210,21 +217,14 @@
                 <h3>Autenticação & Sessões</h3>
                 <p>Sistema seguro de login, controle de sessão e logout com redirecionamentos por tipo de usuário.</p>
             </div>
-
         </div>
-
     </div>
 </section>
 
-
 <div class="divider"></div>
-
-
-<!-- ===== TECNOLOGIAS ===== -->
 
 <section class="tecnologias" id="tecnologias">
     <div class="section-inner">
-
         <div class="tech-layout">
 
             <div class="reveal">
@@ -243,7 +243,6 @@
             </div>
 
             <div class="tech-stack reveal reveal-delay-2">
-
                 <div class="tech-item" data-fill="90">
                     <div class="tech-icon-box">☕</div>
                     <div class="tech-info">
@@ -309,19 +308,13 @@
                         <div class="tech-bar"><div class="tech-bar-fill"></div></div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 </section>
 
 
 <div class="divider"></div>
-
-
-<!-- ===== EQUIPE ===== -->
 
 <section class="equipe" id="equipe">
     <div class="section-inner">
@@ -337,7 +330,6 @@
         <div class="equipe-grid">
 
             <div class="membro-card reveal reveal-delay-1">
-                <!-- SUBSTITUA O DIV ABAIXO POR <img> QUANDO TIVER A FOTO -->
                 <div class="membro-foto">CC</div>
                 <div class="membro-nome">Cleriston Cauã</div>
                 <div class="membro-role">Desenvolvedor</div>
@@ -352,7 +344,7 @@
             <div class="membro-card reveal reveal-delay-3">
                 <div class="membro-foto">MA</div>
                 <div class="membro-nome">Marcos</div>
-                <div class="membro-role">Desenvolvedor</div>
+                <div class="membro-role">Desenvolvedor / Tech Lead</div>
             </div>
 
             <div class="membro-card reveal reveal-delay-4">
@@ -360,17 +352,12 @@
                 <div class="membro-nome">Thaylon</div>
                 <div class="membro-role">Desenvolvedor</div>
             </div>
-
         </div>
-
     </div>
 </section>
 
 
 <div class="divider"></div>
-
-
-<!-- ===== INFORMAÇÃO ACADÊMICA ===== -->
 
 <section class="academico" id="academico">
     <div class="section-inner">
@@ -408,23 +395,14 @@
                     Projeto acadêmico desenvolvido para fins de aprendizagem, integração de conhecimentos
                     e prática de desenvolvimento de software.
                 </div>
-
             </div>
-
         </div>
     </div>
 </section>
-
-
-<!-- ===== FOOTER ===== -->
 
 <footer class="site-footer">
     <div class="footer-logo">ATHLETE <span>LAB</span></div>
     <p>Projeto Acadêmico &mdash; LPOO &bull; Análise e Desenvolvimento de Sistemas</p>
 </footer>
-
-
-<script src="${pageContext.request.contextPath}/js/sobre_script.js"></script>
-
 </body>
 </html>

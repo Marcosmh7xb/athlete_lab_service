@@ -2,7 +2,6 @@ package com.athletelab.treino;
 
 import com.athletelab.exercicio.ExercicioDAO;
 import com.athletelab.exercicio.ExercicioModel;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,33 +17,24 @@ public class EditarExercicioServlet extends HttpServlet {
     private TreinoDAO treinoDAO = new TreinoDAO();
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // 🔥 pega o idTreino da URL
         String idStr = request.getParameter("idTreino");
 
-        // validação
         if (idStr == null || idStr.isEmpty()) {
             throw new RuntimeException("idTreino não informado");
         }
 
         int idTreino = Integer.parseInt(idStr);
 
-        // 🔥 busca treino
         TreinoModel treino = treinoDAO.buscarPorId(idTreino);
         System.out.println("TREINO: " + treino);
 
-        // 🔥 busca exercícios
         ExercicioDAO exercicioDAO = new ExercicioDAO();
         List<ExercicioModel> exercicios = exercicioDAO.listarPorTreino(idTreino);
 
-        // envia para o JSP
         request.setAttribute("treino", treino);
         request.setAttribute("exercicios", exercicios);
-
-        request.getRequestDispatcher("/WEB-INF/editar_treino.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/editar_treino.jsp").forward(request, response);
     }
 }

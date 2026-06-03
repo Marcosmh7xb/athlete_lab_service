@@ -5,7 +5,6 @@ import com.athletelab.usuario.UsuarioModel;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -13,8 +12,7 @@ import java.util.List;
 public class TreinoServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession sessao = req.getSession(false);
 
@@ -23,8 +21,7 @@ public class TreinoServlet extends HttpServlet {
             return;
         }
 
-        UsuarioModel usuario =
-                (UsuarioModel) sessao.getAttribute("usuarioLogado");
+        UsuarioModel usuario = (UsuarioModel) sessao.getAttribute("usuarioLogado");
 
         TreinoDAO treinoDAO = new TreinoDAO();
         ExercicioDAO exercicioDAO = new ExercicioDAO();
@@ -32,39 +29,24 @@ public class TreinoServlet extends HttpServlet {
         List<TreinoModel> treinos;
         String tipo = usuario.getTipoUsuario();
 
-        // ATLETA
+
         if ("ATLETA".equals(tipo)) {
-
             treinos = treinoDAO.listarPorAtleta(usuario.getIdUsuario());
-
-            // só ativos
-            treinos.removeIf(t ->
-                    !"ATIVO".equalsIgnoreCase(t.getStatus()));
+            treinos.removeIf(t -> !"ATIVO".equalsIgnoreCase(t.getStatus()));
         }
-
-        // TREINADOR
         else if ("TREINADOR".equals(tipo)) {
-
-            treinos = treinoDAO.listarParaTreinador(
-                    usuario.getIdUsuario()
-            );
+            treinos = treinoDAO.listarParaTreinador(usuario.getIdUsuario());
         }
-
-        // ADMIN
         else {
-
             treinos = treinoDAO.listarTodos();
         }
 
         for (TreinoModel t : treinos) {
-            t.setExercicios(
-                    exercicioDAO.listarPorTreino(t.getIdTreino())
-            );
+            t.setExercicios(exercicioDAO.listarPorTreino(t.getIdTreino()));
         }
 
         req.setAttribute("treinos", treinos);
 
-        req.getRequestDispatcher("/WEB-INF/treinos.jsp")
-                .forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/treinos.jsp").forward(req, resp);
     }
 }

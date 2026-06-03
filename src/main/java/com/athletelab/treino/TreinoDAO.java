@@ -9,30 +9,16 @@ import java.util.List;
 
 public class TreinoDAO extends BaseDAO {
 
-
-    // CREATE
     public int inserir(TreinoModel t) {
 
-        String sql =
-                "INSERT INTO treino " +
-                        "(id_usuario, nome, categoria, status) " +
-                        "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO treino " + "(id_usuario, nome, categoria, status) " + "VALUES (?, ?, ?, ?)";
 
         try (Connection conn = obterConexao();
 
-             PreparedStatement stmt =
-                     conn.prepareStatement(
-                             sql,
-                             Statement.RETURN_GENERATED_KEYS
-                     )) {
-
-
-            // TREINO COM OU SEM DONO
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             if (t.getIdUsuario() > 0) {
-
                 stmt.setInt(1, t.getIdUsuario());
-
             } else {
 
                 stmt.setNull(1, java.sql.Types.INTEGER);
@@ -47,24 +33,17 @@ public class TreinoDAO extends BaseDAO {
             ResultSet rs = stmt.getGeneratedKeys();
 
             if (rs.next()) {
-
                 return rs.getInt(1);
             }
 
-        } catch (Exception e) {
-
-            System.out.println(
-                    "Erro ao inserir treino: "
-                            + e.getMessage()
-            );
+        } catch (Exception erro) {
+            System.out.println("Erro ao inserir treino: " + erro.getMessage());
         }
 
         return 0;
     }
 
-    // =========================
-    // BUSCAR POR ID
-    // =========================
+
     public TreinoModel buscarPorId(int id) {
 
         String sql = "SELECT * FROM treino WHERE id_treino = ?";
@@ -92,16 +71,14 @@ public class TreinoDAO extends BaseDAO {
                 return t;
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
         }
 
         return null;
     }
 
-    // =========================
-    // ATLETA → TREINOS ATRIBUÍDOS
-    // =========================
+
     public List<TreinoModel> listarPorAtleta(int idUsuario) {
 
         String sql =
@@ -113,9 +90,7 @@ public class TreinoDAO extends BaseDAO {
         return listarGenerico(sql, idUsuario);
     }
 
-    // =========================
-    // TREINADOR → ATIVOS + ATRIBUÍDOS POR ELE
-    // =========================
+
     public List<TreinoModel> listarParaTreinador(int idUsuario) {
 
         String sql =
@@ -126,9 +101,6 @@ public class TreinoDAO extends BaseDAO {
         return listarGenerico(sql, idUsuario);
     }
 
-    // =========================
-    // ADMIN → TODOS
-    // =========================
     public List<TreinoModel> listarTodos() {
 
         String sql = "SELECT * FROM treino";
@@ -136,9 +108,7 @@ public class TreinoDAO extends BaseDAO {
         return listarGenerico(sql, null);
     }
 
-    // =========================
-    // LISTAGEM GENÉRICA
-    // =========================
+
     private List<TreinoModel> listarGenerico(String sql, Integer idUsuario) {
 
         List<TreinoModel> lista = new ArrayList<>();
@@ -168,21 +138,17 @@ public class TreinoDAO extends BaseDAO {
 
             rs.close();
 
-            // carrega exercícios
             for (TreinoModel t : lista) {
                 t.setExercicios(listarPorTreino(t.getIdTreino()));
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
         }
 
         return lista;
     }
 
-    // =========================
-    // EXERCÍCIOS DO TREINO
-    // =========================
     public List<ExercicioModel> listarPorTreino(int idTreino) {
 
         List<ExercicioModel> lista = new ArrayList<>();
@@ -210,16 +176,13 @@ public class TreinoDAO extends BaseDAO {
                 lista.add(ex);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
         }
 
         return lista;
     }
 
-    // =========================
-    // 🔥 ATRIBUIR TREINO (NOVA FUNÇÃO)
-    // =========================
     public void atribuirTreino(int idTreino, int idUsuario, int idTreinador) {
 
         String sql =
@@ -235,17 +198,14 @@ public class TreinoDAO extends BaseDAO {
 
             stmt.executeUpdate();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
         }
     }
 
     public void atualizar(TreinoModel treino) {
 
-        String sql =
-                "UPDATE treino " +
-                        "SET nome=?, categoria=?, status=? " +
-                        "WHERE id_treino=?";
+        String sql = "UPDATE treino " + "SET nome=?, categoria=?, status=? " + "WHERE id_treino=?";
 
         try (Connection conn = obterConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -262,14 +222,11 @@ public class TreinoDAO extends BaseDAO {
 
             System.out.println("Linhas afetadas: " + linhas);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
         }
     }
 
-    // =========================
-    // DELETAR
-    // =========================
     public void deletar(int idTreino) {
 
         String sql = "DELETE FROM treino WHERE id_treino = ?";
@@ -280,8 +237,8 @@ public class TreinoDAO extends BaseDAO {
             stmt.setInt(1, idTreino);
             stmt.executeUpdate();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
         }
     }
 
@@ -301,10 +258,9 @@ public class TreinoDAO extends BaseDAO {
                 return rs.getInt(1) > 0;
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
         }
-
         return false;
     }
 }

@@ -39,9 +39,11 @@ public class UsuarioModel {
     public PerfilAtletaModel getPerfilAtleta() {
         return perfilAtleta;
     }
+
     public void setPerfilAtleta(PerfilAtletaModel perfilAtleta) {
         this.perfilAtleta = perfilAtleta;
     }
+
     public PerfilTreinadorModel getPerfilTreinador() {
         return perfilTreinador;
     }
@@ -137,6 +139,7 @@ public class UsuarioModel {
     private PerfilTreinadorModel perfilTecnico; // Novo campo
 
     public PerfilTreinadorModel getPerfilTecnico() { return perfilTecnico; }
+
     public void setPerfilTecnico(PerfilTreinadorModel perfilTecnico) { this.perfilTecnico = perfilTecnico; }
 
     // Método para checar se o bloqueio deve aparecer

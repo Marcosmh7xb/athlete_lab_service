@@ -34,9 +34,7 @@ public class TreinoModel {
         this.idUsuario = idUsuario;
     }
 
-    public String getNome() {
-        return nome;
-    }
+    public String getNome() {return nome;}
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -74,12 +72,8 @@ public class TreinoModel {
         this.exercicios = exercicios;
     }
 
-    public String getNomeTreinador() {
-        return nomeTreinador;
-    }
+    public String getNomeTreinador() {return nomeTreinador;}
 
-    public void setNomeTreinador(String nomeTreinador) {
-        this.nomeTreinador = nomeTreinador;
-    }
+    public void setNomeTreinador(String nomeTreinador) {this.nomeTreinador = nomeTreinador;}
 
 }

@@ -52,8 +52,6 @@
         </form>
 
         <div class="criar_conta">
-            <p class="topo">Esqueceu a sua senha?</p>
-
             <p class="linha-texto">
                 Ainda não tem acesso?
                 <a href="cadastro?tipoUsuario=ATLETA" class="link-acao">
@@ -86,8 +84,6 @@
         </form>
 
         <div class="criar_conta">
-            <p class="topo">Esqueceu a sua senha?</p>
-
             <p class="linha-texto">
                 Ainda não tem acesso?
                 <a href="cadastro?tipoUsuario=TREINADOR" class="link-acao">

@@ -53,8 +53,6 @@ public class UsuarioServletCadastro extends HttpServlet {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         usuarioDAO.inserir(usuario);
 
-        resposta.sendRedirect(
-                requisicao.getContextPath() + "/index.jsp"
-        );
+        resposta.sendRedirect(requisicao.getContextPath() + "/index.jsp");
     }
 }
