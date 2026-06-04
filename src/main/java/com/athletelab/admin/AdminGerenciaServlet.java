@@ -20,11 +20,9 @@ public class AdminGerenciaServlet extends HttpServlet {
     private TreinoDAO treinoDAO = new TreinoDAO();
 
     @Override
-    protected void doGet(HttpServletRequest req,
-                         HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // ================= SESSÃO =================
+
         HttpSession session = req.getSession(false);
 
         if (session == null) {
@@ -32,30 +30,23 @@ public class AdminGerenciaServlet extends HttpServlet {
             return;
         }
 
-        // ================= USUÁRIO LOGADO =================
-        UsuarioModel admin =
-                (UsuarioModel) session.getAttribute("usuarioLogado");
+
+        UsuarioModel admin = (UsuarioModel) session.getAttribute("usuarioLogado");
 
         if (admin == null || !"ADMIN".equals(admin.getTipoUsuario())) {
             resp.sendRedirect(req.getContextPath() + "/index.jsp");
             return;
         }
 
-        // ================= CARREGAR TREINOS =================
         List<TreinoModel> treinos = treinoDAO.listarTodos();
         req.setAttribute("treinos", treinos);
 
-        // ================= ABRIR TELA =================
-        req.getRequestDispatcher("/WEB-INF/admin_treino.jsp")
-                .forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/admin_treino.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req,
-                          HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // ================= SESSÃO =================
         HttpSession session = req.getSession(false);
 
         if (session == null) {
@@ -63,8 +54,7 @@ public class AdminGerenciaServlet extends HttpServlet {
             return;
         }
 
-        UsuarioModel admin =
-                (UsuarioModel) session.getAttribute("usuarioLogado");
+        UsuarioModel admin = (UsuarioModel) session.getAttribute("usuarioLogado");
 
         if (admin == null || !"ADMIN".equals(admin.getTipoUsuario())) {
             resp.sendRedirect(req.getContextPath() + "/index.jsp");
@@ -73,7 +63,6 @@ public class AdminGerenciaServlet extends HttpServlet {
 
         String acao = req.getParameter("acao");
 
-        // ================= CRIAR =================
         if ("criar".equals(acao)) {
 
             TreinoModel treino = new TreinoModel();
@@ -85,24 +74,15 @@ public class AdminGerenciaServlet extends HttpServlet {
             int idTreino = treinoDAO.inserir(treino);
 
 
-            resp.sendRedirect(
-                    req.getContextPath()
-                            + "/admin/treinos"
-            );
+            resp.sendRedirect(req.getContextPath() + "/admin/treinos");
             return;
         }
 
-        // ================= DELETAR =================
         if ("deletar".equals(acao)) {
 
-            int idTreino = Integer.parseInt(
-                    req.getParameter("idTreino")
-            );
-
+            int idTreino = Integer.parseInt(req.getParameter("idTreino"));
             treinoDAO.deletar(idTreino);
-
-            resp.sendRedirect(
-                    req.getContextPath() + "/admin/treinos"
+            resp.sendRedirect(req.getContextPath() + "/admin/treinos"
             );
         }
     }

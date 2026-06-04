@@ -1,6 +1,6 @@
 package com.athletelab.admin;
 
-import com.athletelab.configBD.ConnectionDataBase;
+import com.athletelab.utilitarios.ConnectionDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,9 +8,6 @@ import java.util.List;
 
 public class AdminDAO {
 
-    // =========================
-    // INSERIR
-    // =========================
     public int inserir(AdminModel treino) {
 
         String sql =

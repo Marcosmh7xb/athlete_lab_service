@@ -14,7 +14,7 @@ public class HomeServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute("usuarioLogado") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
 

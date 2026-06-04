@@ -1,24 +1,18 @@
 package com.athletelab.exercicio;
 
-import com.athletelab.configBD.ConnectionDataBase;
-import com.athletelab.usuario.BaseDAO;
 
+import com.athletelab.usuario.BaseDAO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExercicioDAO extends BaseDAO {
 
-    // =========================
-    // INSERT
-    // =========================
     public  void inserir(ExercicioModel e) {
 
-        String sql = "INSERT INTO exercicio (id_treino, nome, series, repeticoes, tempo_min, observacao) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO exercicio (id_treino, nome, series, repeticoes, tempo_min, observacao) " + "VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = obterConexao();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = obterConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             if (e.getIdTreino() == 0) {
                 throw new IllegalArgumentException("idTreino não pode ser 0 ou vazio");
@@ -33,14 +27,11 @@ public class ExercicioDAO extends BaseDAO {
 
             stmt.executeUpdate();
 
-        } catch (Exception ex) {
-            System.out.println("Erro ao inserir exercício: " + ex.getMessage());
+        } catch (Exception erro) {
+            System.out.println("Erro ao inserir exercício: " + erro.getMessage());
         }
     }
 
-    // =========================
-    // LISTAR POR TREINO
-    // =========================
     public  List<ExercicioModel> listarPorTreino(int idTreino) {
 
         List<ExercicioModel> lista = new ArrayList<>();
@@ -70,28 +61,24 @@ public class ExercicioDAO extends BaseDAO {
             }
 
 
-        } catch (Exception ex) {
-            System.out.println("Erro ao listar exercícios: " + ex.getMessage());
+        } catch (Exception erro) {
+            System.out.println("Erro ao listar exercícios: " + erro.getMessage());
         }
 
         return lista;
     }
 
-    // =========================
-    // DELETE
-    // =========================
     public  void deletar(int idExercicio) {
 
         String sql = "DELETE FROM exercicio WHERE id_exercicio = ?";
 
-        try (Connection conn = obterConexao();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = obterConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idExercicio);
             stmt.executeUpdate();
 
-        } catch (Exception ex) {
-            System.out.println("Erro ao deletar exercício: " + ex.getMessage());
+        } catch (Exception erro) {
+            System.out.println("Erro ao deletar exercício: " + erro.getMessage());
         }
     }
 
@@ -99,11 +86,7 @@ public class ExercicioDAO extends BaseDAO {
 
         String sql = """
         UPDATE exercicio
-        SET nome = ?,
-            series = ?,
-            repeticoes = ?,
-            tempo_min = ?,
-            observacao = ?
+        SET nome = ?,series = ?,repeticoes = ?, tempo_min = ?,observacao = ?
         WHERE id_exercicio = ?
     """;
 
@@ -119,12 +102,8 @@ public class ExercicioDAO extends BaseDAO {
 
             stmt.executeUpdate();
 
-        } catch (Exception ex) {
-
-            System.out.println(
-                    "Erro ao atualizar exercício: "
-                            + ex.getMessage()
-            );
+        } catch (Exception erro) {
+            System.out.println("Erro ao atualizar exercício: " + erro.getMessage());
         }
     }
 }

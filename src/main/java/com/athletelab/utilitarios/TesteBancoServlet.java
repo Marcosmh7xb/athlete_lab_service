@@ -1,7 +1,5 @@
 package com.athletelab.utilitarios;
 
-import com.athletelab.configBD.ConnectionDataBase;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;

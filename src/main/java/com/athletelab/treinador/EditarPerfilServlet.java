@@ -47,27 +47,26 @@ public class EditarPerfilServlet extends HttpServlet {
                 return;
             }
 
-            // 2. Captura dados básicos
             logado.setNome(request.getParameter("nome"));
             logado.setEmail(request.getParameter("email"));
             logado.setTelefone(request.getParameter("telefone"));
             logado.setCidadeUF(request.getParameter("cidadeUF"));
             logado.setDataNascimento(request.getParameter("dataNascimento"));
 
-            // 3. Processamento da Foto
             Part filePart = request.getPart("foto");
             if (filePart != null && filePart.getSubmittedFileName() != null && !filePart.getSubmittedFileName().isEmpty()) {
+
                 String fileName = filePart.getSubmittedFileName();
                 String uploadPath = getServletContext().getRealPath("") + File.separator + "banco_imagens" + File.separator + "icones";
-
                 File uploadDir = new File(uploadPath);
+
                 if (!uploadDir.exists()) uploadDir.mkdirs();
 
                 filePart.write(uploadPath + File.separator + fileName);
                 logado.setFoto(fileName);
             }
 
-            // 4. Lógica Específica do Treinador
+
             if ("TREINADOR".equals(logado.getTipoUsuario())) {
                 System.out.println(">>>> [DEBUG] PREPARANDO PERFIL TÉCNICO...");
 
@@ -80,33 +79,22 @@ public class EditarPerfilServlet extends HttpServlet {
                 pt.setSexo(request.getParameter("sexo"));
                 pt.setRestricaoFisica(request.getParameter("restricaoFisica"));
 
-                // Chamada ao DAO do Treinador
-                treinadorDao.salvarOuAtualizar(pt);
 
-                // Vincula o perfil ao objeto logado
+                treinadorDao.salvarOuAtualizar(pt);
                 logado.setPerfilTreinador(pt);
             }
 
-            // 5. Atualiza o banco principal (Tabela Usuario)
             dao.atualizarPerfil(logado);
-
-            // 6. Busca o usuário atualizado com o JOIN do banco
             UsuarioModel usuarioAtualizado = dao.buscarPorId(logado.getIdUsuario());
-
-            // 7. Atualiza a sessão com o objeto que tem os dados do JOIN
             session.setAttribute("usuarioLogado", usuarioAtualizado);
 
             System.out.println(">>>> [DEBUG] Sessão atualizada. Perfil técnico presente? " + (usuarioAtualizado.getPerfilTreinador() != null));
-
-            // 8. REDIRECIONA APENAS UMA VEZ E PARA O MÉTODO
             response.sendRedirect(request.getContextPath() + "/perfil-treinador?sucesso=1");
             return;
 
-        } catch (Exception e) {
-            System.err.println(">>>> [ERRO NO EDITAR PERFIL]: " + e.getMessage());
-            e.printStackTrace();
-
-
+        } catch (Exception erro) {
+            System.err.println(">>>> [ERRO NO EDITAR PERFIL]: " + erro.getMessage());
+            erro.printStackTrace();
             response.sendRedirect(request.getContextPath() + "/perfil-treinador?erro=processamento");
         }
 

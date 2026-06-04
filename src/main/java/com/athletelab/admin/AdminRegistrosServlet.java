@@ -19,34 +19,27 @@ import jakarta.servlet.http.HttpSession;
 public class AdminRegistrosServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest requisicao,
-                         HttpServletResponse resposta)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest requisicao, HttpServletResponse resposta)  throws ServletException, IOException {
 
         HttpSession sessao = requisicao.getSession(false);
-
 
         if (sessao == null) {
             resposta.sendRedirect(requisicao.getContextPath() + "/index.jsp");
             return;
         }
 
-        UsuarioModel admin =
-                (UsuarioModel) sessao.getAttribute("usuarioLogado");
-
+        UsuarioModel admin = (UsuarioModel) sessao.getAttribute("usuarioLogado");
 
         if (admin == null) {
             resposta.sendRedirect(requisicao.getContextPath() + "/index.jsp");
             return;
         }
 
-
         if (!"ADMIN".equals(admin.getTipoUsuario())) {
             resposta.sendRedirect(requisicao.getContextPath() + "/index.jsp");
             return;
         }
 
-        // ================= PARAMETROS =================
         String nome = requisicao.getParameter("nome");
         String id = requisicao.getParameter("id");
         String tipo = requisicao.getParameter("tipo");
@@ -56,27 +49,19 @@ public class AdminRegistrosServlet extends HttpServlet {
         List<UsuarioModel> usuarios = dao.listar();
 
         if (nome != null && !nome.isEmpty()) {
-            usuarios = usuarios.stream()
-                    .filter(u -> u.getNome() != null &&
-                            u.getNome().toLowerCase().contains(nome.toLowerCase()))
-                    .collect(Collectors.toList());
+            usuarios = usuarios.stream().filter(u -> u.getNome() != null && u.getNome().toLowerCase().contains(nome.toLowerCase())).collect(Collectors.toList());
         }
 
         if (id != null && !id.isEmpty()) {
             try {
                 int idInt = Integer.parseInt(id);
-
-                usuarios = usuarios.stream()
-                        .filter(u -> u.getIdUsuario() == idInt)
-                        .collect(Collectors.toList());
+                usuarios = usuarios.stream().filter(u -> u.getIdUsuario() == idInt).collect(Collectors.toList());
 
             } catch (Exception ignored) {}
         }
 
         if (tipo != null && !tipo.isEmpty()) {
-            usuarios = usuarios.stream()
-                    .filter(u -> tipo.equals(u.getTipoUsuario()))
-                    .collect(Collectors.toList());
+            usuarios = usuarios.stream().filter(u -> tipo.equals(u.getTipoUsuario())).collect(Collectors.toList());
         }
 
         requisicao.setAttribute("usuarios", usuarios);

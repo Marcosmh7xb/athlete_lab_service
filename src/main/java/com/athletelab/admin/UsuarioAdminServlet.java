@@ -35,7 +35,6 @@ public class UsuarioAdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // ================= SEGURANÇA ADMIN =================
         if (!isAdmin(request)) {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
@@ -84,7 +83,6 @@ public class UsuarioAdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // ================= SEGURANÇA ADMIN =================
         if (!isAdmin(request)) {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;

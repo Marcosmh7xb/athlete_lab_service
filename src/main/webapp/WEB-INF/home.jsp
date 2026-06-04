@@ -30,28 +30,20 @@
 
         <button class="menu-btn" id="menuBtn">
 
-            <img src="banco_imagens/icones/Menu.png" alt="Menu">
+            <img src="${pageContext.request.contextPath}/banco_imagens/icones/Menu.png" alt="Menu">
 
         </button>
 
         <!-- POPUP MENU -->
         <div class="menu-popup" id="menuPopup">
-
             <a href="${pageContext.request.contextPath}/sobre">A Plataforma</a>
-            <a href="#">Benefícios</a>
-            <a href="#">Estatísticas</a>
-
         </div>
 
     </div>
 
     <!-- LOGO -->
     <div class="header-center">
-
-        <img src="banco_imagens/imagens/Athlete logo white.png"
-             class="logo"
-             alt="Logo">
-
+        <img src="banco_imagens/imagens/Athlete logo white.png" class="logo" alt="Logo">
     </div>
 
     <!-- PERFIL -->
@@ -80,9 +72,9 @@
                 Acessar Perfil
             </a>
 
-            <button class="logout-btn">
+            <a class="logout-btn" href="${pageContext.request.contextPath}/logout">
                 Sair
-            </button>
+            </a>
 
         </div>
 
@@ -119,7 +111,7 @@
 
         <div class="slide">
 
-            <img src="banco_imagens/imagens/corredor_home.jpg">
+            <img src="${pageContext.request.contextPath}/banco_imagens/imagens/corredor_home.jpg">
 
             <div class="overlay">
 
@@ -175,7 +167,7 @@
 
         <div class="monitoramento-left">
 
-            <img src="banco_imagens/imagens/correr_monitoramento.png" alt="">
+            <img src="${pageContext.request.contextPath}/banco_imagens/imagens/correr_monitoramento.png" alt="">
 
             <div class="progress-bar">
 
@@ -202,7 +194,7 @@
                 <div class="item">
 
                     <div class="icon">
-                        <img src="banco_imagens/icones/Graph.png">
+                        <img src="${pageContext.request.contextPath}/banco_imagens/icones/Graph.png">
                     </div>
 
                     <div>
@@ -219,7 +211,7 @@
                 <div class="item">
 
                     <div class="icon">
-                        <img src="banco_imagens/icones/Today.png">
+                        <img src="${pageContext.request.contextPath}/banco_imagens/icones/Today.png">
                     </div>
 
                     <div>
@@ -235,7 +227,7 @@
                 <div class="item">
 
                     <div class="icon">
-                        <img src="banco_imagens/icones/Thumbs Up Down.png">
+                        <img src="${pageContext.request.contextPath}/banco_imagens/icones/Thumbs Up Down.png">
                     </div>
 
                     <div>
@@ -275,7 +267,7 @@
         <div class="step">
 
             <div class="circle">
-                <img src="banco_imagens/icones/Customer.png">
+                <img src="${pageContext.request.contextPath}/banco_imagens/icones/Customer.png">
             </div>
 
             <span class="numero">1</span>
@@ -292,7 +284,7 @@
         <div class="step">
 
             <div class="circle">
-                <img src="banco_imagens/icones/Link.png">
+                <img src="${pageContext.request.contextPath}/banco_imagens/icones/Link.png">
             </div>
 
             <span class="numero">2</span>
@@ -309,7 +301,7 @@
         <div class="step">
 
             <div class="circle">
-                <img src="banco_imagens/icones/Graph_w.png">
+                <img src="${pageContext.request.contextPath}/banco_imagens/icones/Graph_w.png">
             </div>
 
             <span class="numero">3</span>
@@ -327,7 +319,7 @@
 
     <div class="cta">
 
-        <a href="index.jsp">
+        <a href="/index.jsp">
             <button>Iniciar Agora →</button>
         </a>
 
@@ -343,7 +335,7 @@
  
         <!-- LOGO + SLOGAN -->
         <div class="footer-brand">
-            <img src="banco_imagens/imagens/Athlete logo white.png" class="footer-logo" alt="Athlete Lab">
+            <img src="${pageContext.request.contextPath}/banco_imagens/imagens/Athlete logo white.png" class="footer-logo" alt="Athlete Lab">
             <p class="footer-slogan">Eleve o nível. A qualquer hora,<br>de qualquer lugar.</p>
         </div>
  

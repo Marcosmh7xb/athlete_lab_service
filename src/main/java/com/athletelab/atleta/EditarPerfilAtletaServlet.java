@@ -6,7 +6,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -17,13 +16,8 @@ public class EditarPerfilAtletaServlet extends HttpServlet {
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     private final PerfilAtletaDAO atletaDAO = new PerfilAtletaDAO();
 
-    // =========================
-    // CARREGA O FORMULÁRIO
-    // =========================
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
 
@@ -32,220 +26,106 @@ public class EditarPerfilAtletaServlet extends HttpServlet {
             return;
         }
 
-        UsuarioModel logado =
-                (UsuarioModel) session.getAttribute("usuarioLogado");
+        UsuarioModel logado = (UsuarioModel) session.getAttribute("usuarioLogado");
 
         if (logado == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
-        // Busca dados completos no banco
-        UsuarioModel perfilCompleto =
-                usuarioDAO.buscarPorId(logado.getIdUsuario());
-
+        UsuarioModel perfilCompleto = usuarioDAO.buscarPorId(logado.getIdUsuario());
         request.setAttribute("perfil", perfilCompleto);
-
-        request.getRequestDispatcher("/WEB-INF/editarPerfilAtleta.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/editarPerfilAtleta.jsp").forward(request, response);
     }
 
-    // =========================
-    // SALVA ALTERAÇÕES
-    // =========================
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
 
         if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
 
-        UsuarioModel logado =
-                (UsuarioModel) session.getAttribute("usuarioLogado");
+        UsuarioModel logado = (UsuarioModel) session.getAttribute("usuarioLogado");
 
         if (logado == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
 
         try {
-
-            // =========================
-            // FOTO
-            // =========================
-
             Part filePart = request.getPart("foto");
 
             if (filePart != null && filePart.getSize() > 0) {
 
-                String fileName =
-                        filePart.getSubmittedFileName();
-
-                String uploadPath =
-                        getServletContext().getRealPath("")
-                                + File.separator
-                                + "banco_imagens"
-                                + File.separator
-                                + "icones";
-
+                String fileName = filePart.getSubmittedFileName();
+                String uploadPath = getServletContext().getRealPath("") + File.separator + "banco_imagens" + File.separator + "icones";
                 File pasta = new File(uploadPath);
-
                 if (!pasta.exists()) {
                     pasta.mkdirs();
                 }
 
-                filePart.write(uploadPath
-                        + File.separator
-                        + fileName);
-
+                filePart.write(uploadPath + File.separator + fileName);
                 logado.setFoto(fileName);
             }
 
-            // =========================
-            // DADOS DO USUÁRIO
-            // =========================
-
-            // =========================
-// DADOS DO USUÁRIO
-// =========================
-
-            String nome =
-                    request.getParameter("nome");
+            String nome = request.getParameter("nome");
 
             if (nome != null && !nome.isEmpty()) {
-
                 logado.setNome(nome);
             }
-
-            String telefone =
-                    request.getParameter("telefone");
+            String telefone = request.getParameter("telefone");
 
             if (telefone != null) {
-
                 logado.setTelefone(telefone);
             }
-
-            String cidadeUF =
-                    request.getParameter("cidadeUF");
+            String cidadeUF = request.getParameter("cidadeUF");
 
             if (cidadeUF != null) {
-
                 logado.setCidadeUF(cidadeUF);
             }
-
-            String dataNascimento =
-                    request.getParameter("dataNascimento");
+            String dataNascimento = request.getParameter("dataNascimento");
 
             if (dataNascimento != null) {
-
                 logado.setDataNascimento(dataNascimento);
             }
 
-            // NÃO ALTERA EMAIL
-            // mantém o email atual da sessão/banco
+            PerfilAtletaModel pa = new PerfilAtletaModel();
 
-            // =========================
-            // DADOS DO ATLETA
-            // =========================
+            pa.setIdUsuario(logado.getIdUsuario());
+            pa.setModalidade(request.getParameter("modalidade"));
+            pa.setNivelExperiencia(request.getParameter("nivelExperiencia"));
+            pa.setObjetivo(request.getParameter("objetivo"));
+            pa.setDiasSemana(request.getParameter("diasSemana"));
+            pa.setAmbiente(request.getParameter("ambiente"));
+            pa.setSexo(request.getParameter("sexo"));
+            pa.setRestricaoFisica(request.getParameter("restricaoFisica"));
 
-            PerfilAtletaModel pa =
-                    new PerfilAtletaModel();
-
-            pa.setIdUsuario(
-                    logado.getIdUsuario()
-            );
-
-            pa.setModalidade(
-                    request.getParameter("modalidade")
-            );
-
-            pa.setNivelExperiencia(
-                    request.getParameter("nivelExperiencia")
-            );
-
-            pa.setObjetivo(
-                    request.getParameter("objetivo")
-            );
-
-            pa.setDiasSemana(
-                    request.getParameter("diasSemana")
-            );
-
-            pa.setAmbiente(
-                    request.getParameter("ambiente")
-            );
-
-            pa.setSexo(
-                    request.getParameter("sexo")
-            );
-
-            pa.setRestricaoFisica(
-                    request.getParameter("restricaoFisica")
-            );
-
-            // =========================
-            // ALTURA E PESO
-            // =========================
-
-            String altura =
-                    request.getParameter("altura");
-
-            String peso =
-                    request.getParameter("peso");
-
+            String altura = request.getParameter("altura");
             if (altura != null && !altura.isEmpty()) {
-                pa.setAltura(
-                        Float.parseFloat(altura)
-                );
+                pa.setAltura(Float.parseFloat(altura));
             }
 
+
+            String peso = request.getParameter("peso");
             if (peso != null && !peso.isEmpty()) {
                 pa.setPeso(
                         Float.parseFloat(peso)
                 );
             }
 
-            // =========================
-            // SALVAR NO BANCO
-            // =========================
-
             usuarioDAO.atualizarPerfil(logado);
-
             atletaDAO.salvarOuAtualizar(pa);
 
-            // =========================
-            // ATUALIZA SESSÃO
-            // =========================
+            UsuarioModel perfilAtualizado = usuarioDAO.buscarPorId(logado.getIdUsuario());
+            session.setAttribute("usuarioLogado", perfilAtualizado);
+            response.sendRedirect(request.getContextPath() + "/perfil-atleta");
 
-            UsuarioModel perfilAtualizado =
-                    usuarioDAO.buscarPorId(
-                            logado.getIdUsuario()
-                    );
-
-            session.setAttribute(
-                    "usuarioLogado",
-                    perfilAtualizado
-            );
-
-            // REDIRECIONA
-            response.sendRedirect(
-                    request.getContextPath()
-                            + "/perfil-atleta"
-            );
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-            response.sendRedirect(
-                    request.getContextPath()
-                            + "/editar-perfil-atleta?erro=1"
-            );
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/editar-perfil-atleta?erro=1");
         }
     }
 }

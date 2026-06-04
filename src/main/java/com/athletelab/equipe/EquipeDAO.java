@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.athletelab.configBD.ConnectionDataBase;
+import com.athletelab.utilitarios.ConnectionDataBase;
 import com.athletelab.usuario.UsuarioModel;
 
 public class EquipeDAO {

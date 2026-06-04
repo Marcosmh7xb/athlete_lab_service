@@ -59,7 +59,6 @@
             </select>
 
             <label>Status</label>
-            <label>Status</label>
             <select name="status">
 
                 <option value="ATIVO"

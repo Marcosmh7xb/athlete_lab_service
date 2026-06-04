@@ -22,25 +22,20 @@ public class AdminPainelServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
 
-        // ================= LOGIN =================
         if (session == null) {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
 
-        UsuarioModel admin =
-                (UsuarioModel) session.getAttribute("usuarioLogado");
+        UsuarioModel admin = (UsuarioModel) session.getAttribute("usuarioLogado");
 
-        // ================= VALIDA ADMIN =================
         if (admin == null || !"ADMIN".equals(admin.getTipoUsuario())) {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
 
-        // ================= ABRE PAINEL =================
-        RequestDispatcher dispatcher =
-                request.getRequestDispatcher("/WEB-INF/paineladm.jsp");
 
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paineladm.jsp");
         dispatcher.forward(request, response);
     }
 }

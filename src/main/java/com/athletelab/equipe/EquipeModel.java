@@ -1,7 +1,6 @@
 package com.athletelab.equipe;
 
 import com.athletelab.usuario.UsuarioModel;
-
 import java.util.List;
 
 public class EquipeModel {

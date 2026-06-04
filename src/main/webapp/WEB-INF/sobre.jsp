@@ -5,79 +5,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Athlete Lab — Sobre o Projeto</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Bebas+Neue&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sobre_style.css">
-    <script src="${pageContext.request.contextPath}/js/sobre_script.js"></script>
 </head>
 
 <body>
 
+<!-- ===== HEADER FIXO ===== -->
+
 <header class="site-header" id="siteHeader">
 
-    <!-- MENU -->
-    <div class="header-left">
-    </div>
-
-    <!-- LOGO -->
     <div class="header-logo" id="headerLogo">
 
-        <img src="banco_imagens/imagens/Athlete logo white.png"class="logo" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-
+        <img src="banco_imagens/imagens/Athlete logo white.png"
+             class="logo" alt="Logo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <div class="logo-text-fallback" style="display:none">
             ATHLETE <span>LAB</span>
         </div>
-
     </div>
 
-    <!-- NAVEGAÇÃO -->
     <nav class="header-nav">
+        <a href="${pageContext.request.contextPath}/home">Home</a>
         <a href="#sistema">O Sistema</a>
         <a href="#funcionalidades">Funcionalidades</a>
         <a href="#equipe">Equipe</a>
     </nav>
 
-    <!-- PERFIL -->
-    <div class="header-right">
-
-        <div class="profile-container">
-
-            <img
-                src="${pageContext.request.contextPath}/banco_imagens/icones/User Male.png"
-                class="fotoPerfil"
-                id="profileBtn"
-                alt="Perfil">
-
-            <div class="profile-popup" id="profilePopup">
-
-                <a href="${pageContext.request.contextPath}/perfil">
-                    Acessar Perfil
-                </a>
-
-                <a href="${pageContext.request.contextPath}/logout"
-                   class="logout-btn">
-                    Sair
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
 </header>
+
+
+<!-- ===== HERO — LOGO GRANDE CENTRALIZADA ===== -->
 
 <section class="hero" id="hero">
 
     <div class="hero-logo-wrap" id="heroLogoWrap">
-        <img class="hero-logo-img" src="${pageContext.request.contextPath}/banco_imagens/imagens/Athlete logo white.png" alt="Athlete Lab" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+
+        <img class="hero-logo-img"
+             src="${pageContext.request.contextPath}/banco_imagens/imagens/Athlete logo white.png"
+             alt="Athlete Lab"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
 
         <div class="hero-logo-text" style="display:none">
             ATHLETE <span>LAB</span>
         </div>
 
         <p class="hero-tagline">Plataforma de Gestão Esportiva</p>
+
     </div>
 
     <div class="hero-scroll-hint">
@@ -87,7 +65,11 @@
 
 </section>
 
+
 <div class="divider"></div>
+
+
+<!-- ===== O SISTEMA ===== -->
 
 <section class="sistema" id="sistema">
     <div class="section-inner">
@@ -104,7 +86,7 @@
         <div class="sistema-layout">
 
             <div class="sistema-img-box reveal reveal-delay-1">
-                <img src="banco_imagens/imagens/print_tela_home.png" 
+                <img src="banco_imagens/imagens/print_tela_home.png"
                     alt="Tela Home do Sistema"
                     style="width:100%; border-radius:18px; border:1px solid #1c1c1c;">
                 <div class="img-deco"></div>
@@ -136,11 +118,17 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
     </div>
 </section>
 
+
 <div class="divider"></div>
+
+
+<!-- ===== O PROBLEMA ===== -->
 
 <section class="problema" id="problema">
     <div class="section-inner">
@@ -160,11 +148,15 @@
                 <strong>a evolução do atleta</strong>.
             </p>
         </div>
+
     </div>
 </section>
 
 
 <div class="divider"></div>
+
+
+<!-- ===== FUNCIONALIDADES ===== -->
 
 <section class="funcionalidades" id="funcionalidades">
     <div class="section-inner">
@@ -176,6 +168,7 @@
         </div>
 
         <div class="func-grid">
+
             <div class="func-card reveal reveal-delay-1">
                 <div class="func-num">01</div>
                 <div class="func-icon">👤</div>
@@ -217,32 +210,40 @@
                 <h3>Autenticação & Sessões</h3>
                 <p>Sistema seguro de login, controle de sessão e logout com redirecionamentos por tipo de usuário.</p>
             </div>
+
         </div>
+
     </div>
 </section>
 
+
 <div class="divider"></div>
+
+
+<!-- ===== TECNOLOGIAS ===== -->
 
 <section class="tecnologias" id="tecnologias">
     <div class="section-inner">
+
         <div class="tech-layout">
 
             <div class="reveal">
                 <span class="section-tag">Stack</span>
                 <h2 class="section-title">Tecnologias <span>utilizadas</span></h2>
                 <p class="section-subtitle">
-                    Construído com tecnologias robustas e alinhadas ao conteúdo da disciplina,
-                    seguindo o padrão MVC em camadas.
+                    O Athlete Lab foi desenvolvido como um projeto acadêmico integrador, reunindo conceitos de análise,
+                    modelagem, banco de dados e desenvolvimento web. A aplicação foi construída seguindo a arquitetura
+                    MVC (Model-View-Controller), promovendo organização, manutenção e escalabilidade do sistema.
+                    Durante o desenvolvimento foram aplicados conhecimentos adquiridos nas disciplinas de LPOO e APSI,
+                    incluindo levantamento de requisitos, modelagem UML, documentação, implementação das regras de negócio,
+                    persistência de dados e construção da interface. O resultado é uma plataforma voltada para a gestão
+                    esportiva, permitindo o gerenciamento de atletas, equipes, treinos e acompanhamento de desempenho
+                    em um ambiente moderno e intuitivo.
                 </p>
-
-                <!-- SUBSTITUA PELO DIAGRAMA DE ARQUITETURA OU IMAGEM -->
-                <div class="img-placeholder" style="margin-top:32px; aspect-ratio:16/9;">
-                    <div class="ph-icon">🏗️</div>
-                    <p>Diagrama de Arquitetura</p>
-                </div>
             </div>
 
             <div class="tech-stack reveal reveal-delay-2">
+
                 <div class="tech-item" data-fill="90">
                     <div class="tech-icon-box">☕</div>
                     <div class="tech-info">
@@ -308,13 +309,19 @@
                         <div class="tech-bar"><div class="tech-bar-fill"></div></div>
                     </div>
                 </div>
+
             </div>
+
         </div>
+
     </div>
 </section>
 
 
 <div class="divider"></div>
+
+
+<!-- ===== EQUIPE ===== -->
 
 <section class="equipe" id="equipe">
     <div class="section-inner">
@@ -327,37 +334,48 @@
             </p>
         </div>
 
-        <div class="equipe-grid">
+<div class="equipe-grid">
 
-            <div class="membro-card reveal reveal-delay-1">
-                <div class="membro-foto">CC</div>
-                <div class="membro-nome">Cleriston Cauã</div>
-                <div class="membro-role">Desenvolvedor</div>
-            </div>
-
-            <div class="membro-card reveal reveal-delay-2">
-                <div class="membro-foto">MI</div>
-                <div class="membro-nome">Milena</div>
-                <div class="membro-role">Desenvolvedora</div>
-            </div>
-
-            <div class="membro-card reveal reveal-delay-3">
-                <div class="membro-foto">MA</div>
-                <div class="membro-nome">Marcos</div>
-                <div class="membro-role">Desenvolvedor / Tech Lead</div>
-            </div>
-
-            <div class="membro-card reveal reveal-delay-4">
-                <div class="membro-foto">TH</div>
-                <div class="membro-nome">Thaylon</div>
-                <div class="membro-role">Desenvolvedor</div>
-            </div>
-        </div>
+    <div class="membro-card reveal reveal-delay-1">
+        <img class="membro-foto"
+             src="${pageContext.request.contextPath}/banco_imagens/imagens/Cauã_foto.jpeg"
+             alt="Cleriston Cauã">
+        <div class="membro-nome">Cleriston Cauã</div>
+        <div class="membro-role">Desenvolvedor</div>
     </div>
+
+    <div class="membro-card reveal reveal-delay-2">
+        <img class="membro-foto"
+             src="${pageContext.request.contextPath}/banco_imagens/imagens/Milena_foto.jpeg"
+             alt="Milena">
+        <div class="membro-nome">Milena</div>
+        <div class="membro-role">Desenvolvedora</div>
+    </div>
+
+    <div class="membro-card reveal reveal-delay-3">
+        <img class="membro-foto"
+             src="${pageContext.request.contextPath}/banco_imagens/imagens/Marcos_foto.jpeg"
+             alt="Marcos">
+        <div class="membro-nome">Marcos</div>
+        <div class="membro-role">Desenvolvedor / Líder</div>
+    </div>
+
+    <div class="membro-card reveal reveal-delay-4">
+        <img class="membro-foto"
+             src="${pageContext.request.contextPath}/banco_imagens/imagens/Taylon_foto.jpeg"
+             alt="Thaylon">
+        <div class="membro-nome">Thaylon</div>
+        <div class="membro-role">Desenvolvedor</div>
+    </div>
+
+</div>
 </section>
 
 
 <div class="divider"></div>
+
+
+<!-- ===== INFORMAÇÃO ACADÊMICA ===== -->
 
 <section class="academico" id="academico">
     <div class="section-inner">
@@ -370,39 +388,61 @@
 
             <div class="academico-body reveal reveal-delay-1">
 
+                <div class="professores-grid">
+
+                    <div class="membro-card">
+                        <img class="membro-foto"
+                             src="${pageContext.request.contextPath}/banco_imagens/imagens/professor_woquiton.jpeg"
+                             alt="Woquiton Fernandes">
+
+                        <div class="membro-nome">Woquiton Fernandes</div>
+                        <div class="membro-role">Professor • LPOO</div>
+                    </div>
+
+                    <div class="membro-card">
+                        <img class="membro-foto"
+                             src="${pageContext.request.contextPath}/banco_imagens/imagens/professora_monique.jpg"
+                             alt="Monique">
+
+                        <div class="membro-nome">Monique</div>
+                        <div class="membro-role">Professora • APSI</div>
+                    </div>
+
+                </div>
+
                 <p>
-                    Este sistema foi desenvolvido como atividade prática da disciplina de
-                    <strong>Linguagem de Programação Orientada a Objetos – LPOO</strong>,
+                    Este sistema foi desenvolvido como atividade prática da disciplina
+                    <strong>Linguagem de Programação Orientada a Objetos (LPOO)</strong>,
                     no curso de <strong>Análise e Desenvolvimento de Sistemas</strong>,
-                    sob orientação e mediação do professor <strong>Woquiton Fernandes</strong>.
+                    sob orientação do professor <strong>Woquiton Fernandes</strong>.
                 </p>
 
                 <p>
-                    O objetivo do projeto é aplicar conceitos de <strong>programação orientada a objetos</strong>,
-                    organização em camadas, banco de dados e desenvolvimento de sistemas web,
-                    a partir de uma proposta criada pela própria equipe.
+                    O projeto também foi fundamentado nos conhecimentos adquiridos na disciplina
+                    <strong>Análise e Projeto de Sistemas de Informação (APSI)</strong>,
+                    ministrada pela professora <strong>Monique</strong>. Nela foram elaborados
+                    os principais artefatos do sistema, como levantamento de requisitos,
+                    casos de uso, diagramas UML, modelagem do banco de dados e documentação
+                    necessária para o desenvolvimento do Athlete Lab.
                 </p>
 
-                <div class="academico-highlight">
-                    <span class="acad-badge">Disciplina: <strong>LPOO</strong></span>
-                    <span class="acad-badge">Curso: <strong>ADS</strong></span>
-                    <span class="acad-badge">Professor: <strong>Woquiton Fernandes</strong></span>
-                    <span class="acad-badge">Back-end: <strong>Java + Servlets</strong></span>
-                    <span class="acad-badge">Banco: <strong>MySQL</strong></span>
-                </div>
+            </div>
 
-                <div class="academico-footer">
-                    Projeto acadêmico desenvolvido para fins de aprendizagem, integração de conhecimentos
-                    e prática de desenvolvimento de software.
-                </div>
             </div>
         </div>
     </div>
 </section>
 
+
+<!-- ===== FOOTER ===== -->
+
 <footer class="site-footer">
     <div class="footer-logo">ATHLETE <span>LAB</span></div>
     <p>Projeto Acadêmico &mdash; LPOO &bull; Análise e Desenvolvimento de Sistemas</p>
 </footer>
+
+
+<script src="${pageContext.request.contextPath}/js/sobre_script.js"></script>
+
 </body>
 </html>

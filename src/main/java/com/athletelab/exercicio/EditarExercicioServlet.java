@@ -1,7 +1,7 @@
-package com.athletelab.treino;
+package com.athletelab.exercicio;
 
-import com.athletelab.exercicio.ExercicioDAO;
-import com.athletelab.exercicio.ExercicioModel;
+import com.athletelab.treino.TreinoDAO;
+import com.athletelab.treino.TreinoModel;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

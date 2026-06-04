@@ -108,32 +108,32 @@ CREATE TABLE  IF NOT EXISTS equipe_atleta (
 );
 
 INSERT INTO usuario
-(nome, email, telefone, cidade_uf, senha, data_nascimento, tipo_usuario, foto, ativo)
+(nome, email, telefone, cidade_uf, senha, data_nascimento, tipo_usuario, ativo)
 VALUES
 
-    ('Administrador','admin@gmail.com','(77) 99999-9999','Guanambi - BA','admin123','2000-01-01','ADMIN','adm.jpeg',true),
+    ('Administrador','admin@gmail.com','(77) 99999-9999','Guanambi - BA','admin123','2000-01-01','ADMIN',true),
 
-    ('Carlos Silva','carlos@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','TREINADOR','1.jpeg',true),
+    ('Carlos Silva','carlos@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','TREINADOR',true),
 
-    ('Fernanda Rocha','fernanda@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','TREINADOR','2.jpeg',true),
+    ('Fernanda Rocha','fernanda@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','TREINADOR',true),
 
-    ('Lucas Almeida','lucas@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','3.jpeg',true),
+    ('Lucas Almeida','lucas@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA',true),
 
-    ('Mariana Souza','mariana@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','4.jpeg',true),
+    ('Mariana Souza','mariana@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA',true),
 
-    ('Pedro Henrique','pedro@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','5.jpeg',true),
+    ('Pedro Henrique','pedro@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA',true),
 
-    ('Ana Clara','ana@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','6.jpeg',true),
+    ('Ana Clara','ana@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA',true),
 
-    ('Gabriel Santos','gabriel@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','7.jpeg',true),
+    ('Gabriel Santos','gabriel@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA',true),
 
-    ('Juliana Lima','juliana@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','8.jpeg',true),
+    ('Juliana Lima','juliana@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA',true),
 
-    ('Rafael Costa','rafael@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','9.jpeg',true),
+    ('Rafael Costa','rafael@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA',true),
 
-    ('Beatriz Martins','beatriz@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','10.jpeg',true),
+    ('Beatriz Martins','beatriz@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA',true),
 
-    ('Thiago Oliveira','thiago@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA','11.jpeg',true);
+    ('Thiago Oliveira','thiago@gmail.com','(77) 99999-9999','Guanambi - BA','123456','2000-01-01','ATLETA',true);
 
 INSERT INTO perfil_treinador
 (id_usuario, modalidade, nivel_experiencia, objetivo, ambiente, sexo, restricao_fisica)

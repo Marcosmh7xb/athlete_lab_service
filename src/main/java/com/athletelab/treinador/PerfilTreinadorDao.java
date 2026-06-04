@@ -1,6 +1,5 @@
 package com.athletelab.treinador;
 
-import com.athletelab.configBD.ConnectionDataBase;
 import com.athletelab.usuario.BaseDAO;
 
 import java.sql.*;
@@ -21,8 +20,8 @@ public class PerfilTreinadorDao extends BaseDAO {
             stmt.setInt(7, idTreinador);
 
             stmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
         }
     }
 
@@ -46,8 +45,8 @@ public class PerfilTreinadorDao extends BaseDAO {
                 p.setRestricaoFisica(rs.getString("restricao_fisica"));
                 return p;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
         }
         return null;
     }
@@ -67,8 +66,8 @@ public class PerfilTreinadorDao extends BaseDAO {
             stmt.setInt(7, idTreinador);
 
             stmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
         }
     }
 

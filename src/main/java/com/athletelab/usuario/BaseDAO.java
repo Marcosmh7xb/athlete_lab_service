@@ -2,7 +2,7 @@ package com.athletelab.usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import com.athletelab.configBD.ConnectionDataBase;
+import com.athletelab.utilitarios.ConnectionDataBase;
 
 public abstract class BaseDAO {
     // Método herdado por todos os DAOs para obter a conexão de forma limpa

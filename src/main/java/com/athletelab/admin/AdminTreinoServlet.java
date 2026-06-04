@@ -5,7 +5,6 @@ import com.athletelab.usuario.UsuarioModel;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -14,80 +13,43 @@ public class AdminTreinoServlet extends HttpServlet {
 
     private final AdminDAO adminTreinoDAO = new AdminDAO();
 
-    // =========================
-    // LISTAR / EDITAR
-    // =========================
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        UsuarioModel usuario =
-                (UsuarioModel) session.getAttribute("usuarioLogado");
+        UsuarioModel usuario = (UsuarioModel) session.getAttribute("usuarioLogado");
 
-        if (usuario == null ||
-                !"ADMIN".equals(usuario.getTipoUsuario())) {
-
-            response.sendRedirect(
-                    request.getContextPath() + "/login.jsp"
-            );
+        if (usuario == null || !"ADMIN".equals(usuario.getTipoUsuario())) {
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
 
         try {
-
             String id = request.getParameter("id");
 
             if (id != null) {
-
-                AdminModel treino =
-                        adminTreinoDAO.buscarPorId(
-                                Integer.parseInt(id)
-                        );
-
+                AdminModel treino = adminTreinoDAO.buscarPorId(Integer.parseInt(id));
                 request.setAttribute("treinoEditar", treino);
             }
 
-            List<AdminModel> treinos =
-                    adminTreinoDAO.listarTodos();
-
+            List<AdminModel> treinos = adminTreinoDAO.listarTodos();
             request.setAttribute("treinos", treinos);
+            request.getRequestDispatcher("/WEB-INF/admin_treino.jsp").forward(request, response);
 
-            request.getRequestDispatcher(
-                    "/WEB-INF/admin_treino.jsp"
-            ).forward(request, response);
-
-        } catch (Exception e) {
-
-            request.setAttribute("erro", e.getMessage());
-
-            request.getRequestDispatcher(
-                    "/WEB-INF/admin_treino.jsp"
-            ).forward(request, response);
+        } catch (Exception erro) {
+            request.setAttribute("erro", erro.getMessage());
+            request.getRequestDispatcher("/WEB-INF/admin_treino.jsp").forward(request, response);
         }
     }
 
-    // =========================
-    // CRIAR / EDITAR / EXCLUIR
-    // =========================
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
+        UsuarioModel usuario = (UsuarioModel) session.getAttribute("usuarioLogado");
 
-        UsuarioModel usuario =
-                (UsuarioModel) session.getAttribute("usuarioLogado");
-
-        if (usuario == null ||
-                !"ADMIN".equals(usuario.getTipoUsuario())) {
-
-            response.sendError(
-                    HttpServletResponse.SC_FORBIDDEN
-            );
-
+        if (usuario == null || !"ADMIN".equals(usuario.getTipoUsuario())) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
             return;
         }
 
@@ -95,78 +57,38 @@ public class AdminTreinoServlet extends HttpServlet {
 
             String acao = request.getParameter("acao");
 
-            // =========================
-            // CRIAR
-            // =========================
             if ("salvar".equals(acao)) {
 
-                AdminModel treino =
-                        new AdminModel();
+                AdminModel treino = new AdminModel();
 
-                treino.setNome(
-                        request.getParameter("nome")
-                );
-
-                treino.setCategoria(
-                        request.getParameter("categoria")
-                );
-
-                treino.setStatus(
-                        request.getParameter("status")
-                );
+                treino.setNome(request.getParameter("nome"));
+                treino.setCategoria(request.getParameter("categoria"));
+                treino.setStatus(request.getParameter("status"));
 
                 adminTreinoDAO.inserir(treino);
             }
 
-            // =========================
-            // ATUALIZAR
-            // =========================
             else if ("editar".equals(acao)) {
 
-                AdminModel treino =
-                        new AdminModel();
+                AdminModel treino = new AdminModel();
 
-                treino.setIdTreino(
-                        Integer.parseInt(
-                                request.getParameter("idTreino")
-                        )
-                );
-
-                treino.setNome(
-                        request.getParameter("nome")
-                );
-
-                treino.setCategoria(
-                        request.getParameter("categoria")
-                );
-
-                treino.setStatus(
-                        request.getParameter("status")
-                );
+                treino.setIdTreino(Integer.parseInt(request.getParameter("idTreino")));
+                treino.setNome(request.getParameter("nome"));
+                treino.setCategoria(request.getParameter("categoria"));
+                treino.setStatus(request.getParameter("status"));
 
                 adminTreinoDAO.atualizar(treino);
             }
 
-            // =========================
-            // DELETAR
-            // =========================
             else if ("deletar".equals(acao)) {
-
-                int idTreino = Integer.parseInt(
-                        request.getParameter("idTreino")
-                );
-
+                int idTreino = Integer.parseInt(request.getParameter("idTreino"));
                 adminTreinoDAO.deletar(idTreino);
             }
 
-            response.sendRedirect(
-                    request.getContextPath() + "/admin/treinos"
-            );
+            response.sendRedirect(request.getContextPath() + "/admin/treinos");
 
-        } catch (Exception e) {
-
-            request.setAttribute("erro", e.getMessage());
-
+        } catch (Exception erro) {
+            request.setAttribute("erro", erro.getMessage());
             doGet(request, response);
         }
     }

@@ -1,6 +1,6 @@
 package com.athletelab.treino;
 
-import com.athletelab.configBD.ConnectionDataBase;
+import com.athletelab.utilitarios.ConnectionDataBase;
 import com.athletelab.exercicio.ExercicioModel;
 import com.athletelab.usuario.BaseDAO;
 import java.sql.*;

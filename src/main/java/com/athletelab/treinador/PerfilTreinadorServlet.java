@@ -19,115 +19,46 @@ import java.util.List;
 public class PerfilTreinadorServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
 
-        // =========================
-        // VERIFICA SESSÃO
-        // =========================
-
         if (session == null) {
-
-            response.sendRedirect(
-                    request.getContextPath() + "/index.jsp"
-            );
-
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
 
-        UsuarioModel usuarioSessao =
-                (UsuarioModel) session.getAttribute("usuarioLogado");
+        UsuarioModel usuarioSessao = (UsuarioModel) session.getAttribute("usuarioLogado");
 
         if (usuarioSessao == null) {
 
-            response.sendRedirect(
-                    request.getContextPath() + "/login"
-            );
-
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
             return;
         }
 
         try {
-
-            // =========================
-            // PERFIL COMPLETO
-            // =========================
-
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-
-            UsuarioModel perfilCompleto =
-                    usuarioDAO.buscarPorId(
-                            usuarioSessao.getIdUsuario()
-                    );
+            UsuarioModel perfilCompleto = usuarioDAO.buscarPorId(usuarioSessao.getIdUsuario());
 
             if (perfilCompleto == null) {
-
-                response.sendRedirect(
-                        request.getContextPath()
-                                + "/login?erro=usuario_inexistente"
-                );
-
+                response.sendRedirect(request.getContextPath() + "/login?erro=usuario_inexistente");
                 return;
             }
 
-            // =========================
-            // TREINOS DO TREINADOR
-            // =========================
-
             TreinoDAO treinoDAO = new TreinoDAO();
-
-            List<TreinoModel> treinos =
-                    treinoDAO.listarParaTreinador(
-                            usuarioSessao.getIdUsuario()
-                    );
-
-            // =========================
-            // EQUIPES DO TREINADOR
-            // =========================
+            List<TreinoModel> treinos = treinoDAO.listarParaTreinador(usuarioSessao.getIdUsuario());
 
             EquipeDAO equipeDAO = new EquipeDAO();
+            List<EquipeModel> equipes = equipeDAO.buscarEquipesDoTreinador(usuarioSessao.getIdUsuario());
 
-            List<EquipeModel> equipes =
-                    equipeDAO.buscarEquipesDoTreinador(
-                            usuarioSessao.getIdUsuario()
-                    );
+            request.setAttribute("perfil", perfilCompleto);
+            request.setAttribute("treinos", treinos);
+            request.setAttribute("minhasEquipes", equipes);
+            request.getRequestDispatcher("/WEB-INF/perfilTreinador.jsp").forward(request, response);
 
-            // =========================
-            // ATRIBUTOS JSP
-            // =========================
-
-            request.setAttribute(
-                    "perfil",
-                    perfilCompleto
-            );
-
-            request.setAttribute(
-                    "treinos",
-                    treinos
-            );
-
-            request.setAttribute(
-                    "minhasEquipes",
-                    equipes
-            );
-
-
-
-            request.getRequestDispatcher(
-                    "/WEB-INF/perfilTreinador.jsp"
-            ).forward(request, response);
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-            response.sendRedirect(
-                    request.getContextPath()
-                            + "/login?erro=falha_interna"
-            );
+        } catch (Exception erro) {
+            erro.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/login?erro=falha_interna");
         }
     }
 }
