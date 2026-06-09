@@ -1,23 +1,20 @@
-services:
+version: '3.8'
 
+services:
   mysql:
     image: mysql:8.0
     container_name: mysql_bd
     restart: always
-
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: athlete_lab
       MYSQL_USER: user
       MYSQL_PASSWORD: 1234
-
     ports:
       - "3307:3306"
-
     volumes:
       - ./initdb:/docker-entrypoint-initdb.d
-      - ./src/main/webapp/banco_imagens:/usr/local/tomcat/webapps/athlete_lab_web/banco_imagens
-
+      - ./src/main/webapp/banco_imagens:/usr/local/tomcat/webapps/athletelab_web/banco_imagens
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 5s
@@ -27,14 +24,14 @@ services:
   app:
     build: .
     container_name: app-java
-
     depends_on:
       mysql:
         condition: service_healthy
-
     ports:
       - "8080:8080"
-
+    volumes:
+      # Hot reload: JSP, CSS, JS
+      - ./src/main/webapp:/usr/local/tomcat/webapps/athletelab_web
     environment:
       DB_HOST: mysql
       DB_NAME: athlete_lab

@@ -216,3 +216,173 @@ button:hover{
 span{
     color: white;
 }
+
+/* ===== TABLET ===== */
+@media (max-width: 1024px) and (min-width: 481px){
+    body{
+        background-image: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    .container{
+        width: 70%; /* reduz o tamanho do bloco */
+        max-width: 650px;
+        height: auto;
+        flex-direction: column;
+        padding: 30px 25px;
+        gap: 20px;
+        border-radius: 20px;
+        background: linear-gradient(to bottom, #FA0D11 2%, #101010 45%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .right{
+        display: none; /* remove imagem e texto extra */
+    }
+
+    .left{
+        width: 80%;
+        height: 90%;
+        order: 1;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo{
+        display: block;
+        margin: 0 auto 20px auto;
+    }
+
+    .form-area{
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Colocar botão Voltar no canto esquerdo fixo no bloco de login */
+
+    /* Tablete e Celular */
+    .top-bar {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start; /* canto esquerdo */
+        position: relative; /* garante que o botão fique dentro do container */
+        top: 0;
+        left: 0;
+        margin-bottom: 15px;
+        padding: 0 10px; /* dá um pequeno espaçamento do canto */
+        z-index: 10;
+    }
+
+    .voltar {
+        margin: 0; /* remove margens que podem centralizar */
+        padding: 5px 0;
+    }
+}
+
+/* ===== CELULAR ===== */
+@media (max-width: 480px){
+    body{
+        background-image: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        min-height: 100vh;
+    }
+
+    .container{
+        width: 80%;
+        max-width: 350px; /* reduz tamanho do login */
+        flex-direction: column;
+        padding: 40px 20px; /* aumenta o padding superior e inferior */
+        gap: 20px;
+        border-radius: 15px;
+        background: linear-gradient(to bottom, #FA0D11 2%, #101010 45%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .right{
+        display: none; /* remove tudo que não é login */
+    }
+
+    .left{
+        width: 90%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;  /* margem extra acima do login */
+        margin-bottom: 10px; /* margem extra abaixo do login */
+    }
+
+    .logo{
+        display: block;
+        margin: 0 auto 15px auto;
+    }
+
+    .form-area{
+        width: 100%;
+    }
+
+    /* Colocar botão Voltar no canto esquerdo fixo no bloco de login */
+
+    /* Tablete e Celular */
+    .top-bar {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start; /* canto esquerdo */
+        position: relative; /* garante que o botão fique dentro do container */
+        top: 0;
+        left: 0;
+        margin-bottom: 15px;
+        padding: 0 10px; /* dá um pequeno espaçamento do canto */
+        z-index: 10;
+    }
+
+    .voltar {
+        margin: 0; /* remove margens que podem centralizar */
+        padding: 5px 0;
+    }
+
+    input, button{
+        width: 100%;
+    }
+
+    button{
+        height: 45px;
+        font-size: 0.9rem;
+    }
+
+    input{
+        height: 40px;
+        font-size: 0.9rem;
+    }
+
+    /* Títulos e textos centralizados */
+    .texto-login p, .er p{
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .texto-login h2, .er h2{
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}

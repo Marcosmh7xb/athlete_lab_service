@@ -82,16 +82,6 @@
                 Entrar como Treinador →
             </button>
         </form>
-
-        <div class="criar_conta">
-            <p class="linha-texto">
-                Ainda não tem acesso?
-                <a href="cadastro?tipoUsuario=TREINADOR" class="link-acao">
-                    Solicite acesso
-                </a>
-            </p>
-        </div>
-
     </div>
 
 </div>

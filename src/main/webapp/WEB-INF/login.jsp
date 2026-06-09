@@ -54,8 +54,6 @@
                 </form>
 
                 <div class="cadastro">
-                    <p>Ainda não faz parte da equipe?</p>
-                    <a href="cadastro?tipoUsuario=${tipoUsuario}"> Cadastre-se</a>
                 </div>
             </div>
         </div>
