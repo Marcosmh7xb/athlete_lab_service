@@ -58,13 +58,13 @@
 
             </div>
 
-            <div class="termos">
-                <label class="lembrar">
-                    <input type="checkbox" required>
-                    <span class="checkmark"></span>
-                    Eu concordo com os <b>Termos de Uso</b> e a <b>Política de Privacidade</b>
-                </label>
-            </div>
+           <div class="termos">
+             <label class="lembrar">
+               <input type="checkbox" required>
+               <span class="checkmark"></span>
+               Eu concordo com os <b>Termos de Uso</b> e a <b>Política de Privacidade</b>
+             </label>
+           </div>
 
             <div class="linha"></div>
 

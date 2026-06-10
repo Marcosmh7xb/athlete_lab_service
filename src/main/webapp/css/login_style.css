@@ -28,7 +28,6 @@ body{
 /* CONTAINER */
 .container{
     display: flex;
-
     background: linear-gradient(to bottom, #FA0D11 2%, #101010 45%);
 
     width: 900px;
@@ -65,12 +64,13 @@ body{
 
 /* LEFT */
 .left{
-    background-color: black;
+    background-color: rgb(39 37 37 / 0.63);
     border-radius: 20px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
+
 }
 
 /* VOLTAR */

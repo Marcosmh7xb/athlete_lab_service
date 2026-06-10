@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:8.0
@@ -14,7 +12,6 @@ services:
       - "3307:3306"
     volumes:
       - ./initdb:/docker-entrypoint-initdb.d
-      - ./src/main/webapp/banco_imagens:/usr/local/tomcat/webapps/athletelab_web/banco_imagens
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 5s
@@ -30,8 +27,17 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      # Hot reload: JSP, CSS, JS
-      - ./src/main/webapp:/usr/local/tomcat/webapps/athletelab_web
+        # Arquivos front públicos
+        - ./src/main/webapp/index.jsp:/usr/local/tomcat/webapps/athletelab_web/index.jsp
+        - ./src/main/webapp/css:/usr/local/tomcat/webapps/athletelab_web/css
+        - ./src/main/webapp/js:/usr/local/tomcat/webapps/athletelab_web/js
+        - ./src/main/webapp/banco_imagens:/usr/local/tomcat/webapps/athletelab_web/banco_imagens
+
+        # JSPs dentro de WEB-INF
+        - ./src/main/webapp/WEB-INF/admin_treino.jsp:/usr/local/tomcat/webapps/athletelab_web/WEB-INF/admin_treino.jsp
+        - ./src/main/webapp/WEB-INF/cadastro.jsp:/usr/local/tomcat/webapps/athletelab_web/WEB-INF/cadastro.jsp
+        - ./src/main/webapp/WEB-INF/criar_treino.jsp:/usr/local/tomcat/webapps/athletelab_web/WEB-INF/criar_treino.jsp
+        - ./src/main/webapp/WEB-INF/detalhesAtleta.jsp:/usr/local/tomcat/webapps/athletelab_web/WEB-INF/detalhesAtleta.jsp
     environment:
       DB_HOST: mysql
       DB_NAME: athlete_lab
