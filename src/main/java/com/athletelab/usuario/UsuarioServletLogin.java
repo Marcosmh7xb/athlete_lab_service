@@ -56,7 +56,7 @@ public class UsuarioServletLogin extends HttpServlet {
 
             if ("TREINADOR".equals(tipoUsuario) || "ATLETA".equals(tipoUsuario)) {
 
-                resposta.sendRedirect(requisicao.getContextPath() + "/sobre");
+                resposta.sendRedirect(requisicao.getContextPath() + "/home");
 
             } else if (usuario.getTipoUsuario().equals("ADMIN")) {
 

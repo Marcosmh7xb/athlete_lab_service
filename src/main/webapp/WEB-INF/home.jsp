@@ -327,6 +327,61 @@
 
 </section>
 
+<!-- ===== EQUIPE DO PROJETO ===== -->
+<section class="alunos-orientadores">
+    <div class="section-inner">
+        <h2>Alunos e Orientadores</h2>
+        <p class="subtitulo">Time responsável pelo desenvolvimento do Athlete Lab no curso de ADS.</p>
+
+        <div class="grid-container">
+
+            <!-- Alunos -->
+            <div class="categoria">
+                <h3>Alunos</h3>
+                <div class="cards">
+                    <div class="card">
+                        <img src="banco_imagens/imagens/Cauã_foto.jpeg" alt="Cleriston Cauã">
+                        <span class="nome">Cleriston Cauã</span>
+                        <span class="role">Desenvolvedor</span>
+                    </div>
+                    <div class="card">
+                        <img src="banco_imagens/imagens/Milena_foto.jpeg" alt="Milena">
+                        <span class="nome">Milena</span>
+                        <span class="role">Desenvolvedora</span>
+                    </div>
+                    <div class="card">
+                        <img src="banco_imagens/imagens/Marcos_foto.jpeg" alt="Marcos">
+                        <span class="nome">Marcos</span>
+                        <span class="role">Desenvolvedor / Líder</span>
+                    </div>
+                    <div class="card">
+                        <img src="banco_imagens/imagens/Taylon_foto.jpeg" alt="Thaylon">
+                        <span class="nome">Thaylon</span>
+                        <span class="role">Desenvolvedor</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orientadores -->
+            <div class="categoria">
+                <h3>Orientadores</h3>
+                <div class="cards">
+                    <div class="card">
+                        <img src="banco_imagens/imagens/professor_woquiton.jpeg" alt="Woquiton Fernandes">
+                        <span class="nome">Woquiton Fernandes</span>
+                        <span class="role">Professor • LPOO</span>
+                    </div>
+                    <div class="card">
+                        <img src="banco_imagens/imagens/professora_monique.jpg" alt="Monique">
+                        <span class="nome">Monique</span>
+                        <span class="role">Professora • APSI</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 <!-- ================= FOOTER ================= -->
  
 <footer class="footer">

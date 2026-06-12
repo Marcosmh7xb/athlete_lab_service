@@ -560,8 +560,6 @@ body{
 .cta button:hover{
     background:#cc0000;
 }
-
-/* ================= FOOTER ================= */
  
 /* ================= FOOTER ================= */
  
@@ -642,4 +640,378 @@ body{
     font-size:11px;
     color:rgba(255,255,255,0.25);
     letter-spacing:0.5px;
+}
+
+.alunos-orientadores {
+    background: #000;
+    padding: 60px 5%;
+    text-align: center;
+    color: #fff;
+}
+
+.alunos-orientadores .subtitulo {
+    font-size: 0.9rem;
+    margin-bottom: 40px;
+    color: #aaa;
+}
+
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+    justify-content: center;
+}
+
+.categoria h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: var(--red, #e50000);
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 180px;
+}
+
+.card img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--red, #e50000);
+    margin-bottom: 12px;
+}
+
+.card .nome {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.card .role {
+    font-size: 13px;
+    color: #aaa;
+}
+
+/* RESPONSIVO TABLET */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .grid-container {
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    .cards {
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+    }
+
+    .card {
+        width: 140px;
+    }
+
+    .card img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .card .nome {
+        font-size: 14px;
+    }
+
+    .card .role {
+        font-size: 12px;
+    }
+}
+/* ===== RESPONSIVO TABLET ===== */
+@media (max-width: 768px) {
+    .cards {
+        gap: 25px;
+    }
+
+    .card {
+        width: 120px;
+    }
+
+    .card img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .card .nome {
+        font-size: 13px;
+    }
+
+    .card .role {
+        font-size: 11px;
+    }
+}
+
+/* ===== RESPONSIVO CELULAR OTIMIZADO ===== */
+@media (max-width: 480px) {
+
+    /* HEADER */
+    .header {
+        padding: 0 15px;
+        height: 60px;
+    }
+    .logo {
+        width: 90px;
+    }
+
+    .profile-avatar{
+        width:40px;  /* antes 50px */
+        height:40px; /* antes 50px */
+    }
+
+    /* CARROSSEL */
+    .carousel {
+        height: 100vh; /* ocupa toda a altura da tela */
+    }
+
+    .slide img {
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* OVERLAY */
+    .overlay {
+        bottom: 10%;
+        left: 5%;
+        max-width: 90%;
+        text-align: left;
+    }
+
+    .overlay h2 {
+        font-size: 28px;
+        line-height: 1.2;
+    }
+
+    .overlay h2 span {
+        color: red;
+    }
+
+    .overlay p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* BOLINHAS DE NAVEGAÇÃO */
+    .navigation {
+        bottom: 15px;
+        gap: 6px;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    /* MONITORAMENTO */
+    .monitoramento-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .monitoramento-left img {
+        width: 100%;
+        border-radius: 12px;
+    }
+
+    .progress-bar {
+        height: 16px;
+    }
+
+    .progress-bar span {
+        font-size: 11px;
+    }
+
+    .monitoramento-right h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .descricao {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .item h3 {
+        font-size: 14px;
+    }
+
+    .item p {
+        font-size: 12px;
+    }
+
+    /* COMO FUNCIONA */
+    .linha-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .linha {
+        width: 4px;
+        height: 80%;
+        left: 50%;
+        top: 10%;
+    }
+
+    .step {
+        width: 80%;
+        margin-bottom: 30px;
+    }
+
+    .circle {
+        width: 50px;
+        height: 50px;
+    }
+
+    .numero {
+        font-size: 32px;
+        top: -5px;
+    }
+
+    .step h3 {
+        font-size: 14px;
+    }
+
+    .step p {
+        font-size: 12px;
+        max-width: 100%;
+    }
+
+    .cta button {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    /* Container principal da seção */
+    .alunos-orientadores {
+        padding: 30px 15px;
+        text-align: center;
+    }
+
+    /* Título da seção */
+    .titulo-secao {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    /* Subtítulo explicativo */
+    .subtitulo {
+        font-size: 0.85rem;
+        margin-bottom: 25px;
+        color: #aaa;
+        line-height: 1.4;
+    }
+
+    /* Container das categorias (Alunos e Orientadores) */
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+        align-items: center;
+    }
+
+    .categoria {
+        width: 100%;
+        text-align: center;
+    }
+
+    .categoria h3 {
+        font-size: 1rem;
+        margin-bottom: 15px;
+        color: #e50000;
+    }
+
+    /* Cards de cada pessoa */
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 120px;
+        text-align: center;
+    }
+
+    .card img {
+        width: 100px;
+        height: 100px;
+        border-width: 2px;
+        margin-bottom: 8px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .card .nome {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 3px;
+    }
+
+    .card .role {
+        font-size: 11px;
+        color: #aaa;
+    }
+
+    /* Separação entre Alunos e Orientadores */
+    .categoria + .categoria {
+        margin-top: 30px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        padding-bottom: 30px;
+    }
+
+    .footer-brand {
+        text-align: center;
+    }
+
+    .footer-logo {
+        width: 120px;
+        margin: 0 auto 10px;
+    }
+
+    .footer-slogan {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .footer-links a {
+        font-size: 12px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 5px;
+        font-size: 10px;
+        text-align: center;
+    }
 }

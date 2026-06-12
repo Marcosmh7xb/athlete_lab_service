@@ -263,3 +263,284 @@ body {
     text-align: center;
     max-width: 400px;
 }
+
+/* ===== TABLET 769px - 1024px ===== */
+@media (max-width: 1024px) and (min-width: 769px) {
+
+    .layout {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    /* Menu lateral mais estreita ou topo */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        border-right: none;
+        border-bottom: 1px solid #222;
+        padding: 10px 0;
+        position: relative;
+    }
+
+    .menu {
+        flex-direction: row;
+        gap: 15px;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .menu-item {
+        width: 50px;
+        height: 50px;
+    }
+
+    .menu-item img {
+        width: 22px;
+        height: 22px;
+    }
+
+    /* Conteúdo */
+    .content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .top-logo img {
+        width: 140px;
+        display: block;
+        margin: 0 auto 20px;
+    }
+
+    /* Card perfil */
+    .card {
+        padding: 25px;
+    }
+
+    .card-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .avatar-container {
+        width: 60px;
+        height: 60px;
+    }
+
+    .user-info h2 {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .user-info span {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .btn-edit {
+        width: 100%;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    /* Grid informações */
+    .info-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .info-box {
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    .full-width {
+        grid-column: 1;
+    }
+
+    /* Treinos */
+    .treino-card {
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+
+    .treino-card h3 {
+        font-size: 14px;
+    }
+
+    .treino-card .categoria {
+        font-size: 11px;
+    }
+
+    .treino-card .exercicio strong {
+        font-size: 13px;
+    }
+
+    .treino-card .exercicio p, .treino-card .exercicio .obs {
+        font-size: 12px;
+    }
+
+    /* Filtro treinos */
+    .filter-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .card-alerta {
+        padding: 30px;
+        max-width: 90%;
+    }
+}
+
+/* ===== CELULAR ATÉ 480px - PERFIL DE ATLETA ===== */
+@media (max-width: 480px) {
+
+    /* Layout vertical */
+    .layout {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    /* Menu topo horizontal */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        border-right: none;
+        border-bottom: 1px solid #222;
+        position: relative;
+        padding: 10px 0;
+    }
+
+    .menu {
+        flex-direction: row;
+        gap: 10px;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .menu-item {
+        width: 50px;  /* ligeiramente maior para toque fácil */
+        height: 50px;
+        border-radius: 12px;
+    }
+
+    .menu-item img {
+        width: 22px;
+        height: 22px;
+    }
+
+    /* Conteúdo principal */
+    .content {
+        margin-left: 0;
+        padding: 12px 8px;
+    }
+
+    /* Top logo */
+    .top-logo img {
+        width: 120px;
+        margin: 0 auto 15px;
+        display: block;
+    }
+
+    /* Card de perfil */
+    .card {
+        padding: 18px;  /* maior espaço interno */
+    }
+
+    .card-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    /* Avatar maior para melhor visibilidade */
+    .avatar-container {
+        width: 60px;
+        height: 60px;
+    }
+
+    .avatar-container img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .user-info h2 {
+        font-size: 15px;
+        text-align: center;
+    }
+
+    .user-info span {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .btn, .btn-edit {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    /* Grid das informações */
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .info-box {
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .full-width {
+        grid-column: 1;
+    }
+
+    /* Treinos */
+    .treino-card {
+        padding: 10px;
+        margin-bottom: 12px;
+    }
+
+    .treino-card h3 {
+        font-size: 12px;
+    }
+
+    .treino-card .categoria {
+        font-size: 10px;
+    }
+
+    .treino-card .exercicio strong {
+        font-size: 11px;
+    }
+
+    .treino-card .exercicio p, .treino-card .exercicio .obs {
+        font-size: 10px;
+    }
+
+    /* Botões filtro */
+    .filter-btn {
+        padding: 5px 8px;
+        font-size: 10px;
+        margin-bottom: 3px;
+    }
+
+    /* Card alerta */
+    .card-alerta {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    /* Link de logout/danger */
+    .danger a {
+        display: block;
+        text-align: center;
+        font-size: 12px;
+    }
+}
