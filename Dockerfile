@@ -7,7 +7,6 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 
 COPY src ./src
-
 RUN mvn clean package -DskipTests
 
 
@@ -16,11 +15,7 @@ FROM tomcat:10.1.15-jdk17
 
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-COPY --from=build /app/target/*.war /tmp/athletelab_web.war
-
-RUN mkdir -p /usr/local/tomcat/webapps/athletelab_web \
-    && cd /usr/local/tomcat/webapps/athletelab_web \
-    && jar -xf /tmp/athletelab_web.war
+COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 
