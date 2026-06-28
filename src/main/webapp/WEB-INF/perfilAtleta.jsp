@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Perfil Atleta | Athlete Lab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/treinos_style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/perfil_atleta_style.css">
@@ -49,76 +50,114 @@
             <img src="${pageContext.request.contextPath}/banco_imagens/imagens/Athlete logo white.png">
         </div>
 
-        <section class="tab active" id="perfil">
-            <div class="card">
-                <div class="card-header">
-                    <div class="user-info">
-                        <div class="avatar-container">
-                            <form action="${pageContext.request.contextPath}/editar-perfil-atleta"
-                                  method="post" enctype="multipart/form-data">
-                                <input type="file" name="foto" id="input-foto-atleta" style="display:none;" onchange="this.form.submit()">
-                                <label for="input-foto-atleta" class="avatar-overlay">Trocar Foto</label>
-                            </form>
-                            <img src="${pageContext.request.contextPath}/banco_imagens/icones/${not empty perfil.foto ? perfil.foto : 'Customer.png'}">
-                        </div>
-                        <div>
-                            <h2>${perfil.nome}</h2>
-                            <span style="color:red; font-size:12px; font-weight:bold;">ATLETA</span>
-                        </div>
-                    </div>
-                    <a href="${pageContext.request.contextPath}/editar-perfil-atleta" class="btn-edit">Editar Perfil</a>
-                </div>
+       <section class="tab active" id="perfil">
 
-                <div class="info-grid">
-                    <div>
-                        <h4 class="section-title">Dados de Cadastro</h4>
-                        <div class="info-box"><label>E-mail</label><p>${perfil.email}</p></div>
-                        <div class="info-box" style="margin-top:10px;"><label>Telefone</label><p>${not empty perfil.telefone ? perfil.telefone : 'Não informado'}</p></div>
-                        <div class="info-box" style="margin-top:10px;"><label>Cidade/UF</label><p>${not empty perfil.cidadeUF ? perfil.cidadeUF : 'Não informado'}</p></div>
-                    </div>
+           <div class="card">
 
-                    <div>
-                        <h4 class="section-title">Informações Técnicas</h4>
-                        <div class="info-box"><label>Modalidade</label><p>${perfil.perfilAtleta.modalidade}</p></div>
-                        <div class="info-box" style="margin-top:10px;"><label>Nível</label><p>${perfil.perfilAtleta.nivelExperiencia}</p></div>
-                        <div class="info-box" style="margin-top:10px;"><label>Dias Disponíveis</label><p>${perfil.perfilAtleta.diasSemana}</p></div>
-                    </div>
+               <!-- Cabeçalho -->
+               <div class="perfil-header">
 
-                    <div class="info-box"><label>Peso</label><p>${perfil.perfilAtleta.peso} kg</p></div>
-                    <div class="info-box"><label>Altura</label><p>${perfil.perfilAtleta.altura} m</p></div>
+                   <div class="user-info">
 
-                    <div class="full-width">
-                        <div class="info-box"><label>Objetivo Principal</label><p>${perfil.perfilAtleta.objetivo}</p></div>
-                    </div>
-                    <div class="full-width">
-                        <div class="info-box"><label>Restrições Médicas / Observações</label><p>${not empty perfil.perfilAtleta.restricaoFisica ? perfil.perfilAtleta.restricaoFisica : 'Nenhuma'}</p></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                       <div class="avatar-container">
 
-        <section class="tab" id="equipes">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Minhas Equipes</h2>
-                </div>
-                <div class="info-grid">
-                    <c:forEach var="equipe" items="${minhasEquipes}">
-                        <div class="info-box">
-                            <span style="color:red;">${equipe.esporte}</span>
-                            <h3>${equipe.nome}</h3>
-                            <p style="font-size:12px; color:#888; margin-bottom:15px;">${equipe.descricao}</p>
-                            <a href="${pageContext.request.contextPath}/equipe?acao=ver&id=${equipe.idEquipe}">
-                                VER INTEGRANTES &rarr;
-                            </a>
-                        </div>
-                    </c:forEach>
-                    <c:if test="${empty minhasEquipes}">
-                        <p style="color:#666; grid-column: span 2;">Você ainda não faz parte de nenhuma equipe.</p>
-                    </c:if>
-                </div>
-            </div>
-        </section>
+                           <form action="${pageContext.request.contextPath}/editar-perfil-atleta"
+                                 method="post"
+                                 enctype="multipart/form-data">
+
+                               <input
+                                       type="file"
+                                       name="foto"
+                                       id="input-foto-atleta"
+                                       style="display:none;"
+                                       onchange="this.form.submit()">
+
+                               <label
+                                       for="input-foto-atleta"
+                                       class="avatar-overlay">
+                                   Trocar Foto
+                               </label>
+
+                           </form>
+
+                           <img src="${pageContext.request.contextPath}/banco_imagens/icones/${not empty perfil.foto ? perfil.foto : 'Customer.png'}">
+
+                       </div>
+
+                       <div class="perfil-texto">
+                           <h2>${perfil.nome}</h2>
+                           <span>ATLETA</span>
+                       </div>
+
+                   </div>
+
+                   <div class="perfil-acoes">
+                       <a href="${pageContext.request.contextPath}/editar-perfil-atleta"
+                          class="btn-edit">
+                           Editar Perfil
+                       </a>
+                   </div>
+
+               </div>
+
+               <!-- Informações -->
+               <div class="info-grid">
+
+                   <div class="info-box">
+                       <label>E-mail</label>
+                       <p>${perfil.email}</p>
+                   </div>
+
+                   <div class="info-box">
+                       <label>Modalidade</label>
+                       <p>${perfil.perfilAtleta.modalidade}</p>
+                   </div>
+
+                   <div class="info-box">
+                       <label>Telefone</label>
+                       <p>${not empty perfil.telefone ? perfil.telefone : 'Não informado'}</p>
+                   </div>
+
+                   <div class="info-box">
+                       <label>Nível</label>
+                       <p>${perfil.perfilAtleta.nivelExperiencia}</p>
+                   </div>
+
+                   <div class="info-box">
+                       <label>Cidade/UF</label>
+                       <p>${not empty perfil.cidadeUF ? perfil.cidadeUF : 'Não informado'}</p>
+                   </div>
+
+                   <div class="info-box">
+                       <label>Dias Disponíveis</label>
+                       <p>${perfil.perfilAtleta.diasSemana}</p>
+                   </div>
+
+                   <div class="info-box">
+                       <label>Peso</label>
+                       <p>${perfil.perfilAtleta.peso} kg</p>
+                   </div>
+
+                   <div class="info-box">
+                       <label>Altura</label>
+                       <p>${perfil.perfilAtleta.altura} m</p>
+                   </div>
+
+                   <div class="info-box full-width">
+                       <label>Objetivo Principal</label>
+                       <p>${perfil.perfilAtleta.objetivo}</p>
+                   </div>
+
+                   <div class="info-box full-width">
+                       <label>Restrições Médicas / Observações</label>
+                       <p>${not empty perfil.perfilAtleta.restricaoFisica ? perfil.perfilAtleta.restricaoFisica : 'Nenhuma'}</p>
+                   </div>
+
+               </div>
+
+           </div>
+
+       </section>
 
         <section class="tab" id="treinos">
             <header class="top-bar">

@@ -264,6 +264,50 @@ body {
     max-width: 400px;
 }
 
+.perfil-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.user-info{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.perfil-texto h2{
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+.perfil-texto span{
+    color:red;
+    font-size:13px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+.perfil-acoes{
+    margin-top:20px;
+}
+
+.btn-edit{
+    padding:10px 22px;
+    border-radius:25px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.full-width{
+    grid-column:1 / -1;
+}
+
 /* ===== TABLET 769px - 1024px ===== */
 @media (max-width: 1024px) and (min-width: 769px) {
 
@@ -396,151 +440,214 @@ body {
     }
 }
 
-/* ===== CELULAR ATÉ 480px - PERFIL DE ATLETA ===== */
-@media (max-width: 480px) {
 
-    /* Layout vertical */
-    .layout {
-        flex-direction: column;
-        min-height: auto;
+/* ============================
+   RESPONSIVO CELULAR
+============================ */
+@media (max-width:480px){
+
+    /* Layout */
+    .layout{
+        flex-direction:column;
+        min-height:auto;
     }
 
-    /* Menu topo horizontal */
-    .sidebar {
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        justify-content: space-around;
-        border-right: none;
-        border-bottom: 1px solid #222;
-        position: relative;
-        padding: 10px 0;
+    /* Sidebar */
+    .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+        border-right:none;
+        border-bottom:1px solid #222;
+        flex-direction:row;
+        justify-content:center;
+        padding:10px 0;
     }
 
-    .menu {
-        flex-direction: row;
-        gap: 10px;
-        width: 100%;
-        justify-content: space-around;
+    .menu{
+        flex-direction:row;
+        justify-content:space-around;
+        width:100%;
+        gap:10px;
     }
 
-    .menu-item {
-        width: 50px;  /* ligeiramente maior para toque fácil */
-        height: 50px;
-        border-radius: 12px;
+    .menu-item{
+        width:55px;
+        height:55px;
+        border-radius:14px;
     }
 
-    .menu-item img {
-        width: 22px;
-        height: 22px;
+    .menu-item img{
+        width:24px;
+        height:24px;
     }
 
-    /* Conteúdo principal */
-    .content {
-        margin-left: 0;
-        padding: 12px 8px;
+    /* Conteúdo */
+    .content{
+        margin-left:0;
+        padding:15px;
     }
 
-    /* Top logo */
-    .top-logo img {
-        width: 120px;
-        margin: 0 auto 15px;
-        display: block;
+    /* Logo */
+    .top-logo{
+        text-align:center;
+        margin-bottom:20px;
     }
 
-    /* Card de perfil */
-    .card {
-        padding: 18px;  /* maior espaço interno */
+    .top-logo img{
+        width:150px;
+    }
+   
+    /* Cabeçalho */
+    .perfil-header{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:18px;
+        margin-bottom:25px;
     }
 
-    .card-header {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 15px;
+    .user-info{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        gap:12px;
     }
 
-    /* Avatar maior para melhor visibilidade */
-    .avatar-container {
-        width: 60px;
-        height: 60px;
+    /* Avatar */
+    .avatar-container{
+        width:90px;
+        height:90px;
     }
 
-    .avatar-container img {
-        width: 100%;
-        height: 100%;
+    .avatar-container img{
+        width:100%;
+        height:100%;
     }
 
-    .user-info h2 {
-        font-size: 15px;
-        text-align: center;
+    /* Nome */
+    .perfil-texto h2{
+        font-size:28px;
+        margin-bottom:6px;
     }
 
-    .user-info span {
-        font-size: 12px;
-        text-align: center;
+    .perfil-texto span{
+        font-size:14px;
+        color:red;
+        font-weight:bold;
+        text-transform:uppercase;
     }
 
-    .btn, .btn-edit {
-        width: 100%;
-        padding: 8px 12px;
-        font-size: 13px;
+    /* Botão */
+    .perfil-acoes{
+        width:100%;
+        display:flex;
+        justify-content:center;
     }
 
-    /* Grid das informações */
-    .info-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
+    .btn-edit{
+        width:auto;
+        padding:12px 24px;
+        border-radius:30px;
+        font-size:14px;
     }
 
-    .info-box {
-        font-size: 12px;
-        padding: 10px;
+    /* Informações */
+    .info-grid{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:14px;
     }
 
-    .full-width {
-        grid-column: 1;
+    .info-box{
+        padding:16px;
+    }
+
+    .info-box label{
+        font-size:11px;
+    }
+
+    .info-box p{
+        font-size:15px;
+        margin-top:6px;
+    }
+
+    .full-width{
+        grid-column:1;
+    }
+
+    /* Equipes */
+    .info-box h3{
+        font-size:17px;
+    }
+
+    .info-box a{
+        font-size:13px;
     }
 
     /* Treinos */
-    .treino-card {
-        padding: 10px;
-        margin-bottom: 12px;
+
+    .filters{
+        display:flex;
+        overflow-x:auto;
+        gap:8px;
+        padding-bottom:10px;
+        scrollbar-width:none;
     }
 
-    .treino-card h3 {
-        font-size: 12px;
+    .filters::-webkit-scrollbar{
+        display:none;
     }
 
-    .treino-card .categoria {
-        font-size: 10px;
+    .filter-btn{
+        white-space:nowrap;
+        font-size:12px;
+        padding:7px 12px;
     }
 
-    .treino-card .exercicio strong {
-        font-size: 11px;
+    .treino-card{
+        padding:14px;
     }
 
-    .treino-card .exercicio p, .treino-card .exercicio .obs {
-        font-size: 10px;
+    .treino-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
     }
 
-    /* Botões filtro */
-    .filter-btn {
-        padding: 5px 8px;
-        font-size: 10px;
-        margin-bottom: 3px;
+    .left-info{
+        width:100%;
     }
 
-    /* Card alerta */
-    .card-alerta {
-        padding: 20px;
-        max-width: 90%;
+    .left-info h3{
+        font-size:15px;
     }
 
-    /* Link de logout/danger */
-    .danger a {
-        display: block;
-        text-align: center;
-        font-size: 12px;
+    .categoria{
+        font-size:11px;
     }
+
+    .exercicio strong{
+        font-size:14px;
+    }
+
+    .exercicio p,
+    .obs{
+        font-size:12px;
+    }
+
+    /* Config */
+    .danger{
+        text-align:center;
+    }
+
+    /* Alerta */
+    .card-alerta{
+        width:90%;
+        max-width:380px;
+        padding:25px;
+    }
+
 }

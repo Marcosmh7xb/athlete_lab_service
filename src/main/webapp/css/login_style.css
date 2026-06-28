@@ -64,7 +64,7 @@ body{
 
 /* LEFT */
 .left{
-    background-color: rgb(39 37 37 / 0.63);
+    background-color: #231b1b;
     border-radius: 20px;
 
     display: flex;
