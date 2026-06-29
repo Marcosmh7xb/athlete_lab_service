@@ -28,7 +28,7 @@ public class EditarPerfilServlet extends HttpServlet {
         if (logado != null) {
             UsuarioModel perfil = dao.buscarPorId(logado.getIdUsuario());
             request.setAttribute("perfil", perfil);
-            request.getRequestDispatcher("/WEB-INF/editarPerfil.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/editarPerfilTreinado.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/login");
         }
